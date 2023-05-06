@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+import 'package:soulmate/di_injection.dart';
+import 'package:soulmate/src/core/app/colors.dart';
+import 'package:soulmate/src/core/app/dimensions.dart';
+import 'package:soulmate/src/core/routing/route_navigation.dart';
+import 'package:soulmate/src/features/auth/forgot_password/forgot_password_screen.dart';
+import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
+import 'package:soulmate/src/features/auth/widgets/login_form_widget.dart';
+import 'package:soulmate/src/features/auth/widgets/login_google_apple_widget.dart';
+import 'package:soulmate/src/widgets/custom_text.dart';
+
+import '../../../widgets/custom_home_appbar.dart';
+
+part './components/login_body.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return LoginBody();
+  }
+}
