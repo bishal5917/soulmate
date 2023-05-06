@@ -3,7 +3,7 @@ part of '../login_screen.dart';
 class LoginBody extends StatelessWidget {
   LoginBody({super.key});
 
-  String customerTitle = "Find Your Soulmate";
+  String title = "Find Your Soulmate";
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class LoginBody extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size(appWidth(context), 60),
         child: CustomMainAppBar(
-          title: customerTitle,
+          title: title,
         ),
       ),
       body: SingleChildScrollView(

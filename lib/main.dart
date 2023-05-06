@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +13,10 @@ import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/features/auth/reset_password/cubit/reset_password_cubit.dart';
 import 'package:soulmate/src/features/auth/reset_password/reset_password_screen.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   initGetIt();
   // Bloc.observer = AppBlocObserver();
 }
