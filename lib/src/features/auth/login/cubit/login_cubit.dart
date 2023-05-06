@@ -1,13 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  // final LoginUsecase? loginUsecase;
-  // final SaveCredentialsUsecase? saveCredentialsUsecase;
-  LoginCubit() : super(const LoginState());
+  final AuthRepository _authRepository;
+
+  LoginCubit({required AuthRepository authRepository})
+      : _authRepository = authRepository,
+        super(LoginState.initial());
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final TextEditingController _loginEmailController = TextEditingController();
@@ -17,47 +21,23 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController get loginEmailController => _loginEmailController;
   TextEditingController get loginPasswordController => _loginPasswordController;
 
-  // Future<void> login(LoginRequestModel? loginRequestModel) async {
-  //   try {
-  //     emit(state.copyWith(
-  //       message: loggingPlsWaitText,
-  //       status: LoginStatus.loading,
-  //     ));
-  // final response = await loginUsecase?.call(loginRequestModel);
-  // inspect(response);
-  // await response?.fold((failure) {
-  //   emit(state.copyWith(
-  //       message: failure.message, status: LoginStatus.failure));
-  // }, (result) async {
-  //   logger(result.message, loggerType: LoggerType.success);
+  Future<void> userLogin() async {
+    if (state.status == LoginStatus.submitting) return;
+    emit(state.copyWith(status: LoginStatus.submitting));
+    try {
+      final response = await _authRepository.logIn(
+          email: loginEmailController.text,
+          password: loginPasswordController.text);
+      emit(state.copyWith(status: LoginStatus.success, user: response));
+    } catch (err) {
+      // print(e.toString());
+      emit(state.copyWith(status: LoginStatus.error, message: err.toString()));
+    }
+  }
 
-  //   // await saveCredentialsUsecase?.call(SaveCredentialsRequestModel(
-  //   //   token: result.token.toString(),
-  //   //   userId: result.user?.id.toString(),
-  //   //   email: result.user?.email.toString(),
-  //   //   isGoogleSignIn: false,
-  //   // ));
-
-  //   // if (await SecureStorage().getNotificationId() == null) {
-  //   //   sl.get<NotificationCubit>().notificationRegister();
-  //   // }
-  //   emit(
-  //     state.copyWith(
-  //       status: LoginStatus.success,
-  //       message: result.message,
-  //     ),
-  //   );
-  // });
-  //   } on ApiFailure catch (e) {
-  //     emit(state.copyWith(message: e.message, status: LoginStatus.failure));
-  //   } catch (e) {
-  //     emit(state.copyWith(message: e.toString(), status: LoginStatus.failure));
-  //   }
-  // }
-
-  // @override
-  // void reset() {
-  //   _loginEmailController.clear();
-  //   _loginPasswordController.clear();
-  // }
+  @override
+  void reset() {
+    _loginEmailController.clear();
+    _loginPasswordController.clear();
+  }
 }

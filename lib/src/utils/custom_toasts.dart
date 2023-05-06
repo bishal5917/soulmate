@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomToasts {
-  static void showToast({
+  static showToast({
     String? msg,
-    Color? color = Colors.green,
+    Color? color = Colors.redAccent,
   }) {
     Fluttertoast.cancel();
     Fluttertoast.showToast(
         msg: msg.toString(),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
+        timeInSecForIosWeb: 2,
         backgroundColor: color,
         textColor: Colors.white,
         fontSize: 14.0);

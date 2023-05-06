@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
@@ -7,6 +9,7 @@ import 'package:soulmate/src/features/auth/forgot_password/forgot_password_scree
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/features/auth/widgets/login_form_widget.dart';
 import 'package:soulmate/src/features/auth/widgets/login_google_apple_widget.dart';
+import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 
 import '../../../widgets/custom_home_appbar.dart';

@@ -14,10 +14,11 @@ import 'package:soulmate/src/features/auth/reset_password/cubit/reset_password_c
 import 'package:soulmate/src/features/auth/reset_password/reset_password_screen.dart';
 
 void main() async {
-  runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   initGetIt();
+  await Firebase.initializeApp();
+
+  runApp(const MyApp());
   // Bloc.observer = AppBlocObserver();
 }
 
