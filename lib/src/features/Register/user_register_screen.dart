@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/core/app/texts.dart';
+import 'package:soulmate/src/features/Register/Widgets/add_image.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/utils/validation.dart';
 import 'package:soulmate/src/widgets/custom_button.dart';
@@ -151,6 +155,14 @@ class _UserRegisterState extends State<UserRegister> {
                         : StepState.disabled,
                   ),
                   Step(
+                    title: const Text('Add Pics'),
+                    content: const AddImage(),
+                    isActive: _currentStep >= 0,
+                    state: _currentStep >= 0
+                        ? StepState.complete
+                        : StepState.disabled,
+                  ),
+                  Step(
                     title: const Text('Security'),
                     content: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -258,7 +270,7 @@ class _UserRegisterState extends State<UserRegister> {
   }
 
   continued() {
-    _currentStep < 1 ? setState(() => _currentStep += 1) : null;
+    _currentStep < 2 ? setState(() => _currentStep += 1) : null;
   }
 
   cancel() {

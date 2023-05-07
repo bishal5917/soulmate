@@ -28,14 +28,14 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   List<DropdownMenuItem<String>> get yearItems {
     List<DropdownMenuItem<String>> yearItems = [
-      const DropdownMenuItem(child: Text("1993"), value: "1993"),
-      const DropdownMenuItem(child: Text("1994"), value: "1994"),
-      const DropdownMenuItem(child: Text("1995"), value: "1995"),
-      const DropdownMenuItem(child: Text("1996"), value: "1996"),
-      const DropdownMenuItem(child: Text("1997"), value: "1997"),
-      const DropdownMenuItem(child: Text("1998"), value: "1998"),
-      const DropdownMenuItem(child: Text("1999"), value: "1999"),
-      const DropdownMenuItem(child: Text("2000"), value: "2000"),
+      const DropdownMenuItem(value: "1993", child: Text("1993")),
+      const DropdownMenuItem(value: "1994", child: Text("1994")),
+      const DropdownMenuItem(value: "1995", child: Text("1995")),
+      const DropdownMenuItem(value: "1996", child: Text("1996")),
+      const DropdownMenuItem(value: "1997", child: Text("1997")),
+      const DropdownMenuItem(value: "1998", child: Text("1998")),
+      const DropdownMenuItem(value: "1999", child: Text("1999")),
+      const DropdownMenuItem(value: "2000", child: Text("2000")),
     ];
     return yearItems;
   }
