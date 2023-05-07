@@ -5,10 +5,12 @@ import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
+import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/forgot_password/forgot_password_screen.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/features/auth/widgets/login_form_widget.dart';
 import 'package:soulmate/src/features/auth/widgets/login_google_apple_widget.dart';
+import 'package:soulmate/src/utils/String_modify.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 

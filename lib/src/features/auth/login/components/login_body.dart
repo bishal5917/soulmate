@@ -85,10 +85,19 @@ class _LoginBodyState extends State<LoginBody> {
                           ),
                         ),
                   state.status == LoginStatus.error
-                      ? CustomToasts.showToast(
-                          msg: state.message?.split(" ")[0].split("/")[1])
+                      ? Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            stringModify()
+                                .formatErrorMsg(state.message as String),
+                            style: const TextStyle(color: Colors.red),
+                          ))
                       : const Text(""),
-                  // Text(state.message?.split(" ")[0].split("/")[1] as String),
+                  //Toast was showing error so used normal style instead
+                  // state.status == LoginStatus.error
+                  //     ? CustomToasts.showToast(
+                  //         msg: state.message?.split(" ")[0].split("/")[1])
+                  //     : const Text(""),
                   vSizedBox2andHalf,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -118,22 +127,27 @@ class _LoginBodyState extends State<LoginBody> {
                   vSizedBox2,
                   vSizedBox2,
                   vSizedBox4,
-                  RichText(
-                    text: TextSpan(
-                      text: "New to Soulmate?",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: OColors.kNeutral400Color,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: " Register",
-                          style: TextStyle(
-                            color: OColors.kPrimaryMainColor,
-                            fontWeight: FontWeight.w500,
-                          ),
+                  InkWell(
+                    onTap: () {
+                      navigate(context, const UserRegister());
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        text: "New to Soulmate?",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: OColors.kNeutral400Color,
                         ),
-                      ],
+                        children: [
+                          TextSpan(
+                            text: " Register",
+                            style: TextStyle(
+                              color: OColors.kPrimaryMainColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   vSizedBox1,
