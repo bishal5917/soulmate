@@ -17,7 +17,7 @@ final kGoogleSvg = _getSvgBasePath('google.svg');
 final kAppleSvg = _getSvgBasePath('apple.svg');
 final kCameraSvg = _getSvgBasePath('camera.svg');
 
-final CountriesJson = _getJsonBasePath('countries.json');
+final countriesJson = _getJsonBasePath('countries.json');
 
 //svg function here...
 String _getSvgBasePath(String name) {

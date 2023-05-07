@@ -14,13 +14,15 @@ class SelectCountryBody extends StatelessWidget {
       ),
       body: Padding(
         padding: screenLeftRightPadding,
-        child: CustomTextFormField(
-          hintText: "Select Country",
+        child: GestureDetector(
           onTap: () {
             chooseCountryModalBottomSheet(context: context);
           },
-          isEnabled: false,
-          suffix: const Icon(Icons.arrow_drop_down_circle_outlined),
+          child: CustomTextFormField(
+            hintText: "Select Country",
+            isEnabled: false,
+            suffix: const Icon(Icons.arrow_drop_down_circle_outlined),
+          ),
         ),
       ),
     );

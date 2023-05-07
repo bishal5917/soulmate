@@ -13,20 +13,10 @@ class SelectCountryCubit extends Cubit<SelectCountryState> {
 
   final TextEditingController _searchCountryController =
       TextEditingController();
+  // final List<CountryModel> _searchCountryModel;
 
   TextEditingController get searchCountryController => _searchCountryController;
-
-  // Future<void> userLogin() async {
-  //   emit(state.copyWith(status: CountryStatus.entering));
-  //   try {
-
-  //     emit(state.copyWith(
-  //         status: CountryStatus.success, countryModel: response));
-  //   } catch (err) {
-  //     // print(e.toString());
-  //     emit(state.copyWith(status: CountryStatus.error));
-  //   }
-  // }
+  // List<CountryModel> get searchCountryModel => _searchCountryModel;
 
   List<CountryModel> parseCountry(String responseBody) {
     final parsed = countryModelFromJson(responseBody);
@@ -34,11 +24,12 @@ class SelectCountryCubit extends Cubit<SelectCountryState> {
   }
 
   Future<String> loadDatas() async {
-    var data = await rootBundle.loadString(CountriesJson);
+    var data = await rootBundle.loadString(countriesJson);
     return data;
   }
 
   void getCountries() async {
+    // String? countryData;
     try {
       emit(state.copyWith(status: CountryStatus.entering));
 
@@ -52,15 +43,16 @@ class SelectCountryCubit extends Cubit<SelectCountryState> {
         // filteredSearchCountry?.forEach((e) => consolelog(e.name));
         emit(state.copyWith(
           status: CountryStatus.success,
-          countryModel: parseCountry(countryData ?? ""),
+          countryModel: parseCountry(""),
           searchCountryModel: filteredSearchCountry,
         ));
       } else {
         await loadDatas().then((value) {
-          countryData = value;
+          // String countryData = value;
           emit(state.copyWith(
             status: CountryStatus.success,
             countryModel: parseCountry(value),
+            searchCountryModel: parseCountry(value),
           ));
         }).onError((error, stackTrace) {
           emit(state.copyWith(status: CountryStatus.error));

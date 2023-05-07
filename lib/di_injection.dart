@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/features/auth/reset_password/cubit/reset_password_cubit.dart';
+import 'package:soulmate/src/features/onboarding/select_country/cubit/select_country_cubit.dart';
 import 'package:soulmate/src/services/network/api_handler.dart';
 
 import 'src/features/auth/forgot_password/cubit/forgot_password_cubit.dart';
@@ -38,4 +39,7 @@ void cubit() {
 
   //reset password cubit
   sl.registerLazySingleton(() => ResetPasswordCubit());
+
+  //select country cubit
+  sl.registerLazySingleton(() => SelectCountryCubit());
 }
