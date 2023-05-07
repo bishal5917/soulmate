@@ -78,11 +78,13 @@ const setNewPasswordText =
 const resetPasswordText = "Reset Password";
 
 //validation
+
 const emptyText = "Cannot be empty";
+const nameLength = "Length must be between 6 to 20 characters";
 const otpLengthText = "OTP must be of 4 digits";
 const invalidOTPText = "OTP must be numbers only";
 const invalidEmailText = "Enter valid email address";
-const passwordLengthText = "Password length must be between 8 to 32 characters";
+const passwordLengthText = "Password length must be between 6 to 32 characters";
 const pleaseFillText = "Please validate all data";
 const passwordNotMatchedText = "Password not matched";
 const somethingwentwrongText = "Something went wrong";

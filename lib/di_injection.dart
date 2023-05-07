@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/features/auth/reset_password/cubit/reset_password_cubit.dart';
@@ -33,6 +34,9 @@ void usecase() {}
 void cubit() {
   //login cubit
   sl.registerLazySingleton(() => LoginCubit(authRepository: AuthRepository()));
+
+  //Register cubit
+  sl.registerLazySingleton(() => RegisterCubit());
 
   //forgot password cubit
   sl.registerLazySingleton(() => ForgotPasswordCubit());

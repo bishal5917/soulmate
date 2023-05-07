@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
+import 'package:soulmate/src/core/app/texts.dart';
+import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
+import 'package:soulmate/src/utils/validation.dart';
 import 'package:soulmate/src/widgets/custom_button.dart';
 import 'package:soulmate/src/widgets/custom_home_appbar.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
@@ -18,33 +22,6 @@ class _UserRegisterState extends State<UserRegister> {
   final _showPass = ValueNotifier<bool>(false);
   int _currentStep = 0;
   StepperType stepperType = StepperType.horizontal;
-
-  String selectedValue = "1995";
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("1993"), value: "1993"),
-      const DropdownMenuItem(child: Text("1994"), value: "1994"),
-      const DropdownMenuItem(child: Text("1995"), value: "1995"),
-      const DropdownMenuItem(child: Text("1996"), value: "1996"),
-      const DropdownMenuItem(child: Text("1997"), value: "1997"),
-      const DropdownMenuItem(child: Text("1998"), value: "1998"),
-      const DropdownMenuItem(child: Text("1999"), value: "1999"),
-      const DropdownMenuItem(child: Text("2000"), value: "2000"),
-    ];
-    return menuItems;
-  }
-
-  String gSelectedValue = "male";
-  List<DropdownMenuItem<String>> get genderItems {
-    List<DropdownMenuItem<String>> gItems = [
-      const DropdownMenuItem(
-        value: "male",
-        child: Text("Male"),
-      ),
-      const DropdownMenuItem(value: "female", child: Text("Female")),
-    ];
-    return gItems;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,16 +64,37 @@ class _UserRegisterState extends State<UserRegister> {
                             CustomTextFormField(
                               hintText: "Enter Your Name ",
                               labelText: "Full Name *",
+                              controller:
+                                  sl.get<RegisterCubit>().regNameController,
+                              validator: (val) => val.toString().isEmptyData()
+                                  ? emptyText
+                                  : val.toString().isNameLength()
+                                      ? nameLength
+                                      : null,
                             ),
                             vSizedBox2,
                             CustomTextFormField(
                               hintText: "Enter Your Email",
                               labelText: "Email *",
+                              controller:
+                                  sl.get<RegisterCubit>().regEmailController,
+                              validator: (val) => val.toString().isEmptyData()
+                                  ? emptyText
+                                  : !val.toString().isValidEmail()
+                                      ? validEmailText
+                                      : null,
                             ),
                             vSizedBox2,
                             CustomTextFormField(
                               hintText: "Enter Your Phone Number",
                               labelText: "Phone Number *",
+                              controller:
+                                  sl.get<RegisterCubit>().regPhoneController,
+                              validator: (val) => val.toString().isEmptyData()
+                                  ? emptyText
+                                  : val.toString().isValidPhoneNumber()
+                                      ? phoneNumberValidateText
+                                      : null,
                             ),
                             vSizedBox2,
                             Row(
@@ -106,13 +104,14 @@ class _UserRegisterState extends State<UserRegister> {
                                 CustomText.ourText("Birth Year", fontSize: 17),
                                 hSizedBox3,
                                 DropdownButton(
-                                    value: selectedValue,
+                                    value: sl.get<RegisterCubit>().getYearValue,
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        selectedValue = newValue!;
+                                        sl.get<RegisterCubit>().setYear =
+                                            newValue as String;
                                       });
                                     },
-                                    items: dropdownItems),
+                                    items: sl.get<RegisterCubit>().yearItems),
                               ],
                             ),
                             vSizedBox2,
@@ -123,13 +122,15 @@ class _UserRegisterState extends State<UserRegister> {
                                 CustomText.ourText("Gender", fontSize: 17),
                                 hSizedBox3,
                                 DropdownButton(
-                                    value: gSelectedValue,
+                                    value:
+                                        sl.get<RegisterCubit>().getGenderValue,
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        gSelectedValue = newValue!;
+                                        sl.get<RegisterCubit>().setGender =
+                                            newValue as String;
                                       });
                                     },
-                                    items: genderItems),
+                                    items: sl.get<RegisterCubit>().genderItems),
                               ],
                             )
                           ],
@@ -163,6 +164,15 @@ class _UserRegisterState extends State<UserRegister> {
                                 return CustomTextFormField(
                                   hintText: "Enter Your Password",
                                   labelText: "Password*",
+                                  controller: sl
+                                      .get<RegisterCubit>()
+                                      .regPasswordController,
+                                  validator: (val) =>
+                                      val.toString().isEmptyData()
+                                          ? emptyText
+                                          : val.toString().isPasswordLength()
+                                              ? passwordLengthText
+                                              : null,
                                   obscureText: _showPass.value ? false : true,
                                   suffix: GestureDetector(
                                     onTap: () {
@@ -190,6 +200,17 @@ class _UserRegisterState extends State<UserRegister> {
                                   hintText: "Re-type your password",
                                   labelText: "Confirm Password*",
                                   obscureText: _showPass.value ? false : true,
+                                  validator: (val) =>
+                                      val.toString().isEmptyData()
+                                          ? emptyText
+                                          : val.toString().isPasswordLength()
+                                              ? passwordLengthText
+                                              : val.toString().isSamePassword(sl
+                                                      .get<RegisterCubit>()
+                                                      .regPasswordController
+                                                      .text)
+                                                  ? passwordNotMatchedText
+                                                  : null,
                                   suffix: GestureDetector(
                                     onTap: () {
                                       _showPass.value == true
@@ -211,7 +232,8 @@ class _UserRegisterState extends State<UserRegister> {
                           ],
                         ),
                         vSizedBox2,
-                        CustomButton.elevatedButton("Continue", () => {},
+                        CustomButton.elevatedButton("Continue",
+                            () => {sl.get<RegisterCubit>().getValues()},
                             borderRadius: 10,
                             color: OColors.kPrimaryMainColor,
                             fontSize: 17),

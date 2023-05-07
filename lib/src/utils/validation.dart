@@ -10,7 +10,11 @@ extension Validator on String {
   }
 
   bool isPasswordLength() {
-    return (length < 8 || length > 32);
+    return (length < 6 || length > 32);
+  }
+
+  bool isNameLength() {
+    return (length < 6 || length > 20);
   }
 
   bool isOtpLength() {
@@ -26,6 +30,6 @@ extension Validator on String {
   }
 
   bool isValidPhoneNumber() {
-    return RegexConfig.phoneNumberRegrex.hasMatch(this);
+    return RegexConfig.phoneNumNepalRegex.hasMatch(this);
   }
 }

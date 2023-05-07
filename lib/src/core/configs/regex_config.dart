@@ -1,5 +1,6 @@
 class RegexConfig {
   static RegExp numberRegex = RegExp('[0-9]');
+  static RegExp phoneNumNepalRegex = RegExp('98[0-9]');
   static RegExp textRegex = RegExp('[a-zA-Z]');
   static RegExp phoneRegex =
       RegExp("/^(984|985|986|974|975|980|981|982|961|988|972|963)d{7}\$/");
