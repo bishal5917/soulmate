@@ -98,13 +98,17 @@ chooseCountryModalBottomSheet({required BuildContext context}) {
                               itemBuilder: (BuildContext context, int index) {
                                 return ListTile(
                                   onTap: () {
-                                    // sl
-                                    //         .get<SelectCountryCubit>()
-                                    //         .selectedCountryController
-                                    //         .text =
-                                    //     state.searchCountryModel?[index].name ??
-                                    //         "";
-                                    // // back(context);
+                                    sl
+                                            .get<SelectCountryCubit>()
+                                            .selectedCountryController
+                                            .text =
+                                        state.searchCountryModel?[index].name ??
+                                            "";
+                                    // back(context);
+                                    print(sl
+                                        .get<SelectCountryCubit>()
+                                        .selectedCountryController
+                                        .text);
                                   },
                                   leading: CustomText.ourText(
                                     countryFlag(

@@ -13,9 +13,13 @@ class SelectCountryCubit extends Cubit<SelectCountryState> {
 
   final TextEditingController _searchCountryController =
       TextEditingController();
+  final TextEditingController _selectedCountryController =
+      TextEditingController();
   // final List<CountryModel> _searchCountryModel;
 
   TextEditingController get searchCountryController => _searchCountryController;
+  TextEditingController get selectedCountryController =>
+      _selectedCountryController;
   // List<CountryModel> get searchCountryModel => _searchCountryModel;
 
   List<CountryModel> parseCountry(String responseBody) {

@@ -44,10 +44,7 @@ class MyApp extends StatelessWidget {
           create: (context) => sl.get<ForgotPasswordCubit>(),
           child: const ForgotPasswordScreen(),
         ),
-        BlocProvider(
-          create: (context) => sl.get<SelectCountryCubit>(),
-          child: const SelectCountryScreen(),
-        ),
+        BlocProvider(create: (context) => sl.get<SelectCountryCubit>()),
       ],
       child: MaterialApp(
         title: 'Soulmate',
