@@ -1,8 +1,13 @@
 part of '../login_screen.dart';
 
-class LoginBody extends StatelessWidget {
+class LoginBody extends StatefulWidget {
   LoginBody({super.key});
 
+  @override
+  State<LoginBody> createState() => _LoginBodyState();
+}
+
+class _LoginBodyState extends State<LoginBody> {
   String title = "Find Your Soulmate";
 
   @override
@@ -53,12 +58,22 @@ class LoginBody extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              // print(sl.get<LoginCubit>().loginEmailController.text);
-                              // if (state.status == LoginStatus.success) {
-                              //   navigate(context, const ForgotPasswordScreen());
-                              // }
-                              sl.get<LoginCubit>().userLogin();
-                              sl.get<LoginCubit>().reset();
+                              if (state.status == LoginStatus.success) {
+                                navigate(context, const ForgotPasswordScreen());
+                              }
+                              if (sl
+                                      .get<LoginCubit>()
+                                      .loginEmailController
+                                      .text
+                                      .isNotEmpty &
+                                  sl
+                                      .get<LoginCubit>()
+                                      .loginPasswordController
+                                      .text
+                                      .isNotEmpty) {
+                                sl.get<LoginCubit>().userLogin();
+                                sl.get<LoginCubit>().reset();
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -73,6 +88,7 @@ class LoginBody extends StatelessWidget {
                       ? CustomToasts.showToast(
                           msg: state.message?.split(" ")[0].split("/")[1])
                       : const Text(""),
+                  // Text(state.message?.split(" ")[0].split("/")[1] as String),
                   vSizedBox2andHalf,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
