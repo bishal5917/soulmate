@@ -11,10 +11,10 @@ class AuthRepository extends BaseAuthRepository {
   Future<auth.User?> signUp(
       {required String email, required String password}) async {
     try {
-      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      // final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+      //     email: email, password: password);
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
       rethrow;
     }
   }
@@ -25,9 +25,10 @@ class AuthRepository extends BaseAuthRepository {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      print(credential.user);
       final user = credential.user;
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
       rethrow;
     }
   }

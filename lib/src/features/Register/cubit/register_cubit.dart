@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'register_state.dart';
 
@@ -17,8 +18,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController _regBirthYearController = TextEditingController();
   final TextEditingController _regGenderController = TextEditingController();
 
-  late File _image1;
-  late File _image2;
+  // final List<XFile> _images = [];
+  XFile? _image1;
+  XFile? _image2;
   String _yselectedValue = "1993";
   String _yHobby1Value = "coding";
   String _yHobby2Value = "travelling";
@@ -36,8 +38,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   String get gethobby1Value => _yHobby1Value;
   String get gethobby2Value => _yHobby2Value;
   String get gethobby3Value => _yHobby3Value;
-  File get image1 => _image1;
-  File get image2 => _image2;
+  XFile? get image1 => _image1;
+  XFile? get image2 => _image2;
 
   List<DropdownMenuItem<String>> get yearItems {
     List<DropdownMenuItem<String>> yearItems = [
@@ -100,12 +102,14 @@ class RegisterCubit extends Cubit<RegisterState> {
     _gSelectedValue = val;
   }
 
-  set setImage1(var val) {
+  set setImage1(XFile? val) {
     _image1 = val;
+    emit(state.copyWith(status: RegisterStatus.image1Loaded));
   }
 
-  set setImage2(var val) {
+  set setImage2(XFile? val) {
     _image2 = val;
+    emit(state.copyWith(status: RegisterStatus.image2Loaded));
   }
 
   void getValues() {
@@ -113,8 +117,25 @@ class RegisterCubit extends Cubit<RegisterState> {
     // print(getGenderValue);
     // print(getYearValue);
     // print(image1);
-    print(gethobby1Value);
-    print(gethobby2Value);
-    print(gethobby3Value);
+    // print(gethobby1Value);
+    // print(gethobby2Value);
+    // print(gethobby3Value);
+    // print(images);
+  }
+
+  Future<void> userRegister() async {
+    if (state.status == RegisterStatus.registerStarting) return;
+    emit(state.copyWith(status: RegisterStatus.registerStarting));
+    try {
+      // final response = await _authRepository.logIn(
+      //     email: loginEmailController.text,
+      //     password: loginPasswordController.text);
+      emit(state.copyWith(
+          status: RegisterStatus.registerSuccess,
+          message: "SuccessFully Registered"));
+    } catch (err) {
+      emit(state.copyWith(
+          status: RegisterStatus.error, message: err.toString()));
+    }
   }
 }
