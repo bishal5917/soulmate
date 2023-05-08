@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController _regPhoneController = TextEditingController();
   final TextEditingController _regBirthYearController = TextEditingController();
   final TextEditingController _regGenderController = TextEditingController();
+  late File _image1;
+  late File _image2;
   String _yselectedValue = "1993";
   String _gSelectedValue = "male";
 
@@ -25,6 +29,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController get regGenderController => _regGenderController;
   String get getYearValue => _yselectedValue;
   String get getGenderValue => _gSelectedValue;
+  File get image1 => _image1;
+  File get image2 => _image2;
 
   List<DropdownMenuItem<String>> get yearItems {
     List<DropdownMenuItem<String>> yearItems = [
@@ -59,9 +65,18 @@ class RegisterCubit extends Cubit<RegisterState> {
     _gSelectedValue = val;
   }
 
+  set setImage1(var val) {
+    _image1 = val;
+  }
+
+  set setImage2(var val) {
+    _image2 = val;
+  }
+
   void getValues() {
     print(regNameController.text);
     print(getGenderValue);
     print(getYearValue);
+    print(image1);
   }
 }

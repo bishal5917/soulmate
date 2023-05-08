@@ -156,7 +156,18 @@ class _UserRegisterState extends State<UserRegister> {
                   ),
                   Step(
                     title: const Text('Add Pics'),
-                    content: const AddImage(),
+                    content: Column(
+                      children: [
+                        const AddImage(),
+                        CustomButton.elevatedButton(
+                          "Next",
+                          () => {continued()},
+                          borderRadius: 10,
+                          color: OColors.kPrimaryMainColor,
+                          fontSize: 17,
+                        ),
+                      ],
+                    ),
                     isActive: _currentStep >= 0,
                     state: _currentStep >= 0
                         ? StepState.complete
