@@ -64,7 +64,6 @@ class _UserRegisterState extends State<UserRegister> {
                       children: [
                         Column(
                           children: <Widget>[
-                            vSizedBox2andHalf,
                             CustomTextFormField(
                               hintText: "Enter Your Name ",
                               labelText: "Full Name *",
@@ -94,11 +93,17 @@ class _UserRegisterState extends State<UserRegister> {
                               labelText: "Phone Number *",
                               controller:
                                   sl.get<RegisterCubit>().regPhoneController,
-                              validator: (val) => val.toString().isEmptyData()
-                                  ? emptyText
-                                  : val.toString().isValidPhoneNumber()
-                                      ? phoneNumberValidateText
-                                      : null,
+                              validator: (val) => val
+                                      .toString()
+                                      .isPhoneNumberLength()
+                                  ? phoneLength
+                                  : val.toString().isEmptyData()
+                                      ? emptyText
+                                      : !val.toString().isValidPhoneNumber()
+                                          ? phoneNumberValidateText
+                                          : !val.toString().isValidPhoneNumber()
+                                              ? phoneNumberValidateText
+                                              : null,
                             ),
                             vSizedBox2,
                             Row(
@@ -136,10 +141,60 @@ class _UserRegisterState extends State<UserRegister> {
                                     },
                                     items: sl.get<RegisterCubit>().genderItems),
                               ],
-                            )
+                            ),
                           ],
                         ),
                         vSizedBox2,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            hSizedBox3,
+                            CustomText.ourText("Hobbies", fontSize: 17),
+                            hSizedBox3,
+                            DropdownButton(
+                                value: sl.get<RegisterCubit>().gethobby1Value,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    sl.get<RegisterCubit>().setHobby1 =
+                                        newValue as String;
+                                  });
+                                },
+                                items: sl.get<RegisterCubit>().hobbyItems),
+                          ],
+                        ),
+                        vSizedBox2,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            hSizedBox4,
+                            DropdownButton(
+                                value: sl.get<RegisterCubit>().gethobby2Value,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    sl.get<RegisterCubit>().setHobby2 =
+                                        newValue as String;
+                                  });
+                                },
+                                items: sl.get<RegisterCubit>().hobbyItems),
+                          ],
+                        ),
+                        vSizedBox2,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            hSizedBox4,
+                            DropdownButton(
+                                value: sl.get<RegisterCubit>().gethobby3Value,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    sl.get<RegisterCubit>().setHobby3 =
+                                        newValue as String;
+                                  });
+                                },
+                                items: sl.get<RegisterCubit>().hobbyItems),
+                          ],
+                        ),
+                        vSizedBox1,
                         CustomButton.elevatedButton(
                           "Next",
                           () => {continued()},

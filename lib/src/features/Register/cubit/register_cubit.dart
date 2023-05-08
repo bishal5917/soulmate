@@ -16,9 +16,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController _regPhoneController = TextEditingController();
   final TextEditingController _regBirthYearController = TextEditingController();
   final TextEditingController _regGenderController = TextEditingController();
+
   late File _image1;
   late File _image2;
   String _yselectedValue = "1993";
+  String _yHobby1Value = "coding";
+  String _yHobby2Value = "travelling";
+  String _yHobby3Value = "mountain biking";
   String _gSelectedValue = "male";
 
   TextEditingController get regNameController => _regNameController;
@@ -29,6 +33,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController get regGenderController => _regGenderController;
   String get getYearValue => _yselectedValue;
   String get getGenderValue => _gSelectedValue;
+  String get gethobby1Value => _yHobby1Value;
+  String get gethobby2Value => _yHobby2Value;
+  String get gethobby3Value => _yHobby3Value;
   File get image1 => _image1;
   File get image2 => _image2;
 
@@ -57,8 +64,36 @@ class RegisterCubit extends Cubit<RegisterState> {
     return gItems;
   }
 
+  List<DropdownMenuItem<String>> get hobbyItems {
+    List<DropdownMenuItem<String>> hbyItems = [
+      const DropdownMenuItem(
+        value: "coding",
+        child: Text("Coding"),
+      ),
+      const DropdownMenuItem(value: "travelling", child: Text("Travelling")),
+      const DropdownMenuItem(
+          value: "mountain biking", child: Text("Mountain Biking")),
+      const DropdownMenuItem(value: "photography", child: Text("Photography")),
+      const DropdownMenuItem(value: "cooking", child: Text("Cooking")),
+      const DropdownMenuItem(value: "dance", child: Text("Dance")),
+    ];
+    return hbyItems;
+  }
+
   set setYear(String val) {
     _yselectedValue = val;
+  }
+
+  set setHobby1(String val) {
+    _yHobby1Value = val;
+  }
+
+  set setHobby2(String val) {
+    _yHobby2Value = val;
+  }
+
+  set setHobby3(String val) {
+    _yHobby3Value = val;
   }
 
   set setGender(String val) {
@@ -74,9 +109,12 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void getValues() {
-    print(regNameController.text);
-    print(getGenderValue);
-    print(getYearValue);
-    print(image1);
+    // print(regNameController.text);
+    // print(getGenderValue);
+    // print(getYearValue);
+    // print(image1);
+    print(gethobby1Value);
+    print(gethobby2Value);
+    print(gethobby3Value);
   }
 }

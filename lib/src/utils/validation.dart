@@ -21,6 +21,10 @@ extension Validator on String {
     return !(length == 4);
   }
 
+  bool isPhoneNumberLength() {
+    return !(length == 10);
+  }
+
   bool isValidOtp() {
     return RegexConfig.numberRegex.hasMatch(this);
   }

@@ -20,7 +20,8 @@ class _LoginBodyState extends State<LoginBody> {
         }
         state.status == LoginStatus.error
             ? CustomToasts.showToast(
-                msg: state.message?.split(" ")[0].split("/")[1])
+                msg: stringModify().formatErrorMsg(state.message as String),
+              )
             : const Text("");
       },
       child: BlocBuilder<LoginCubit, LoginState>(
@@ -90,17 +91,6 @@ class _LoginBodyState extends State<LoginBody> {
                               ),
                             ),
                           ),
-                    state.status == LoginStatus.error
-                        ? Container(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              stringModify()
-                                  .formatErrorMsg(state.message as String),
-                              style: const TextStyle(color: Colors.red),
-                            ))
-                        : const Text(""),
-                    // Toast was showing error so used normal style instead
-
                     vSizedBox2andHalf,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
