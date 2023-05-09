@@ -25,6 +25,9 @@ class AuthRepository extends BaseAuthRepository {
       final credential = await FirebaseConfig().baseDb.collection("Users").add(
             regModel.toJson(),
           );
+      await FirebaseConfig().firebaseAuth.createUserWithEmailAndPassword(
+          email: regModel.email as String,
+          password: regModel.password as String);
       return credential;
     } catch (e) {
       // print(e.toString());

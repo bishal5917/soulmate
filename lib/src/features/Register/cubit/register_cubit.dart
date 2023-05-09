@@ -37,11 +37,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController get regPhoneController => _regPhoneController;
   TextEditingController get regBirthYearController => _regBirthYearController;
   TextEditingController get regGenderController => _regGenderController;
+
   String get getYearValue => _yselectedValue;
   String get getGenderValue => _gSelectedValue;
   String get gethobby1Value => _yHobby1Value;
   String get gethobby2Value => _yHobby2Value;
   String get gethobby3Value => _yHobby3Value;
+
   XFile? get image1 => _image1;
   XFile? get image2 => _image2;
 
@@ -116,23 +118,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   //   emit(state.copyWith(status: RegisterStatus.image2Loaded));
   // }
 
-  void getValues() {
-    // print(regNameController.text);
-    // print(getGenderValue);
-    // print(getYearValue);
-    // print(image1);
-    // print(gethobby1Value);
-    // print(gethobby2Value);
-    // print(gethobby3Value);
-  }
-
   Future<void> userRegister() async {
     RegisterModel regModel = RegisterModel(
         name: regNameController.text,
         email: regEmailController.text,
         phone: regPhoneController.text,
-        birthYear: regBirthYearController.text,
-        gender: regGenderController.text,
+        birthYear: getYearValue,
+        gender: getGenderValue,
         hobby1: gethobby1Value,
         hobby2: gethobby2Value,
         hobby3: gethobby3Value,
@@ -145,12 +137,11 @@ class RegisterCubit extends Cubit<RegisterState> {
           message: " Registration Starting"));
       try {
         final response = await AuthRepository().userRegister(regModel);
-        print(regModel);
         print(response);
 
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,
-            message: "SuccessFully Registered"));
+            message: "SuccessFully Registered , You can Log In Now !!! "));
       } catch (err) {
         emit(state.copyWith(
             status: RegisterStatus.error, message: err.toString()));
@@ -162,15 +153,10 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  //   if (state.status == LoginStatus.submitting) return;
-  // emit(state.copyWith(status: LoginStatus.submitting));
-  // try {
-  //   final response = await _authRepository.logIn(
-  //       email: loginEmailController.text,
-  //       password: loginPasswordController.text);
-  //   emit(state.copyWith(status: LoginStatus.success, user: response));
-  // } catch (err) {
-  //   // print(e.toString());
-  //   emit(state.copyWith(status: LoginStatus.error, message: err.toString()));
-  // }
+  // @override
+  void reset() {
+    regNameController.clear();
+    regEmailController.clear();
+    regPhoneController.clear();
+  }
 }

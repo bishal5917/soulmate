@@ -8,14 +8,14 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  String title = "Find Your Soulmate";
+  final String title = "Find Your Soulmate";
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.success) {
-          navigate(context, const ForgotPasswordScreen());
+          navigate(context, const HomeBody());
           sl.get<LoginCubit>().reset();
         }
         state.status == LoginStatus.error

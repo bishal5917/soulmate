@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/core/app/texts.dart';
-import 'package:soulmate/src/features/Register/Widgets/add_image.dart';
+import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
+import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/utils/validation.dart';
 import 'package:soulmate/src/widgets/custom_button.dart';
@@ -39,13 +37,12 @@ class _UserRegisterState extends State<UserRegister> {
         }
         if (state.status == RegisterStatus.registerSuccess) {
           CustomToasts.showToast(msg: state.message);
-        }
-        if (state.status == RegisterStatus.loginSuccess) {
-          CustomToasts.showToast(msg: state.message);
+          navigate(context, const LoginScreen());
         }
         if (state.status == RegisterStatus.error) {
           CustomToasts.showToast(msg: state.message);
         }
+        sl.get<RegisterCubit>().reset();
       },
       child: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
