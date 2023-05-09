@@ -8,6 +8,8 @@ enum RegisterStatus {
   dataError,
   registerStarting,
   registerSuccess,
+  loginStarting,
+  loginSuccess,
   error
 }
 

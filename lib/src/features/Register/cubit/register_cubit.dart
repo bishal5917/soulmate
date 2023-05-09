@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/utils/firebase_config.dart';
 
@@ -126,12 +127,27 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> userRegister() async {
+    RegisterModel regModel = RegisterModel(
+        name: regNameController.text,
+        email: regEmailController.text,
+        phone: regPhoneController.text,
+        birthYear: regBirthYearController.text,
+        gender: regGenderController.text,
+        hobby1: gethobby1Value,
+        hobby2: gethobby2Value,
+        hobby3: gethobby3Value,
+        password: regPasswordController.text);
     if (state.status == RegisterStatus.registerStarting) return;
     if (registerForm1Key.currentState!.validate() &&
         registerForm2Key.currentState!.validate()) {
-      emit(state.copyWith(status: RegisterStatus.registerStarting));
+      emit(state.copyWith(
+          status: RegisterStatus.registerStarting,
+          message: " Registration Starting"));
       try {
-        // final response = await AuthRepository.
+        final response = await AuthRepository().userRegister(regModel);
+        print(regModel);
+        print(response);
+
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,
             message: "SuccessFully Registered"));
@@ -145,4 +161,16 @@ class RegisterCubit extends Cubit<RegisterState> {
           message: " Error : Please Enter all details to register !"));
     }
   }
+
+  //   if (state.status == LoginStatus.submitting) return;
+  // emit(state.copyWith(status: LoginStatus.submitting));
+  // try {
+  //   final response = await _authRepository.logIn(
+  //       email: loginEmailController.text,
+  //       password: loginPasswordController.text);
+  //   emit(state.copyWith(status: LoginStatus.success, user: response));
+  // } catch (err) {
+  //   // print(e.toString());
+  //   emit(state.copyWith(status: LoginStatus.error, message: err.toString()));
+  // }
 }

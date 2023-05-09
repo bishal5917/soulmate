@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:soulmate/src/features/Register/register_model.dart';
 
 abstract class BaseAuthRepository {
   Stream<auth.User> get user;
-  Future<auth.User?> signUp({required String email, required String password});
   Future<auth.User?> logIn({required String email, required String password});
+  Future<DocumentReference> userRegister(RegisterModel regModel);
   Future<void> signOut();
 }
