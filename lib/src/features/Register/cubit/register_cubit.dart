@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
+import 'package:soulmate/src/utils/firebase_config.dart';
 
 part 'register_state.dart';
 
@@ -12,7 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   GlobalKey<FormState> registerForm1Key = GlobalKey<FormState>();
   GlobalKey<FormState> registerForm2Key = GlobalKey<FormState>();
-  GlobalKey<FormState> registerForm3Key = GlobalKey<FormState>();
+
   final TextEditingController _regNameController = TextEditingController();
   final TextEditingController _regEmailController = TextEditingController();
   final TextEditingController _regPasswordController = TextEditingController();
@@ -20,7 +22,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController _regBirthYearController = TextEditingController();
   final TextEditingController _regGenderController = TextEditingController();
 
-  // final List<XFile> _images = [];
   XFile? _image1;
   XFile? _image2;
   String _yselectedValue = "1993";
@@ -104,15 +105,15 @@ class RegisterCubit extends Cubit<RegisterState> {
     _gSelectedValue = val;
   }
 
-  set setImage1(XFile? val) {
-    _image1 = val;
-    emit(state.copyWith(status: RegisterStatus.image1Loaded));
-  }
+  // set setImage1(XFile? val) {
+  //   _image1 = val;
+  //   emit(state.copyWith(status: RegisterStatus.image1Loaded));
+  // }
 
-  set setImage2(XFile? val) {
-    _image2 = val;
-    emit(state.copyWith(status: RegisterStatus.image2Loaded));
-  }
+  // set setImage2(XFile? val) {
+  //   _image2 = val;
+  //   emit(state.copyWith(status: RegisterStatus.image2Loaded));
+  // }
 
   void getValues() {
     // print(regNameController.text);
@@ -122,21 +123,15 @@ class RegisterCubit extends Cubit<RegisterState> {
     // print(gethobby1Value);
     // print(gethobby2Value);
     // print(gethobby3Value);
-    // print(images);
   }
 
   Future<void> userRegister() async {
-    // print(image1);
-    // print(image2);
     if (state.status == RegisterStatus.registerStarting) return;
     if (registerForm1Key.currentState!.validate() &&
-        registerForm2Key.currentState!.validate() &&
-        registerForm3Key.currentState!.validate()) {
+        registerForm2Key.currentState!.validate()) {
       emit(state.copyWith(status: RegisterStatus.registerStarting));
       try {
-        // final response = await _authRepository.logIn(
-        //     email: loginEmailController.text,
-        //     password: loginPasswordController.text);
+        // final response = await AuthRepository.
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,
             message: "SuccessFully Registered"));
@@ -144,9 +139,10 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(state.copyWith(
             status: RegisterStatus.error, message: err.toString()));
       }
+    } else {
+      emit(state.copyWith(
+          status: RegisterStatus.dataError,
+          message: " Error : Please Enter all details to register !"));
     }
-    emit(state.copyWith(
-        status: RegisterStatus.dataError,
-        message: " Error : Please Enter all details to register !"));
   }
 }

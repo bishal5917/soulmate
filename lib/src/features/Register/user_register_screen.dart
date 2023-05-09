@@ -33,6 +33,7 @@ class _UserRegisterState extends State<UserRegister> {
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
+        print(state);
         if (state.status == RegisterStatus.dataError) {
           CustomToasts.showToast(msg: state.message);
         }
@@ -235,32 +236,32 @@ class _UserRegisterState extends State<UserRegister> {
                           ? StepState.complete
                           : StepState.disabled,
                     ),
-                    Step(
-                      title: const Text('Add Pics'),
-                      content: Column(
-                        children: [
-                          const AddImage(),
-                          CustomButton.elevatedButton(
-                            "Next",
-                            () => {continued()},
-                            borderRadius: 10,
-                            color: OColors.kPrimaryMainColor,
-                            fontSize: 17,
-                          ),
-                        ],
-                      ),
-                      isActive: _currentStep >= 0,
-                      state: _currentStep >= 0
-                          ? StepState.complete
-                          : StepState.disabled,
-                    ),
+                    // Step(
+                    //   title: const Text('Add Pics'),
+                    //   content: Column(
+                    //     children: [
+                    //       const AddImage(),
+                    //       CustomButton.elevatedButton(
+                    //         "Next",
+                    //         () => {continued()},
+                    //         borderRadius: 10,
+                    //         color: OColors.kPrimaryMainColor,
+                    //         fontSize: 17,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   isActive: _currentStep >= 0,
+                    //   state: _currentStep >= 0
+                    //       ? StepState.complete
+                    //       : StepState.disabled,
+                    // ),
                     Step(
                       title: const Text('Security'),
                       content: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Form(
-                            key: sl.get<RegisterCubit>().registerForm3Key,
+                            key: sl.get<RegisterCubit>().registerForm2Key,
                             child: Column(
                               children: <Widget>[
                                 vSizedBox2andHalf,
@@ -370,7 +371,7 @@ class _UserRegisterState extends State<UserRegister> {
   }
 
   continued() {
-    _currentStep < 2 ? setState(() => _currentStep += 1) : null;
+    _currentStep < 1 ? setState(() => _currentStep += 1) : null;
   }
 
   cancel() {

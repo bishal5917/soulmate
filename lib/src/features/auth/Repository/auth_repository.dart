@@ -1,18 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:soulmate/src/features/auth/Repository/base_auth_repository.dart';
+import 'package:soulmate/src/utils/firebase_config.dart';
 
 class AuthRepository extends BaseAuthRepository {
-  final auth.FirebaseAuth _firebaseAuth;
+  // final auth.FirebaseAuth _firebaseAuth;
 
-  AuthRepository({auth.FirebaseAuth? firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? auth.FirebaseAuth.instance;
+  // AuthRepository({});
 
   @override
   Future<auth.User?> signUp(
       {required String email, required String password}) async {
     try {
-      // final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-      //     email: email, password: password);
+      // final credential =
+      //     await FirebaseConfig().baseDb.collection("Users").add({"name": "ok"});
     } catch (e) {
       // print(e.toString());
       rethrow;
@@ -23,8 +23,9 @@ class AuthRepository extends BaseAuthRepository {
   Future<auth.User?> logIn(
       {required String email, required String password}) async {
     try {
-      final credential = await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      final credential = await FirebaseConfig()
+          .firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
       print(credential.user);
       final user = credential.user;
     } catch (e) {
@@ -35,7 +36,7 @@ class AuthRepository extends BaseAuthRepository {
 
   @override
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    await FirebaseConfig().firebaseAuth.signOut();
   }
 
   @override

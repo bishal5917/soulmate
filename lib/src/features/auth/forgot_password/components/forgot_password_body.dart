@@ -54,7 +54,9 @@ class ForgotPasswordBody extends StatelessWidget {
                       Icons.arrow_forward,
                       color: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      navigate(context, const ResetPasswordScreen());
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
