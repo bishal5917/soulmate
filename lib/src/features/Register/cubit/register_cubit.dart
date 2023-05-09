@@ -10,7 +10,9 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
 
-  GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> registerForm1Key = GlobalKey<FormState>();
+  GlobalKey<FormState> registerForm2Key = GlobalKey<FormState>();
+  GlobalKey<FormState> registerForm3Key = GlobalKey<FormState>();
   final TextEditingController _regNameController = TextEditingController();
   final TextEditingController _regEmailController = TextEditingController();
   final TextEditingController _regPasswordController = TextEditingController();
@@ -124,18 +126,27 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> userRegister() async {
+    // print(image1);
+    // print(image2);
     if (state.status == RegisterStatus.registerStarting) return;
-    emit(state.copyWith(status: RegisterStatus.registerStarting));
-    try {
-      // final response = await _authRepository.logIn(
-      //     email: loginEmailController.text,
-      //     password: loginPasswordController.text);
-      emit(state.copyWith(
-          status: RegisterStatus.registerSuccess,
-          message: "SuccessFully Registered"));
-    } catch (err) {
-      emit(state.copyWith(
-          status: RegisterStatus.error, message: err.toString()));
+    if (registerForm1Key.currentState!.validate() &&
+        registerForm2Key.currentState!.validate() &&
+        registerForm3Key.currentState!.validate()) {
+      emit(state.copyWith(status: RegisterStatus.registerStarting));
+      try {
+        // final response = await _authRepository.logIn(
+        //     email: loginEmailController.text,
+        //     password: loginPasswordController.text);
+        emit(state.copyWith(
+            status: RegisterStatus.registerSuccess,
+            message: "SuccessFully Registered"));
+      } catch (err) {
+        emit(state.copyWith(
+            status: RegisterStatus.error, message: err.toString()));
+      }
     }
+    emit(state.copyWith(
+        status: RegisterStatus.dataError,
+        message: " Error : Please Enter all details to register !"));
   }
 }
