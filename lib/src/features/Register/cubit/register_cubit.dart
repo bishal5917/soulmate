@@ -144,7 +144,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       final response = await AuthRepository().imageUpload();
       emit(state.copyWith(
           status: RegisterStatus.imageUploadSuccess,
-          message: "Upload Started"));
+          message: "Upload Success"));
     } catch (err) {
       emit(state.copyWith(
           status: RegisterStatus.error, message: "Image Upload Error"));

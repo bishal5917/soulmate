@@ -44,20 +44,20 @@ class AuthRepository extends BaseAuthRepository {
   @override
   Future<void> imageUpload() async {
     try {
-      firebase_storage.UploadTask? uploadTask;
-      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('images')
-          .child('/');
-      ref.putFile(File(sl.get<LocalImageCubit>().localImage!.path));
-      await uploadTask!.whenComplete(() => null);
-      String imageUrl = await ref.getDownloadURL();
+      // firebase_storage.UploadTask? uploadTask;
+      // firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+      //     .ref()
+      //     .child('images')
+      //     .child('/' + sl.get<LocalImageCubit>().localImage!.path);
+      // ref.putFile(File(sl.get<LocalImageCubit>().localImage!.path));
+      // await uploadTask!.whenComplete(() => null);
+      // String imageUrl = await ref.getDownloadURL();
       // print("URL" + imageUrl);
       final credential = await FirebaseConfig()
           .baseDb
           .collection("Users")
           .doc(AppSharedPreferences.getUserId)
-          .set({"image": imageUrl});
+          .update({"image": "my image"});
     } catch (e) {
       // print(e.toString());
       rethrow;
