@@ -6,12 +6,24 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(appWidth(context), 60),
-          child: CustomMainAppBar(
-            title: "My Feed",
+      // appBar: PreferredSize(
+      //   preferredSize: Size(appWidth(context), 60),
+      //   child: CustomMainAppBar(
+      //     title: "Feed",
+      //   ),
+      // ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              FeedItem(),
+              FeedItem(),
+              FeedItem(),
+            ],
           ),
         ),
-        body: Text("Home Page"));
+      ),
+      // bottomNavigationBar: BottomNavbar(),
+    );
   }
 }

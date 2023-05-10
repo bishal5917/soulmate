@@ -94,4 +94,37 @@ class CustomButton {
       ),
     );
   }
+
+  static Widget elevatedButtonWithIcon(
+      {Key? key,
+      required Function()? onPressed,
+      VoidCallback? onLongPress,
+      ValueChanged<bool>? onHover,
+      ValueChanged<bool>? onFocusChange,
+      ButtonStyle? style,
+      FocusNode? focusNode,
+      bool? autofocus,
+      Clip? clipBehavior,
+      Color? backGroundColour,
+      MaterialStatesController? statesController,
+      required Widget icon,
+      required Widget label}) {
+    return SizedBox(
+      height: 44,
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        icon: icon,
+        label: label,
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backGroundColour,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              12,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

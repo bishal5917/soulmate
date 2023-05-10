@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OColors {
   static Color kPrimaryDarkestColor = const Color(0xff105B4C);
   static Color kPrimaryDarkColor = const Color(0xff1FA88D);
-  static Color kPrimaryMainColor = const Color(0xFF259CA7);
+  static Color kPrimaryMainColor = const Color(0xFFC33E66);
   static Color kPrimaryLightColor = const Color(0xffA4EFE0);
 
   static Color kNeutral900Color = const Color(0xff111827);

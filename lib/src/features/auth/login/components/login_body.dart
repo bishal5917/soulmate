@@ -15,7 +15,7 @@ class _LoginBodyState extends State<LoginBody> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.success) {
-          navigate(context, const HomeBody());
+          navigate(context, const HomeScreen());
           sl.get<LoginCubit>().reset();
         }
         state.status == LoginStatus.error
