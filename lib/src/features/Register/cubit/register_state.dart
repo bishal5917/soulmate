@@ -6,6 +6,8 @@ enum RegisterStatus {
   dataError,
   registerStarting,
   registerSuccess,
+  imageUploadStarting,
+  imageUploadSuccess,
   error
 }
 

@@ -8,6 +8,7 @@ import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
+import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/utils/firebase_config.dart';
 
 part 'register_state.dart';
@@ -121,11 +122,10 @@ class RegisterCubit extends Cubit<RegisterState> {
           message: " Registration Starting"));
       try {
         final response = await AuthRepository().userRegister(regModel);
-        print(response);
-
+        AppSharedPreferences.setUserId(response.id);
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,
-            message: "SuccessFully Registered , You can Log In Now !!! "));
+            message: "SuccessFully Registered !!! "));
       } catch (err) {
         emit(state.copyWith(
             status: RegisterStatus.error, message: err.toString()));
@@ -134,6 +134,20 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(state.copyWith(
           status: RegisterStatus.dataError,
           message: " Error : Please Enter all details to register !"));
+    }
+  }
+
+  Future<void> imageUpload() async {
+    emit(state.copyWith(
+        status: RegisterStatus.imageUploadStarting, message: "Upload Started"));
+    try {
+      final response = await AuthRepository().imageUpload();
+      emit(state.copyWith(
+          status: RegisterStatus.imageUploadSuccess,
+          message: "Upload Started"));
+    } catch (err) {
+      emit(state.copyWith(
+          status: RegisterStatus.error, message: "Image Upload Error"));
     }
   }
 

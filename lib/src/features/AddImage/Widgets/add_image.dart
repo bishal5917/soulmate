@@ -17,80 +17,87 @@ class AddImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocalImageCubit, LocalImageState>(
-      builder: (context, state) {
-        // print(state);
-        return Padding(
-          padding: screenLeftRightPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 4,
-                          color: Colors.white,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1))
-                        ],
-                        shape: BoxShape.circle,
-                      ),
-                      child: state.status == LocalImageStatus.success
-                          ? CircleAvatar(
-                              backgroundImage: FileImage(File(
-                                  sl.get<LocalImageCubit>().localImage!.path)),
-                              radius: 30)
-                          : const Icon(
-                              Icons.image_outlined,
-                              size: 50,
-                            ),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: InkWell(
-                          onTap: () {
-                            sl.get<LocalImageCubit>().pickImage(1);
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              border:
-                                  Border.all(width: 2, color: Colors.black26),
-                            ),
-                            child: const Icon(
-                              Icons.edit,
-                              color: Colors.red,
-                            ),
+        builder: (context, state) {
+      return BlocBuilder<RegisterCubit, RegisterState>(
+        builder: (context, state) {
+          // print(state);
+          return Padding(
+            padding: screenLeftRightPadding,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 300,
+                        height: 300,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 4,
+                            color: Colors.white,
                           ),
-                        )),
-                  ],
-                ),
-              ),
-              CustomButton.elevatedButtonWithIcon(
-                  onPressed: () {},
-                  icon: CustomText.ourText("Continue to App",
-                      color: Colors.white, fontSize: 14),
-                  label: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.1))
+                          ],
+                          shape: BoxShape.circle,
+                        ),
+                        child: state.status == LocalImageStatus.success
+                            ? CircleAvatar(
+                                backgroundImage: FileImage(File(sl
+                                    .get<LocalImageCubit>()
+                                    .localImage!
+                                    .path)),
+                                radius: 30)
+                            : const Icon(
+                                Icons.image_outlined,
+                                size: 50,
+                              ),
+                      ),
+                      Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: InkWell(
+                            onTap: () {
+                              sl.get<LocalImageCubit>().pickImage(1);
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(width: 2, color: Colors.black26),
+                              ),
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.red,
+                              ),
+                            ),
+                          )),
+                    ],
                   ),
-                  backGroundColour: OColors.kPrimaryMainColor),
-            ],
-          ),
-        );
-      },
-    );
+                ),
+                CustomButton.elevatedButtonWithIcon(
+                    onPressed: () {
+                      sl.get<RegisterCubit>().imageUpload();
+                    },
+                    icon: CustomText.ourText("Continue to App",
+                        color: Colors.white, fontSize: 14),
+                    label: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                    ),
+                    backGroundColour: OColors.kPrimaryMainColor),
+              ],
+            ),
+          );
+        },
+      );
+    });
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/features/Home/widgets/bottom_navbar.dart';
 import 'package:soulmate/src/features/Home/widgets/feed_item.dart';
+import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/widgets/custom_home_appbar.dart';
 
 part 'components/home_body.dart';

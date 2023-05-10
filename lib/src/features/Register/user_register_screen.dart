@@ -5,6 +5,7 @@ import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/core/app/texts.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
+import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
@@ -37,7 +38,7 @@ class _UserRegisterState extends State<UserRegister> {
         }
         if (state.status == RegisterStatus.registerSuccess) {
           CustomToasts.showToast(msg: state.message);
-          navigate(context, const LoginScreen());
+          navigate(context, const AddImageScreen());
         }
         if (state.status == RegisterStatus.error) {
           CustomToasts.showToast(msg: state.message);

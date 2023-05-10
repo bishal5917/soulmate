@@ -31,8 +31,8 @@ class LoginCubit extends Cubit<LoginState> {
       final response = await _authRepository.logIn(
           email: loginEmailController.text,
           password: loginPasswordController.text);
-      print(response!.uid);
-      AppSharedPreferences.setUserId(response.uid);
+      // print(response!.uid);
+      AppSharedPreferences.setUserId(response!.uid);
       emit(state.copyWith(status: LoginStatus.success, user: response));
     } catch (err) {
       // print(e.toString());

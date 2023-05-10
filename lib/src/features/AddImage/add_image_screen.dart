@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
+import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/Widgets/add_image.dart';
+import 'package:soulmate/src/features/Home/home_screen.dart';
+import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/widgets/custom_home_appbar.dart';
 
 class AddImageScreen extends StatelessWidget {
@@ -8,13 +12,20 @@ class AddImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(appWidth(context), 60),
-          child: CustomMainAppBar(
-            title: "Add Your Image",
+    return BlocListener<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        if (state.status == RegisterStatus.imageUploadSuccess) {
+          navigate(context, const HomeScreen());
+        }
+      },
+      child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size(appWidth(context), 60),
+            child: CustomMainAppBar(
+              title: "Add Your Image",
+            ),
           ),
-        ),
-        body: AddImage());
+          body: AddImage()),
+    );
   }
 }
