@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/splash_screen.dart';
 import 'package:soulmate/src/core/app/colors.dart';
+import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
+import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/forgot_password/cubit/forgot_password_cubit.dart';
@@ -49,6 +51,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => sl.get<RegisterCubit>(),
           child: const UserRegister(),
+        ),
+        BlocProvider(
+          create: (context) => sl.get<LocalImageCubit>(),
+          child: const AddImageScreen(),
         ),
         BlocProvider(create: (context) => sl.get<SelectCountryCubit>()),
       ],

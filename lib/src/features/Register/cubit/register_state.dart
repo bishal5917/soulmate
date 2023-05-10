@@ -3,13 +3,9 @@ part of 'register_cubit.dart';
 enum RegisterStatus {
   initial,
   dataEntering,
-  image1Loaded,
-  image2Loaded,
   dataError,
   registerStarting,
   registerSuccess,
-  loginStarting,
-  loginSuccess,
   error
 }
 

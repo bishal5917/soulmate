@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
@@ -46,4 +47,7 @@ void cubit() {
 
   //select country cubit
   sl.registerLazySingleton(() => SelectCountryCubit());
+
+  //local Image cubit
+  sl.registerLazySingleton(() => LocalImageCubit());
 }

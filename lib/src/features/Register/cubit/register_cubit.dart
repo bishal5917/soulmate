@@ -23,8 +23,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController _regBirthYearController = TextEditingController();
   final TextEditingController _regGenderController = TextEditingController();
 
-  XFile? _image1;
-  XFile? _image2;
   String _yselectedValue = "1993";
   String _yHobby1Value = "coding";
   String _yHobby2Value = "travelling";
@@ -43,9 +41,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   String get gethobby1Value => _yHobby1Value;
   String get gethobby2Value => _yHobby2Value;
   String get gethobby3Value => _yHobby3Value;
-
-  XFile? get image1 => _image1;
-  XFile? get image2 => _image2;
 
   List<DropdownMenuItem<String>> get yearItems {
     List<DropdownMenuItem<String>> yearItems = [
@@ -107,16 +102,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   set setGender(String val) {
     _gSelectedValue = val;
   }
-
-  // set setImage1(XFile? val) {
-  //   _image1 = val;
-  //   emit(state.copyWith(status: RegisterStatus.image1Loaded));
-  // }
-
-  // set setImage2(XFile? val) {
-  //   _image2 = val;
-  //   emit(state.copyWith(status: RegisterStatus.image2Loaded));
-  // }
 
   Future<void> userRegister() async {
     RegisterModel regModel = RegisterModel(
