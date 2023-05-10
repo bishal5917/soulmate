@@ -7,7 +7,7 @@ import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/Repository/base_auth_repository.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/utils/firebase_config.dart';
 
@@ -44,22 +44,25 @@ class AuthRepository extends BaseAuthRepository {
   @override
   Future<void> imageUpload() async {
     try {
-      // firebase_storage.UploadTask? uploadTask;
-      // firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-      //     .ref()
-      //     .child('images')
-      //     .child('/' + sl.get<LocalImageCubit>().localImage!.path);
-      // ref.putFile(File(sl.get<LocalImageCubit>().localImage!.path));
-      // await uploadTask!.whenComplete(() => null);
-      // String imageUrl = await ref.getDownloadURL();
-      // print("URL" + imageUrl);
+      final firebaseStorage = FirebaseStorage.instance;
+
+      final file = File(sl.get<LocalImageCubit>().localImage!.path);
+
+      final storageRef = firebaseStorage.ref();
+      final uploadTask = storageRef
+          .child(
+              "profiles/${DateTime.now().millisecondsSinceEpoch}-${AppSharedPreferences.getUserId}")
+          .putFile(file, SettableMetadata(contentType: "image/jpeg"));
+      // print(uploadTask.snapshot);
+
+      var downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
       final credential = await FirebaseConfig()
           .baseDb
           .collection("Users")
           .doc(AppSharedPreferences.getUserId)
-          .update({"image": "my image"});
+          .update({"image": downloadUrl});
+      return credential;
     } catch (e) {
-      // print(e.toString());
       rethrow;
     }
   }

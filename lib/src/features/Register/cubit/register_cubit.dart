@@ -105,15 +105,18 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> userRegister() async {
     RegisterModel regModel = RegisterModel(
-        name: regNameController.text,
-        email: regEmailController.text,
-        phone: regPhoneController.text,
-        birthYear: getYearValue,
-        gender: getGenderValue,
-        hobby1: gethobby1Value,
-        hobby2: gethobby2Value,
-        hobby3: gethobby3Value,
-        password: regPasswordController.text);
+      name: regNameController.text,
+      email: regEmailController.text,
+      phone: regPhoneController.text,
+      birthYear: getYearValue,
+      gender: getGenderValue,
+      hobby1: gethobby1Value,
+      hobby2: gethobby2Value,
+      hobby3: gethobby3Value,
+      password: regPasswordController.text,
+      image:
+          "https://media.istockphoto.com/id/532237983/photo/unrecognizable-person.jpg?s=612x612&w=0&k=20&c=JcJYir0QZNExJHlF2MYjsjoYSyQhY1IiR5wrHYmNN_w=",
+    );
     if (state.status == RegisterStatus.registerStarting) return;
     if (registerForm1Key.currentState!.validate() &&
         registerForm2Key.currentState!.validate()) {

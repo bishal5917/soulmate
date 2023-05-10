@@ -6,5 +6,6 @@ abstract class BaseAuthRepository {
   Stream<auth.User> get user;
   Future<auth.User?> logIn({required String email, required String password});
   Future<DocumentReference> userRegister(RegisterModel regModel);
+  Future<void> imageUpload();
   Future<void> signOut();
 }

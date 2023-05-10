@@ -25,15 +25,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initGetIt();
   await Firebase.initializeApp();
-  await FirebaseAppCheck.instance.activate(
-    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-    androidProvider: AndroidProvider.debug,
-  );
   WidgetsFlutterBinding.ensureInitialized();
   AppSharedPreferences.init();
 
   runApp(const MyApp());
-  // Bloc.observer = AppBlocObserver();
 }
 
 class MyApp extends StatelessWidget {
@@ -63,7 +58,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => sl.get<LocalImageCubit>(),
           child: const AddImageScreen(),
-        ),
+      ),
         BlocProvider(create: (context) => sl.get<SelectCountryCubit>()),
       ],
       child: MaterialApp(

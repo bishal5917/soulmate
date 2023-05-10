@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final registerModel = registerModelFromJson(jsonString);
+
 import 'dart:convert';
 
 RegisterModel registerModelFromJson(String str) =>
@@ -15,6 +19,7 @@ class RegisterModel {
   String? hobby2;
   String? hobby3;
   String? password;
+  String? image;
 
   RegisterModel({
     this.name,
@@ -26,6 +31,7 @@ class RegisterModel {
     this.hobby2,
     this.hobby3,
     this.password,
+    this.image,
   });
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
@@ -38,6 +44,7 @@ class RegisterModel {
         hobby2: json["hobby2"],
         hobby3: json["hobby3"],
         password: json["password"],
+        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,5 +57,6 @@ class RegisterModel {
         "hobby2": hobby2,
         "hobby3": hobby3,
         "password": password,
+        "image": image,
       };
 }
