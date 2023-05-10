@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:soulmate/di_injection.dart';
+import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/utils/firebase_config.dart';
@@ -69,10 +71,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   List<DropdownMenuItem<String>> get hobbyItems {
     List<DropdownMenuItem<String>> hbyItems = [
-      const DropdownMenuItem(
-        value: "coding",
-        child: Text("Coding"),
-      ),
+      const DropdownMenuItem(value: "coding", child: Text("Coding")),
       const DropdownMenuItem(value: "travelling", child: Text("Travelling")),
       const DropdownMenuItem(
           value: "mountain biking", child: Text("Mountain Biking")),
@@ -140,6 +139,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   // @override
   void reset() {
+    // sl.get<LocalImageCubit>().localImage;
     regNameController.clear();
     regEmailController.clear();
     regPhoneController.clear();

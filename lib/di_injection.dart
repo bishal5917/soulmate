@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
@@ -13,8 +14,9 @@ import 'src/services/local/secure_storage.dart';
 final sl = GetIt.instance; // sl is short for service locator
 
 void initGetIt() {
-  sl.registerSingleton<ApiHandler>(ApiHandler());
-  sl.registerSingleton<SharedPreference>(SharedPreference());
+  // sl.registerSingleton<ApiHandler>(ApiHandler());
+  // sl.registerSingleton<SharedPreference>(SharedPreference());
+  sl.registerSingleton<AppSharedPreferences>(AppSharedPreferences());
 
   datasources();
   repositories();

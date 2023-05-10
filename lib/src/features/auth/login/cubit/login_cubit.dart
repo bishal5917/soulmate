@@ -2,7 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
+import 'package:soulmate/src/services/local/secure_storage.dart';
 
 part 'login_state.dart';
 
@@ -28,6 +31,8 @@ class LoginCubit extends Cubit<LoginState> {
       final response = await _authRepository.logIn(
           email: loginEmailController.text,
           password: loginPasswordController.text);
+      print(response!.uid);
+      AppSharedPreferences.setUserId(response.uid);
       emit(state.copyWith(status: LoginStatus.success, user: response));
     } catch (err) {
       // print(e.toString());

@@ -57,7 +57,7 @@ class _UserRegisterState extends State<UserRegister> {
             body: Theme(
               data: ThemeData(
                 colorScheme: ColorScheme.fromSwatch()
-                    .copyWith(primary: OColors.kPrimaryDarkColor),
+                    .copyWith(primary: OColors.kPrimaryMainColor),
               ),
               child: Column(
                 children: [
