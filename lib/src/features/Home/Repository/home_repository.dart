@@ -15,11 +15,12 @@ import 'package:soulmate/src/utils/firebase_config.dart';
 
 class HomeRepository extends BaseHomeRepository {
   @override
-  Future<List<FeedRequestModel?>> getFeed(String userId) async {
+  Future<List<FeedRequestModel>?> getFeed(String userId) async {
     try {
-      // String hb1 = AppSharedPreferences.getHobby1;
-      // String hb2 = AppSharedPreferences.getHobby2;
-      // String hb3 = AppSharedPreferences.getHobby3;
+      String hb1 = AppSharedPreferences.getHobby1;
+      String hb2 = AppSharedPreferences.getHobby2;
+      String hb3 = AppSharedPreferences.getHobby3;
+      FeedRequestModel feedModel = FeedRequestModel();
 
       List<FeedRequestModel> feedListData = [];
       var docSnapshot = FirebaseConfig()

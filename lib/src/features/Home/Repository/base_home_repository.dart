@@ -4,5 +4,5 @@ import 'package:soulmate/src/features/Home/feed_request_model.dart';
 
 abstract class BaseHomeRepository {
   Stream<auth.User> get user;
-  Future<List<FeedRequestModel?>> getFeed(String userId);
+  Future<List<FeedRequestModel>?> getFeed(String userId);
 }

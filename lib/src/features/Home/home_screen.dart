@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soulmate/di_injection.dart';
@@ -9,6 +10,7 @@ import 'package:soulmate/src/features/Home/widgets/feed_item.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
+import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/widgets/custom_home_appbar.dart';
 
 part 'components/home_body.dart';
@@ -22,10 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    sl.get<HomeCubit>().loadFeed();
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {

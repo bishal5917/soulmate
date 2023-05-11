@@ -16,7 +16,7 @@ class HomeState extends Equatable {
   HomeState copyWith(
       {HomeStatus? status,
       String? message,
-      FeedRequestModel? feedRequestModel}) {
+      List<FeedRequestModel>? feedItems}) {
     return HomeState(
         status: status ?? this.status,
         message: message ?? this.message,
