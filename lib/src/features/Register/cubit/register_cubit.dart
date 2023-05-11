@@ -150,7 +150,8 @@ class RegisterCubit extends Cubit<RegisterState> {
           message: "Upload Success"));
     } catch (err) {
       emit(state.copyWith(
-          status: RegisterStatus.error, message: "Image Upload Error"));
+          status: RegisterStatus.error, message: err.toString()));
+      print(err);
     }
   }
 

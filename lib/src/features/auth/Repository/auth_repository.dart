@@ -49,13 +49,13 @@ class AuthRepository extends BaseAuthRepository {
       final file = File(sl.get<LocalImageCubit>().localImage!.path);
 
       final storageRef = firebaseStorage.ref();
-      final uploadTask = storageRef
+      final uploadTask = await storageRef
           .child(
               "profiles/${DateTime.now().millisecondsSinceEpoch}-${AppSharedPreferences.getUserId}")
           .putFile(file, SettableMetadata(contentType: "image/jpeg"));
       // print(uploadTask.snapshot);
 
-      var downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+      var downloadUrl = await uploadTask.ref.getDownloadURL();
       final credential = await FirebaseConfig()
           .baseDb
           .collection("Users")

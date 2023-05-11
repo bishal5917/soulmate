@@ -16,11 +16,7 @@ class HomeBody extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              InkWell(
-                  onTap: () {
-                    AppSharedPreferences.clearCrendentials();
-                  },
-                  child: FeedItem()),
+              FeedItem(),
               FeedItem(),
               FeedItem(),
             ],
