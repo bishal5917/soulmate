@@ -29,11 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: const HomeBody(),
+        );
       },
-      child: const HomeBody(),
     );
   }
 }

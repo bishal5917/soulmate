@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 
 class FeedItem extends StatelessWidget {
+  final String name;
+  final String age;
+  final String image;
+  final String hobby1;
+  final String hobby2;
+  final String hobby3;
+
+  const FeedItem(
+      this.name, this.age, this.image, this.hobby1, this.hobby2, this.hobby3);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -20,7 +29,7 @@ class FeedItem extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    "https://akm-img-a-in.tosshub.com/sites/visualstory/stories/2022_07/story_8233/assets/2.jpeg?time=1656654025",
+                    image,
                     height: 300,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -33,8 +42,8 @@ class FeedItem extends StatelessWidget {
                     width: 350,
                     padding: const EdgeInsets.all(10),
                     color: Colors.black45,
-                    child: const Text(
-                      "Johnny Depp , 25",
+                    child: Text(
+                      "$name , ${age}",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                       softWrap: true,
                       overflow: TextOverflow.fade,
@@ -48,11 +57,11 @@ class FeedItem extends StatelessWidget {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CustomText.ourText("Acting",
+                    CustomText.ourText(hobby1,
                         fontSize: 15, fontStyle: FontStyle.italic),
-                    CustomText.ourText("Music",
+                    CustomText.ourText(hobby2,
                         fontSize: 15, fontStyle: FontStyle.italic),
-                    CustomText.ourText("Adventure",
+                    CustomText.ourText(hobby3,
                         fontSize: 15, fontStyle: FontStyle.italic)
                     // Row(
                     //   children: [
