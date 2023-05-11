@@ -5,25 +5,26 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(appWidth(context), 60),
-        child: CustomMainAppBar(
-          title: AppSharedPreferences.getUserId,
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              FeedItem(),
-              FeedItem(),
-              FeedItem(),
-            ],
+    // consolelog(sl.get<HomeCubit>().feedItems.length);
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size(appWidth(context), 60),
+            child: CustomMainAppBar(
+              title: AppSharedPreferences.getUserId,
+            ),
           ),
-        ),
-      ),
-      // bottomNavigationBar: BottomNavbar(),
+          body: SafeArea(
+            child: ListView.builder(
+                itemCount: sl.get<HomeCubit>().feedItems.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return FeedItem();
+                }),
+          ),
+          // bottomNavigationBar: BottomNavbar(),
+        );
+      },
     );
   }
 }
