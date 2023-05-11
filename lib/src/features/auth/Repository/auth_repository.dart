@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:soulmate/di_injection.dart';
+import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
@@ -26,15 +27,41 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<DocumentReference> userRegister(RegisterModel regModel) async {
+  Future<String> userRegister(RegisterModel regModel) async {
     try {
-      final credential = await FirebaseConfig().baseDb.collection("Users").add(
+      final credential = await FirebaseConfig()
+          .firebaseAuth
+          .createUserWithEmailAndPassword(
+              email: regModel.email as String,
+              password: regModel.password as String);
+
+      final newDoc = await FirebaseConfig()
+          .baseDb
+          .collection("Users")
+          .doc(credential.user!.uid)
+          .set(
             regModel.toJson(),
           );
-      await FirebaseConfig().firebaseAuth.createUserWithEmailAndPassword(
-          email: regModel.email as String,
-          password: regModel.password as String);
-      return credential;
+      return credential.user!.uid;
+    } catch (e) {
+      // print(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<dynamic>> userHobbyFetch() async {
+    try {
+      final hobbies = await FirebaseConfig()
+          .baseDb
+          .collection("Users")
+          .doc(AppSharedPreferences.getUserId)
+          .get();
+      final hobbyList = [];
+      hobbyList.add(hobbies.get("hobby1"));
+      hobbyList.add(hobbies.get("hobby2"));
+      hobbyList.add(hobbies.get("hobby3"));
+      return hobbyList;
     } catch (e) {
       // print(e.toString());
       rethrow;

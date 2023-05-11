@@ -5,7 +5,8 @@ import 'package:soulmate/src/features/Register/register_model.dart';
 abstract class BaseAuthRepository {
   Stream<auth.User> get user;
   Future<auth.User?> logIn({required String email, required String password});
-  Future<DocumentReference> userRegister(RegisterModel regModel);
+  Future<String> userRegister(RegisterModel regModel);
+  Future<List<dynamic>> userHobbyFetch();
   Future<void> imageUpload();
   Future<void> signOut();
 }

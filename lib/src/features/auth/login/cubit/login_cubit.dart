@@ -31,8 +31,11 @@ class LoginCubit extends Cubit<LoginState> {
       final response = await _authRepository.logIn(
           email: loginEmailController.text,
           password: loginPasswordController.text);
-      // print(response!.uid);
       AppSharedPreferences.setUserId(response!.uid);
+      final hobbies = await _authRepository.userHobbyFetch();
+      AppSharedPreferences.setHobby1(hobbies[0]);
+      AppSharedPreferences.setHobby2(hobbies[1]);
+      AppSharedPreferences.setHobby3(hobbies[2]);
       emit(state.copyWith(status: LoginStatus.success, user: response));
     } catch (err) {
       // print(e.toString());

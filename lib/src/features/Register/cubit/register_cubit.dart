@@ -124,8 +124,11 @@ class RegisterCubit extends Cubit<RegisterState> {
           status: RegisterStatus.registerStarting,
           message: " Registration Starting"));
       try {
-        final response = await AuthRepository().userRegister(regModel);
-        AppSharedPreferences.setUserId(response.id);
+        final userId = await AuthRepository().userRegister(regModel);
+        AppSharedPreferences.setUserId(userId);
+        AppSharedPreferences.setHobby1(regModel.hobby1 as String);
+        AppSharedPreferences.setHobby2(regModel.hobby2 as String);
+        AppSharedPreferences.setHobby3(regModel.hobby3 as String);
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,
             message: "SuccessFully Registered !!! "));
@@ -151,7 +154,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     } catch (err) {
       emit(state.copyWith(
           status: RegisterStatus.error, message: err.toString()));
-      print(err);
     }
   }
 
