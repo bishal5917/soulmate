@@ -1,16 +1,17 @@
 part of 'forgot_password_cubit.dart';
 
 enum ForgotPasswordStatus {
-  loading,
-  success,
-  failure,
+  initial,
+  submitting,
+  sent,
+  error,
 }
 
 class ForgotPasswordState extends Equatable {
   final ForgotPasswordStatus status;
   final String? message;
   const ForgotPasswordState({
-    this.status = ForgotPasswordStatus.loading,
+    this.status = ForgotPasswordStatus.initial,
     this.message,
   });
 

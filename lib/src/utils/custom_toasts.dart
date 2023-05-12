@@ -11,7 +11,7 @@ class CustomToasts {
         msg: msg.toString(),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 2,
+        timeInSecForIosWeb: 4,
         backgroundColor: color,
         textColor: Colors.white,
         fontSize: 14.0);

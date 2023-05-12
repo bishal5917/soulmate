@@ -43,14 +43,15 @@ void cubit() {
   //login cubit
   sl.registerLazySingleton(() => HomeCubit(authRepository: HomeRepository()));
 
-  //Register cubit
-  sl.registerLazySingleton(() => RegisterCubit());
-
   //forgot password cubit
-  sl.registerLazySingleton(() => ForgotPasswordCubit());
+  sl.registerLazySingleton(
+      () => ForgotPasswordCubit(authRepository: AuthRepository()));
 
   //reset password cubit
   sl.registerLazySingleton(() => ResetPasswordCubit());
+
+  //Register cubit
+  sl.registerLazySingleton(() => RegisterCubit());
 
   //select country cubit
   sl.registerLazySingleton(() => SelectCountryCubit());

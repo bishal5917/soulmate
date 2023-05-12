@@ -121,11 +121,12 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         // prefixText: prefixText == true ? "$phoneNumberPrefixText " : null,
         filled: filled,
-        
+
         errorStyle: const TextStyle(
           fontSize: 10.0,
           fontFamily: "Outfit",
         ),
+        labelStyle: TextStyle(color: OColors.kNeutral500Color),
         hintStyle: TextStyle(
           fontFamily: "Outfit",
           fontSize: 16.0,

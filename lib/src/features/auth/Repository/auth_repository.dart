@@ -69,6 +69,18 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
+  Future<void> sendOTP(String email) async {
+    try {
+      await FirebaseConfig().firebaseAuth.sendPasswordResetEmail(email: email);
+      // .then((value) => _status = AuthStatus.successful)
+      // .catchError(
+      //     (e) => _status = AuthExceptionHandler.handleAuthException(e));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> imageUpload() async {
     try {
       final firebaseStorage = FirebaseStorage.instance;

@@ -126,9 +126,10 @@ class RegisterCubit extends Cubit<RegisterState> {
       try {
         final userId = await AuthRepository().userRegister(regModel);
         AppSharedPreferences.setUserId(userId);
-        AppSharedPreferences.setHobby1(regModel.hobby1 as String);
-        AppSharedPreferences.setHobby2(regModel.hobby2 as String);
-        AppSharedPreferences.setHobby3(regModel.hobby3 as String);
+        // AppSharedPreferences.setHobby1(regModel.hobby1 as String);
+        // AppSharedPreferences.setHobby2(regModel.hobby2 as String);
+        // AppSharedPreferences.setHobby3(regModel.hobby3 as String);
+        
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,
             message: "SuccessFully Registered !!! "));

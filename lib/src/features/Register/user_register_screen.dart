@@ -8,6 +8,7 @@ import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
+import 'package:soulmate/src/utils/String_modify.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/utils/validation.dart';
 import 'package:soulmate/src/widgets/custom_button.dart';
@@ -34,14 +35,16 @@ class _UserRegisterState extends State<UserRegister> {
       listener: (context, state) {
         print(state);
         if (state.status == RegisterStatus.dataError) {
-          CustomToasts.showToast(msg: state.message);
+          CustomToasts.showToast(
+              msg: stringModify().formatErrorMsg(state.message.toString()));
         }
         if (state.status == RegisterStatus.registerSuccess) {
-          CustomToasts.showToast(msg: state.message);
+          CustomToasts.showToast(
+              msg: state.message.toString(), color: Colors.teal);
           navigate(context, const AddImageScreen());
         }
         if (state.status == RegisterStatus.error) {
-          CustomToasts.showToast(msg: state.message);
+          CustomToasts.showToast(msg: state.message.toString());
         }
         sl.get<RegisterCubit>().reset();
       },

@@ -7,6 +7,7 @@ abstract class BaseAuthRepository {
   Future<auth.User?> logIn({required String email, required String password});
   Future<String> userRegister(RegisterModel regModel);
   Future<List<dynamic>> userHobbyFetch();
+  Future<void> sendOTP(String email);
   Future<void> imageUpload();
   Future<void> signOut();
 }

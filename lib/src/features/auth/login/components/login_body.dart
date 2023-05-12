@@ -48,7 +48,7 @@ class _LoginBodyState extends State<LoginBody> {
                       children: [
                         GestureDetector(
                             onTap: () {
-                              navigate(context, const AddImageScreen());
+                              navigate(context, const ForgotPasswordScreen());
                             },
                             child: CustomText.ourText("Forgot Password?",
                                 color: Colors.redAccent)),

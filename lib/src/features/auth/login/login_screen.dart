@@ -11,6 +11,7 @@ import 'package:soulmate/src/features/Home/home_screen.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/forgot_password/forgot_password_screen.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
+import 'package:soulmate/src/features/auth/reset_password/reset_password_screen.dart';
 import 'package:soulmate/src/features/auth/widgets/login_form_widget.dart';
 import 'package:soulmate/src/features/auth/widgets/login_google_apple_widget.dart';
 import 'package:soulmate/src/utils/String_modify.dart';
