@@ -21,6 +21,6 @@ class AddImageScreen extends StatelessWidget {
             title: "Add Your Image",
           ),
         ),
-        body: AddImage());
+        body: const AddImage(false));
   }
 }

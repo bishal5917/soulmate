@@ -16,13 +16,18 @@ import 'package:soulmate/src/widgets/custom_button.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 
 class AddImage extends StatelessWidget {
-  const AddImage({Key? key}) : super(key: key);
+  // const AddImage({Key? key}) : super(key: key);
+
+  final bool isInsideProfile;
+
+  const AddImage(this.isInsideProfile);
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, regLisState) {
-        if (regLisState.status == RegisterStatus.imageUploadSuccess) {
+        if (regLisState.status == RegisterStatus.imageUploadSuccess &&
+            isInsideProfile == false) {
           navigate(context, const HomeScreen());
         }
         if (regLisState.status == RegisterStatus.error) {
@@ -104,8 +109,11 @@ class AddImage extends StatelessWidget {
                           onPressed: () {
                             sl.get<RegisterCubit>().imageUpload();
                           },
-                          icon: CustomText.ourText("Continue to App",
-                              color: Colors.white, fontSize: 14),
+                          icon: isInsideProfile
+                              ? CustomText.ourText("Update",
+                                  color: Colors.white, fontSize: 14)
+                              : CustomText.ourText("Continue to App",
+                                  color: Colors.white, fontSize: 14),
                           label: const Icon(
                             Icons.arrow_forward_ios,
                             color: Colors.white,
