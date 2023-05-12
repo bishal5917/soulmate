@@ -12,23 +12,27 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit({required HomeRepository authRepository})
       : _homeRepository = authRepository,
-        super(HomeState.initial());
+        super(const HomeState());
 
   List<FeedRequestModel>? _feedItems = [];
 
   List<FeedRequestModel>? get feedItems => _feedItems;
 
   Future<void> loadFeed() async {
-    emit(state.copyWith(status: HomeStatus.initial));
+    emit(
+      state.copyWith(status: HomeStatus.fetching, message: "Fetching Started"),
+    );
     try {
       final response =
           await _homeRepository.getFeed(AppSharedPreferences.getUserId);
-      consolelog(response);
       _feedItems = response;
+      consolelog("response :: $response");
+      consolelog(response?[0].image);
       emit(state.copyWith(
-          status: HomeStatus.success,
-          message: "Feed Loaded",
-          feedItems: _feedItems));
+        status: HomeStatus.success,
+        message: "Feed Loaded",
+        feedReqModel: response,
+      ));
     } catch (err) {
       consolelog(err.toString());
       emit(state.copyWith(status: HomeStatus.error, message: err.toString()));

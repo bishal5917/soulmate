@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:soulmate/app_bloc_observer.dart';
 import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/splash_screen.dart';
 import 'package:soulmate/src/core/app/colors.dart';
@@ -29,6 +30,7 @@ void main() async {
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   AppSharedPreferences.init();
+  Bloc.observer = AppBlocObserver();
 
   runApp(const MyApp());
 }

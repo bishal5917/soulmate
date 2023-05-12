@@ -14,6 +14,7 @@ class _LoginBodyState extends State<LoginBody> {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
+        consolelog(state);
         if (state.status == LoginStatus.success) {
           navigate(context, const HomeScreen());
           sl.get<LoginCubit>().reset();

@@ -3,6 +3,7 @@ import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Home/home_screen.dart';
+import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/features/onboarding/select_country/select_country_screen.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';

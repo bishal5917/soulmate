@@ -18,35 +18,61 @@ class _HomeBodyState extends State<HomeBody> {
   Widget build(BuildContext context) {
     // consolelog(sl.get<HomeCubit>().feedItems.length);
 
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        return Scaffold(
-          // appBar: PreferredSize(
-          //   preferredSize: Size(appWidth(context), 60),
-          //   child: CustomMainAppBar(
-          //     title: AppSharedPreferences.getUserId,
-          //   ),
-          // ),
-          body: SafeArea(
-            child: state.status == HomeStatus.success
-                ? ListView.builder(
-                    itemCount: sl.get<HomeCubit>().feedItems!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return FeedItem(
-                        sl.get<HomeCubit>().feedItems![index].name as String,
-                        sl.get<HomeCubit>().feedItems![index].birthYear
-                            as String,
-                        sl.get<HomeCubit>().feedItems![index].image as String,
-                        sl.get<HomeCubit>().feedItems![index].hobby1 as String,
-                        sl.get<HomeCubit>().feedItems![index].hobby2 as String,
-                        sl.get<HomeCubit>().feedItems![index].hobby3 as String,
-                      );
-                    })
-                : const CircularProgressIndicator(),
-          ),
-          // bottomNavigationBar: BottomNavbar(),
-        );
+    return BlocListener<HomeCubit, HomeState>(
+      listener: (context, state) {
+        // consolelog(state);
+        if (state.status == HomeStatus.success) {
+          List<FeedRequestModel>? feedItems;
+          feedItems = state.feedReqModel;
+        }
       },
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return Scaffold(
+            // appBar: PreferredSize(
+            //   preferredSize: Size(appWidth(context), 60),
+            //   child: CustomMainAppBar(
+            //     title: AppSharedPreferences.getUserId,
+            //   ),
+            // ),
+            body: state.status == HomeStatus.fetching
+                ? Padding(
+                    padding: screenLeftRightPadding,
+                    child: SafeArea(
+                      child: ListView.builder(
+                          itemCount: 3,
+                          itemBuilder: (BuildContext context, int index) {
+                            return const CustomShimmerContainerWidget(
+                              height: 300,
+                              backgroundColor:
+                                  Color.fromARGB(255, 222, 228, 230),
+                              width: double.infinity,
+                              margin: EdgeInsets.only(top: 5, bottom: 10),
+                            );
+                          }),
+                    ),
+                  )
+                : state.status == HomeStatus.success
+                    ? SafeArea(
+                        child: ListView.builder(
+                            itemCount: state.feedReqModel?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              consolelog("state :: ${state.feedReqModel}");
+                              return FeedItem(
+                                state.feedReqModel?[index].name ?? "",
+                                state.feedReqModel?[index].birthYear ?? "",
+                                state.feedReqModel?[index].image ?? "",
+                                state.feedReqModel?[index].hobby1 ?? "",
+                                state.feedReqModel?[index].hobby2 ?? "",
+                                state.feedReqModel?[index].hobby3 ?? "",
+                              );
+                            }),
+                      )
+                    : CustomText.ourText("data"),
+            // bottomNavigationBar: BottomNavbar(),
+          );
+        },
+      ),
     );
   }
 }

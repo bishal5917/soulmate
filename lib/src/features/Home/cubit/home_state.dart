@@ -1,30 +1,29 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'home_cubit.dart';
 
-enum HomeStatus { initial, success, error }
+enum HomeStatus { initial, fetching, success, error }
 
 class HomeState extends Equatable {
   final HomeStatus? status;
   final String? message;
-  final FeedRequestModel? feedReqModel;
+  final List<FeedRequestModel>? feedReqModel;
   const HomeState(
-      {this.status = HomeStatus.initial, this.message, this.feedReqModel});
-
-  factory HomeState.initial() {
-    return const HomeState(status: HomeStatus.initial, message: "");
-  }
-
-  HomeState copyWith(
-      {HomeStatus? status,
-      String? message,
-      List<FeedRequestModel>? feedItems}) {
-    return HomeState(
-        status: status ?? this.status,
-        message: message ?? this.message,
-        feedReqModel: feedReqModel ?? feedReqModel);
-  }
+      {this.status = HomeStatus.fetching, this.message, this.feedReqModel});
 
   @override
   List<Object?> get props => [status, message];
+
+  HomeState copyWith({
+    HomeStatus? status,
+    String? message,
+    List<FeedRequestModel>? feedReqModel,
+  }) {
+    return HomeState(
+      status: status ?? this.status,
+      message: message ?? this.message,
+      feedReqModel: feedReqModel ?? this.feedReqModel,
+    );
+  }
 }
 
 class HomeInitial extends HomeState {}

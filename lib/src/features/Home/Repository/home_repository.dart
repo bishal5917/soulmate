@@ -17,13 +17,8 @@ class HomeRepository extends BaseHomeRepository {
   @override
   Future<List<FeedRequestModel>?> getFeed(String userId) async {
     try {
-      String hb1 = AppSharedPreferences.getHobby1;
-      String hb2 = AppSharedPreferences.getHobby2;
-      String hb3 = AppSharedPreferences.getHobby3;
-      FeedRequestModel feedModel = FeedRequestModel();
-
       List<FeedRequestModel> feedListData = [];
-      var docSnapshot = FirebaseConfig()
+      await FirebaseConfig()
           .baseDb
           .collection('Users')
           .where('hobby1', isNotEqualTo: AppSharedPreferences.getHobby2)
@@ -31,13 +26,13 @@ class HomeRepository extends BaseHomeRepository {
           .then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach(
           (doc) {
-            if (doc.id == AppSharedPreferences.getUserId) {
+            if (doc.id != AppSharedPreferences.getUserId) {
               feedListData.add(FeedRequestModel.fromJson(
                   doc.data() as Map<String, dynamic>));
             }
           },
         );
-        consolelog(feedListData);
+        // consolelog("feedListData :: $feedListData");
       });
       return feedListData;
     } catch (e) {
