@@ -10,14 +10,13 @@ class ChatCubit extends Cubit<ChatState> {
 
   ChatCubit({required ChatRepository chatRepository})
       : _chatRepository = chatRepository,
-        super(ChatInitial());
+        super(ChatState.initial());
 
   //required data to create a chat
   //userid,friendId,image,friendname
 
   Future<void> createChat(String userId, String anotherUserId,
       String anotherUserName, String anotherUserImage) async {
-    if (state.status == ChatStatus.starting) return;
     emit(
       state.copyWith(status: ChatStatus.starting, message: "Fetching Started"),
     );
@@ -26,7 +25,7 @@ class ChatCubit extends Cubit<ChatState> {
           userId, anotherUserId, anotherUserName, anotherUserImage);
       emit(state.copyWith(
         status: ChatStatus.created,
-        message: "Chat Created !",
+        message: "Added to chat !!!",
       ));
     } catch (err) {
       consolelog(err.toString());

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/app/colors.dart';
+import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
@@ -23,13 +25,8 @@ class FeedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Conversation must be created so that the logged in user can chat with that another user.
-
-        // navigateNamed(context, "/open_chat", arguments: {
-        //   "cid": widget.conversationId,
-        //   "fname": name,
-        //   "fid": fid
-        // });
+        navigateNamed(context, '/feed_detail',
+            arguments: {"fid": fid, "fname": name, "fimage": image});
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -65,7 +62,8 @@ class FeedItem extends StatelessWidget {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "$name , ${2023 - int.parse(age)}",
-                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 25, color: Colors.white),
                             softWrap: true,
                             overflow: TextOverflow.fade,
                           ),
@@ -74,7 +72,8 @@ class FeedItem extends StatelessWidget {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             phone,
-                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.white),
                             softWrap: true,
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.left,
@@ -97,16 +96,21 @@ class FeedItem extends StatelessWidget {
                         fontSize: 15, fontStyle: FontStyle.italic),
                     CustomText.ourText(hobby3,
                         fontSize: 15, fontStyle: FontStyle.italic),
-                    IconButton(
-                      onPressed: () {
-                        sl.get<ChatCubit>().createChat(
-                            AppSharedPreferences.getUserId, fid, name, image);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_circle_right_outlined,
-                        color: Colors.red,
-                      ),
-                    )
+                    // state.status == ChatStatus.starting
+                    //     ? const CircularProgressIndicator()
+                    //     : IconButton(
+                    //         onPressed: () {
+                    //           sl.get<ChatCubit>().createChat(
+                    //               AppSharedPreferences.getUserId,
+                    //               fid,
+                    //               name,
+                    //               image);
+                    //         },
+                    //         icon: const Icon(
+                    //           Icons.arrow_circle_right_outlined,
+                    //           color: Colors.red,
+                    //         ),
+                    //       )
                   ]),
             )
           ],

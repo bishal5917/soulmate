@@ -33,7 +33,7 @@ class HomeRepository extends BaseHomeRepository {
                   birthYear: doc.get("birthYear"),
                   hobby1: doc.get("hobby1"),
                   hobby2: doc.get("hobby2"),
-                  hobby3: doc.get("hobby2"),
+                  hobby3: doc.get("hobby3"),
                   image: doc.get("image"),
                   name: doc.get("name"),
                   phone: doc.get("phone")));

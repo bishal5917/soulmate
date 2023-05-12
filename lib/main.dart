@@ -14,6 +14,7 @@ import 'package:soulmate/src/features/Chat/chat_screen.dart';
 import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
 import 'package:soulmate/src/features/Chat/widgets/Chat.dart';
 import 'package:soulmate/src/features/Chat/widgets/Message.dart';
+import 'package:soulmate/src/features/FeedDetail/feed_detail_screen.dart';
 import 'package:soulmate/src/features/Home/cubit/home_cubit.dart';
 import 'package:soulmate/src/features/Home/home_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
@@ -129,7 +130,8 @@ class MyApp extends StatelessWidget {
         home: const SplashScreen(),
         routes: {
           '/login': (context) => const LoginScreen(),
-          '/open_chat': (context) => const Chat()
+          '/open_chat': (context) => const Chat(),
+          '/feed_detail': (context) => const FeedDetailScreen()
         },
       ),
     );
