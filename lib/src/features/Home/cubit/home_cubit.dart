@@ -27,7 +27,6 @@ class HomeCubit extends Cubit<HomeState> {
           await _homeRepository.getFeed(AppSharedPreferences.getUserId);
       _feedItems = response;
       consolelog("response :: $response");
-      consolelog(response?[0].image);
       emit(state.copyWith(
         status: HomeStatus.success,
         message: "Feed Loaded",

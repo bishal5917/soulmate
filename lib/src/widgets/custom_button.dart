@@ -52,7 +52,7 @@ class CustomButton {
   }
 
   static Widget textButton(
-    String title,
+    String? title,
     Function()? onPressed, {
     Color? titleColor,
     double? width,

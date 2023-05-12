@@ -21,18 +21,26 @@ class HomeRepository extends BaseHomeRepository {
       await FirebaseConfig()
           .baseDb
           .collection('Users')
-          .where('hobby1', isNotEqualTo: AppSharedPreferences.getHobby2)
           .get()
           .then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach(
           (doc) {
             if (doc.id != AppSharedPreferences.getUserId) {
-              feedListData.add(FeedRequestModel.fromJson(
-                  doc.data() as Map<String, dynamic>));
+              // feedListData.add(FeedRequestModel.fromJson(
+              //     doc.data() as Map<String, dynamic>));
+              feedListData.add(FeedRequestModel(
+                  fid: doc.id,
+                  birthYear: doc.get("birthYear"),
+                  hobby1: doc.get("hobby1"),
+                  hobby2: doc.get("hobby2"),
+                  hobby3: doc.get("hobby2"),
+                  image: doc.get("image"),
+                  name: doc.get("name"),
+                  phone: doc.get("phone")));
+              // consolelog(doc.data());
             }
           },
         );
-        // consolelog("feedListData :: $feedListData");
       });
       return feedListData;
     } catch (e) {

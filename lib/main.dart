@@ -10,6 +10,8 @@ import 'package:soulmate/splash_screen.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
+import 'package:soulmate/src/features/Chat/chat_screen.dart';
+import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
 import 'package:soulmate/src/features/Chat/widgets/Chat.dart';
 import 'package:soulmate/src/features/Chat/widgets/Message.dart';
 import 'package:soulmate/src/features/Home/cubit/home_cubit.dart';
@@ -68,6 +70,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => sl.get<HomeCubit>(),
           child: const HomeScreen(),
+        ),
+        BlocProvider(
+          create: (context) => sl.get<ChatCubit>(),
+          child: const ChatScreen(),
         ),
         BlocProvider(create: (context) => sl.get<SelectCountryCubit>()),
       ],
