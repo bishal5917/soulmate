@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
+import 'package:soulmate/src/features/Chat/chat_screen.dart';
 import 'package:soulmate/src/features/Home/home_screen.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 1),
       () => AppSharedPreferences.getUserId != null
-          ? navigate(context, const LoginScreen())
+          ? navigate(context, const ChatScreen())
           : navigateOffAllNamed(context, '/login'),
     );
     super.initState();

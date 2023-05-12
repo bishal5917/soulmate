@@ -14,7 +14,7 @@ class FeedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () => selectMeal(context),
+      // onTap: () => ,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 5,
@@ -43,7 +43,7 @@ class FeedItem extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     color: Colors.black45,
                     child: Text(
-                      "$name , ${age}",
+                      "$name , ${2023 - int.parse(age)}",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                       softWrap: true,
                       overflow: TextOverflow.fade,

@@ -5,6 +5,15 @@ class ChatBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Chat Body");
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(appWidth(context), 60),
+        child: const CustomMainAppBar(
+          action: [Icon(Icons.search_outlined)],
+          title: "Chats",
+        ),
+      ),
+      body: const ConvosList(),
+    );
   }
 }
