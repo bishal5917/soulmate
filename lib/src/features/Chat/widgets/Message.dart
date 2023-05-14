@@ -47,8 +47,7 @@ class _MessageState extends State<Message> {
                         blurRadius: 5)
                   ]),
               child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://c4.wallpaperflare.com/wallpaper/695/974/527/anime-attack-on-titan-attack-on-titan-levi-ackerman-shingeki-no-kyojin-hd-wallpaper-preview.jpg"),
+                backgroundImage: NetworkImage(widget.profPic),
                 radius: 36,
               ),
             ),
@@ -61,15 +60,15 @@ class _MessageState extends State<Message> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(widget.username,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("",
+                      const Text("",
                           style: TextStyle(fontSize: 10, color: Colors.black54))
                     ],
                   ),
                   Container(
                     alignment: Alignment.topLeft,
-                    child: Text(
+                    child: const Text(
                       "Tap to open chat ...",
                       style: TextStyle(fontSize: 15, color: Colors.black54),
                       overflow: TextOverflow.ellipsis,

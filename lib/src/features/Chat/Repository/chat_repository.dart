@@ -6,6 +6,7 @@ import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Chat/Repository/base_chat_repository.dart';
+import 'package:soulmate/src/features/Chat/models/conversation_request_model.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/Repository/base_auth_repository.dart';
@@ -52,6 +53,33 @@ class ChatRepository extends BaseChatRepository {
         return false;
       }
       return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<ConversationRequestModel>?> getConvos(String userId) async {
+    try {
+      List<ConversationRequestModel> conversationReqdata = [];
+      await FirebaseConfig()
+          .baseDb
+          .collection('Convos')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach(
+          (doc) {
+            if (doc.get("members").contains(userId)) {
+              conversationReqdata.add(
+                ConversationRequestModel(
+                    conversationId: doc.id,
+                    fimage: doc.get("fimage"),
+                    fname: doc.get("fname")),
+              );
+            }
+          },
+        );
+      });
+      return conversationReqdata;
     } catch (e) {
       rethrow;
     }

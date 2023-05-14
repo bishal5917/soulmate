@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/features/Chat/Repository/chat_repository.dart';
+import 'package:soulmate/src/features/Chat/models/conversation_request_model.dart';
 
 part 'chat_state.dart';
 
@@ -34,6 +35,24 @@ class ChatCubit extends Cubit<ChatState> {
         emit(state.copyWith(
             status: ChatStatus.error, message: "Already Your Chat !!!"));
       }
+    } catch (err) {
+      consolelog(err.toString());
+      emit(state.copyWith(status: ChatStatus.error, message: err.toString()));
+    }
+  }
+
+  Future<void> retrieveConversations(String userId) async {
+    emit(
+      state.copyWith(
+          status: ChatStatus.fetchingConversation,
+          message: "Getting Conversations ..."),
+    );
+    try {
+      final conversationList = await _chatRepository.getConvos(userId);
+      emit(state.copyWith(
+          status: ChatStatus.fetchingConversationSuccess,
+          convoRequestModel: conversationList,
+          message: "Getting Conversations ..."));
     } catch (err) {
       consolelog(err.toString());
       emit(state.copyWith(status: ChatStatus.error, message: err.toString()));
