@@ -103,6 +103,7 @@ class AddImage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  vSizedBox1,
                   regstate.status == RegisterStatus.imageUploadStarting
                       ? const CircularProgressIndicator()
                       : CustomButton.elevatedButtonWithIcon(

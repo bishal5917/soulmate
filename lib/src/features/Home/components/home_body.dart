@@ -52,8 +52,7 @@ class _HomeBodyState extends State<HomeBody> {
                                 state.feedReqModel?[index].phone ?? "");
                           }),
                     )
-                  : CustomText.ourText("data"),
-          // bottomNavigationBar: BottomNavbar(),
+                  : CustomText.ourText(""),
         );
       },
     );

@@ -68,17 +68,17 @@ class FeedItem extends StatelessWidget {
                             overflow: TextOverflow.fade,
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            phone,
-                            style: const TextStyle(
-                                fontSize: 15, color: Colors.white),
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
+                        // Container(
+                        //   alignment: Alignment.bottomLeft,
+                        //   child: Text(
+                        //     phone,
+                        //     style: const TextStyle(
+                        //         fontSize: 15, color: Colors.white),
+                        //     softWrap: true,
+                        //     overflow: TextOverflow.fade,
+                        //     textAlign: TextAlign.left,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

@@ -8,9 +8,7 @@ class ProfileBody extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(appWidth(context), 60),
-          child: const CustomMainAppBar(
-            title: "My Profile",
-          ),
+          child: const CustomMainAppBar(),
         ),
         body: const SingleChildScrollView(
           child: AddImage(true),
