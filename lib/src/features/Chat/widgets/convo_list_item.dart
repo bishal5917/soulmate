@@ -2,28 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 
-class Message extends StatefulWidget {
+class ConvoListItem extends StatefulWidget {
   final String userId;
   final String username;
   final String conversationId;
   final String profPic;
 
-  Message(this.userId, this.username, this.conversationId, this.profPic);
+  ConvoListItem(this.userId, this.username, this.conversationId, this.profPic);
 
   @override
-  State<Message> createState() => _MessageState();
+  State<ConvoListItem> createState() => _ConvoListItemState();
 }
 
-class _MessageState extends State<Message> {
+class _ConvoListItemState extends State<ConvoListItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).pushNamed('/open_chat', arguments: {
-        //   "cid": widget.conversationId,
-        //   "fname": widget.username,
-        //   "fid": widget.userId
-        // });
         navigateNamed(context, '/open_chat', arguments: {
           "cid": widget.conversationId,
           "fname": widget.username,

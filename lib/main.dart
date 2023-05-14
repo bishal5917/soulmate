@@ -12,11 +12,12 @@ import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Chat/chat_screen.dart';
 import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
-import 'package:soulmate/src/features/Chat/widgets/Chat.dart';
-import 'package:soulmate/src/features/Chat/widgets/Message.dart';
+import 'package:soulmate/src/features/Message/Chat.dart';
+import 'package:soulmate/src/features/Chat/widgets/convo_list_item.dart';
 import 'package:soulmate/src/features/FeedDetail/feed_detail_screen.dart';
 import 'package:soulmate/src/features/Home/cubit/home_cubit.dart';
 import 'package:soulmate/src/features/Home/home_screen.dart';
+import 'package:soulmate/src/features/Message/cubit/message_cubit.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/auth/forgot_password/cubit/forgot_password_cubit.dart';
@@ -75,6 +76,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => sl.get<ChatCubit>(),
           child: const ChatScreen(),
+        ),
+        BlocProvider(
+          create: (context) => sl.get<MessageCubit>(),
+          child: const Chat(),
         ),
         BlocProvider(create: (context) => sl.get<SelectCountryCubit>()),
       ],

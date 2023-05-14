@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
-import 'package:soulmate/src/features/Chat/widgets/Message.dart';
+import 'package:soulmate/src/features/Chat/widgets/convo_list_item.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
 
 class ConvosList extends StatefulWidget {
@@ -28,8 +28,12 @@ class _ConvosListState extends State<ConvosList> {
         return ListView.builder(
             itemCount: state.convoRequestModel?.length,
             itemBuilder: (BuildContext context, int index) {
-              return Message("1", state.convoRequestModel?[index].fname ?? "",
-                  "1", state.convoRequestModel?[index].fimage ?? "");
+              return ConvoListItem(
+                "1",
+                state.convoRequestModel?[index].fname ?? "",
+                state.convoRequestModel?[index].conversationId ?? "",
+                state.convoRequestModel?[index].fimage ?? "",
+              );
             });
       },
     );

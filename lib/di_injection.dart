@@ -5,6 +5,8 @@ import 'package:soulmate/src/features/Chat/Repository/chat_repository.dart';
 import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
 import 'package:soulmate/src/features/Home/Repository/home_repository.dart';
 import 'package:soulmate/src/features/Home/cubit/home_cubit.dart';
+import 'package:soulmate/src/features/Message/Repository/message_repository.dart';
+import 'package:soulmate/src/features/Message/cubit/message_cubit.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
@@ -51,6 +53,10 @@ void cubit() {
 
   //chat cubit
   sl.registerLazySingleton(() => ChatCubit(chatRepository: ChatRepository()));
+
+  //message cubit
+  sl.registerLazySingleton(
+      () => MessageCubit(messageRepository: MessageRepository()));
 
   //reset password cubit
   sl.registerLazySingleton(() => ResetPasswordCubit());

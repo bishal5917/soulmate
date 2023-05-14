@@ -6,7 +6,7 @@ import 'package:soulmate/src/core/app/dimensions.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:soulmate/src/features/Chat/widgets/chat_sentences.dart';
+import 'package:soulmate/src/features/Message/chat_sentences.dart';
 import 'package:soulmate/src/widgets/custom_text_form_field_widget.dart';
 
 class Chat extends StatefulWidget {
