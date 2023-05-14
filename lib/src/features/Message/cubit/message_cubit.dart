@@ -17,21 +17,29 @@ class MessageCubit extends Cubit<MessageState> {
 
   TextEditingController get messageInputController => _messageInputController;
 
-  Future<void> sendMessages(String conversationId, String senderId,
-      String message, String sentTime) async {
+  Future<void> sendMessages(String conversationId, String senderId) async {
     emit(
       state.copyWith(
           status: MessageStatus.sending, message: "sending message ... "),
     );
     try {
-      await _messageRepository.sendMessage(
-          conversationId, senderId, messageInputController.text, "sat 16 Jun");
+      if (messageInputController.text.isNotEmpty) {
+        await _messageRepository.sendMessage(conversationId, senderId,
+            messageInputController.text, "sat 16 Jun");
 
-      emit(state.copyWith(status: MessageStatus.error, message: "sent"));
+        emit(state.copyWith(status: MessageStatus.sent, message: "sent"));
+      }
+      emit(
+        state.copyWith(status: MessageStatus.initial, message: "initial"),
+      );
     } catch (err) {
       consolelog(err.toString());
       emit(
           state.copyWith(status: MessageStatus.error, message: err.toString()));
     }
+  }
+
+  void resetControllers() {
+    _messageInputController.clear();
   }
 }

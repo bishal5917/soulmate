@@ -13,7 +13,11 @@ class MessageRepository extends BaseMessageRepository {
           .doc(conversationId)
           .collection("messages")
           .doc()
-          .set({});
+          .set({
+        "senderId": senderId,
+        "message": message,
+        "createdAt": DateTime.now()
+      });
     } catch (e) {
       rethrow;
     }

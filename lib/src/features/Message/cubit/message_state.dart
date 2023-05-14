@@ -2,6 +2,7 @@ part of 'message_cubit.dart';
 
 enum MessageStatus {
   initial,
+  starting,
   sending,
   sent,
   fetchingMessages,
@@ -15,7 +16,7 @@ class MessageState extends Equatable {
   // final List<ConversationRequestModel>? convoRequestModel;
 
   const MessageState({
-    this.status = MessageStatus.initial,
+    this.status = MessageStatus.starting,
     this.message,
     // this.convoRequestModel,
   });
