@@ -36,11 +36,16 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final argss =
+          ModalRoute.of(context)?.settings.arguments as Map<String, String>;
+      sl.get<MessageCubit>().retrieveMessages(argss['cid'] as String);
+    });
   }
 
   Widget build(BuildContext context) {
     final argso =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+        ModalRoute.of(context)?.settings.arguments as Map<String, String>;
     return BlocListener<MessageCubit, MessageState>(
       listener: (context, state) {
         if (state.status == MessageStatus.sent) {
@@ -64,15 +69,13 @@ class _ChatState extends State<Chat> {
                   Expanded(
                     child: ListView.builder(
                         controller: _controller,
-                        itemCount: 5,
+                        itemCount: state.messageRequestModel?.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Chat_Sentences(
-                            "1",
-                            "Its Ian",
-                            "Very nice",
-                            "Sat, 16 jun",
-                            "2",
-                          );
+                              argso['fPic'] as String,
+                              state.messageRequestModel?[index].message ?? "",
+                              state.messageRequestModel?[index].createdAt ?? "",
+                              state.messageRequestModel?[index].senderId ?? "");
                         }),
                   ),
                   Container(
