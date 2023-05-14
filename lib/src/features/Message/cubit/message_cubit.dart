@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/features/Message/Repository/message_repository.dart';
+import 'package:soulmate/src/features/Message/models/message_request_model.dart';
 
 part 'message_state.dart';
 
@@ -36,6 +37,28 @@ class MessageCubit extends Cubit<MessageState> {
       consolelog(err.toString());
       emit(
           state.copyWith(status: MessageStatus.error, message: err.toString()));
+    }
+  }
+
+  Future<void> retrieveMessages(String conversationId) async {
+    emit(
+      state.copyWith(
+          status: MessageStatus.fetchingMessages,
+          message: "Getting Messages ...",
+          messageRequestModel: []),
+    );
+    try {
+      final messageList = await _messageRepository.getMessages(conversationId);
+      emit(state.copyWith(
+          status: MessageStatus.fetchingMessageSuccess,
+          messageRequestModel: messageList,
+          message: "Messages fetched ..."));
+    } catch (err) {
+      consolelog(err.toString());
+      emit(state.copyWith(
+          status: MessageStatus.error,
+          message: err.toString(),
+          messageRequestModel: []));
     }
   }
 

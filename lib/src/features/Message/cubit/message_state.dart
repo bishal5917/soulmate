@@ -13,12 +13,12 @@ enum MessageStatus {
 class MessageState extends Equatable {
   final MessageStatus? status;
   final String? message;
-  // final List<ConversationRequestModel>? convoRequestModel;
+  final List<MessageRequestModel>? messageRequestModel;
 
   const MessageState({
     this.status = MessageStatus.starting,
     this.message,
-    // this.convoRequestModel,
+    this.messageRequestModel,
   });
 
   @override
@@ -27,12 +27,12 @@ class MessageState extends Equatable {
   MessageState copyWith({
     MessageStatus? status,
     String? message,
-    // List<ConversationRequestModel>? convoRequestModel,
+    List<MessageRequestModel>? messageRequestModel,
   }) {
     return MessageState(
       status: status ?? this.status,
       message: message ?? this.message,
-      // convoRequestModel: convoRequestModel ?? this.convoRequestModel,
+      messageRequestModel: messageRequestModel ?? this.messageRequestModel,
     );
   }
 }

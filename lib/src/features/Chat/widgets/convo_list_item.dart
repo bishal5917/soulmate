@@ -22,7 +22,8 @@ class _ConvoListItemState extends State<ConvoListItem> {
         navigateNamed(context, '/open_chat', arguments: {
           "cid": widget.conversationId,
           "fname": widget.username,
-          "fid": widget.userId
+          "fid": widget.userId,
+          "fPic": widget.profPic
         });
       },
       child: Container(
