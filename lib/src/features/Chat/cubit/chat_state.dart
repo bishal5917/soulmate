@@ -4,16 +4,12 @@ part of 'chat_cubit.dart';
 enum ChatStatus { initial, starting, created, error }
 
 class ChatState extends Equatable {
-  ChatStatus? status;
-  String? message;
-  ChatState({this.status = ChatStatus.initial, this.message});
-
-  factory ChatState.initial() {
-    return ChatState(status: ChatStatus.initial, message: "");
-  }
+  final ChatStatus? status;
+  final String? message;
+  const ChatState({this.status = ChatStatus.starting, this.message});
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [status, message];
 
   ChatState copyWith({
     ChatStatus? status,

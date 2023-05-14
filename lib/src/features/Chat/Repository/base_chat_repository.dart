@@ -6,4 +6,5 @@ abstract class BaseChatRepository {
   Stream<auth.User> get user;
   Future<void> createChat(String userId, String anotherUserId,
       String anotherUserName, String anotherUserImage);
+  Future<bool> checkChatExists(String userId, String anotherUserId);
 }

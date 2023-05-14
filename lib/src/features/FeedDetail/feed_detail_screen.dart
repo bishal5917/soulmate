@@ -19,14 +19,14 @@ class FeedDetailScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        consolelog(state);
+        console(state);
         return BlocListener<ChatCubit, ChatState>(
           listener: (context, state) {
-            if (state.status == ChatStatus.initial) {
-              // isMarked = true;
-            }
             if (state.status == ChatStatus.created) {
               CustomToasts.showToast(msg: state.message, color: Colors.teal);
+            }
+            if (state.status == ChatStatus.error) {
+              CustomToasts.showToast(msg: state.message);
             }
           },
           child: Scaffold(
@@ -78,12 +78,22 @@ class FeedDetailScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              floatingActionButton: FloatingActionButton(
-                  backgroundColor: OColors.kPrimaryMainColor,
-                  child: Icon(
-                    !isMarked ? Icons.favorite : Icons.favorite_border_outlined,
-                  ),
-                  onPressed: () => () {
+              floatingActionButton: state.status == ChatStatus.starting
+                  ? FloatingActionButton(
+                      backgroundColor: OColors.kPrimaryMainColor,
+                      child: const CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: BorderSide.strokeAlignCenter),
+                      onPressed: () {},
+                    )
+                  : FloatingActionButton(
+                      backgroundColor: OColors.kPrimaryMainColor,
+                      child: Icon(
+                        !isMarked
+                            ? Icons.favorite
+                            : Icons.favorite_border_outlined,
+                      ),
+                      onPressed: () {
                         sl.get<ChatCubit>().createChat(
                             AppSharedPreferences.getUserId,
                             args['fid'] as String,

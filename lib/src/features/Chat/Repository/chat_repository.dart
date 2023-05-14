@@ -23,6 +23,35 @@ class ChatRepository extends BaseChatRepository {
         "fimage": anotherUserImage,
         "members": [userId, anotherUserId]
       });
+      // }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> checkChatExists(String userId, String anotherUserId) async {
+    try {
+      var total = 0;
+      await FirebaseConfig()
+          .baseDb
+          .collection('Convos')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach(
+          (doc) {
+            if (doc.get("members").contains(userId) &&
+                doc.get("members").contains(anotherUserId)) {
+              total = total + 1;
+            }
+          },
+        );
+      });
+      consolelog(total);
+      if (total == 0) {
+        return false;
+      }
+      return true;
     } catch (e) {
       rethrow;
     }
