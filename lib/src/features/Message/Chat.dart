@@ -107,6 +107,16 @@ class _ChatState extends State<Chat> {
                         }
                       },
                     ),
+                    // child: ListView.builder(
+                    //     controller: _controller,
+                    //     itemCount: state.messageRequestModel?.length,
+                    //     itemBuilder: (BuildContext context, int index) {
+                    //       return Chat_Sentences(
+                    //           argso['fPic'] as String,
+                    //           state.messageRequestModel?[index].message ?? "",
+                    //           state.messageRequestModel?[index].createdAt ?? "",
+                    //           state.messageRequestModel?[index].senderId ?? "");
+                    //     }),
                   ),
                   Container(
                     height: 70,
