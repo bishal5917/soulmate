@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,8 @@ import 'package:soulmate/src/features/Message/cubit/message_cubit.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/utils/String_modify.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
+import 'package:soulmate/src/utils/firebase_config.dart';
+import 'package:soulmate/src/widgets/custom_text.dart';
 import 'package:soulmate/src/widgets/custom_text_form_field_widget.dart';
 
 class Chat extends StatefulWidget {
@@ -67,19 +70,45 @@ class _ChatState extends State<Chat> {
               child: Column(
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                        controller: _controller,
-                        itemCount: state.messageRequestModel?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Chat_Sentences(
-                              argso['fPic'] as String,
-                              state.messageRequestModel?[index].message ?? "",
-                              state.messageRequestModel?[index].createdAt ?? "",
-                              state.messageRequestModel?[index].senderId ?? "");
-                        }),
+                    child:
+                        // ListView.builder(
+                        //     controller: _controller,
+                        //     itemCount: state.messageRequestModel?.length,
+                        //     itemBuilder: (BuildContext context, int index) {
+                        //       return Chat_Sentences(
+                        //           argso['fPic'] as String,
+                        //           state.messageRequestModel?[index].message ?? "",
+                        //           state.messageRequestModel?[index].createdAt ?? "",
+                        //           state.messageRequestModel?[index].senderId ?? "");
+                        //     }),
+                        StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseConfig()
+                          .baseDb
+                          .collection('Convos')
+                          .doc(argso["cid"] as String)
+                          .collection("messages")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                DocumentSnapshot doc = snapshot
+                                    .data!.docs.reversed
+                                    .toList()[index];
+                                return Chat_Sentences(
+                                    argso['fPic'] as String,
+                                    doc["message"] ?? "",
+                                    doc["createdAt"] ?? "",
+                                    doc["senderId"] ?? "");
+                              });
+                        } else {
+                          return CustomText.ourText("No Messages yet !!!");
+                        }
+                      },
+                    ),
                   ),
                   Container(
-                    // padding: EdgeInsets.symmetric(horizontal: 8),
                     height: 70,
                     color: Colors.white,
                     child: Row(
