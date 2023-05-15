@@ -9,12 +9,13 @@ class MessageRepository extends BaseMessageRepository {
   Future<void> sendMessage(String conversationId, String senderId,
       String message, String sentTime) async {
     try {
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
       await FirebaseConfig()
           .baseDb
           .collection("Convos")
           .doc(conversationId)
           .collection("messages")
-          .doc()
+          .doc('$timestamp')
           .set({
         "senderId": senderId,
         "message": message,

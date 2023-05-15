@@ -87,15 +87,15 @@ class _ChatState extends State<Chat> {
                           .collection('Convos')
                           .doc(argso["cid"] as String)
                           .collection("messages")
+                          .orderBy(FieldPath.documentId)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ListView.builder(
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                DocumentSnapshot doc = snapshot
-                                    .data!.docs.reversed
-                                    .toList()[index];
+                                DocumentSnapshot doc =
+                                    snapshot.data!.docs[index];
                                 return Chat_Sentences(
                                     argso['fPic'] as String,
                                     doc["message"] ?? "",
@@ -107,16 +107,6 @@ class _ChatState extends State<Chat> {
                         }
                       },
                     ),
-                    // child: ListView.builder(
-                    //     controller: _controller,
-                    //     itemCount: state.messageRequestModel?.length,
-                    //     itemBuilder: (BuildContext context, int index) {
-                    //       return Chat_Sentences(
-                    //           argso['fPic'] as String,
-                    //           state.messageRequestModel?[index].message ?? "",
-                    //           state.messageRequestModel?[index].createdAt ?? "",
-                    //           state.messageRequestModel?[index].senderId ?? "");
-                    //     }),
                   ),
                   Container(
                     height: 70,
