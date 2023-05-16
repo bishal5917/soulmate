@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 1),
       () => AppSharedPreferences.getUserId != null
-          ? navigate(context, const HomeScreen())
+          ? navigate(context, const LoginScreen())
           : navigateOffAllNamed(context, '/login'),
     );
     super.initState();

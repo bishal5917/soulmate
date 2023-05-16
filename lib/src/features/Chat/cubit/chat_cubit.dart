@@ -45,7 +45,8 @@ class ChatCubit extends Cubit<ChatState> {
     emit(
       state.copyWith(
           status: ChatStatus.fetchingConversation,
-          message: "Getting Conversations ..."),
+          message: "Getting Conversations ...",
+          convoRequestModel: []),
     );
     try {
       final conversationList = await _chatRepository.getConvos(userId);

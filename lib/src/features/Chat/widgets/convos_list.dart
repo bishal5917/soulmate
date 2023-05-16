@@ -7,6 +7,7 @@ import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
 import 'package:soulmate/src/features/Chat/widgets/convo_list_item.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
+import 'package:soulmate/src/widgets/shimmer/custom_shimmer_container_widget.dart';
 
 class ConvosList extends StatefulWidget {
   const ConvosList({super.key});
@@ -23,18 +24,31 @@ class _ConvosListState extends State<ConvosList> {
   }
 
   Widget build(BuildContext context) {
+    final reqdWidth = MediaQuery.of(context).size.width;
+
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        return ListView.builder(
-            itemCount: state.convoRequestModel?.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ConvoListItem(
-                "1",
-                state.convoRequestModel?[index].fname ?? "",
-                state.convoRequestModel?[index].conversationId ?? "",
-                state.convoRequestModel?[index].fimage ?? "",
-              );
-            });
+        return state.status == ChatStatus.fetchingConversation
+            ? ListView.builder(
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int index) {
+                  return const CustomShimmerContainerWidget(
+                    height: 90,
+                    backgroundColor: Color.fromARGB(255, 222, 228, 230),
+                    margin: EdgeInsets.only(top: 5, bottom: 25),
+                    // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  );
+                })
+            : ListView.builder(
+                itemCount: state.convoRequestModel?.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ConvoListItem(
+                    "1",
+                    state.convoRequestModel?[index].fname ?? "",
+                    state.convoRequestModel?[index].conversationId ?? "",
+                    state.convoRequestModel?[index].fimage ?? "",
+                  );
+                });
       },
     );
 

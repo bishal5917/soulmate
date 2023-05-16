@@ -99,7 +99,7 @@ class _ChatState extends State<Chat> {
                                 return Chat_Sentences(
                                     argso['fPic'] as String,
                                     doc["message"] ?? "",
-                                    doc["createdAt"] ?? "",
+                                    stringModify().formatDate(doc["createdAt"]),
                                     doc["senderId"] ?? "");
                               });
                         } else {

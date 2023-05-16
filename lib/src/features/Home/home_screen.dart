@@ -66,15 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
               elevation: 1,
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home_max_outlined,
+                    icon: Icon(Icons.home_filled,
                         color: OColors.kPrimaryMainColor),
                     label: "Feed"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite_outlined,
-                        color: OColors.kPrimaryMainColor),
+                    icon:
+                        Icon(Icons.favorite, color: OColors.kPrimaryMainColor),
                     label: "Chats"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.account_circle_outlined,
+                    icon: Icon(Icons.manage_accounts_outlined,
                         color: OColors.kPrimaryMainColor),
                     label: "Profile")
               ],
