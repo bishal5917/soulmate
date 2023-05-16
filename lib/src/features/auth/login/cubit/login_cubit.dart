@@ -43,6 +43,19 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  void logOut() {
+    emit(state.copyWith(
+        status: LoginStatus.loggingOut, message: "Logging out ..."));
+    try {
+      _authRepository.signOut();
+      AppSharedPreferences.clearCrendentials();
+      emit(state.copyWith(
+          status: LoginStatus.loggedOut, message: "Logged out successfully !"));
+    } catch (err) {
+      emit(state.copyWith(status: LoginStatus.error, message: err.toString()));
+    }
+  }
+
   @override
   void reset() {
     _loginEmailController.clear();

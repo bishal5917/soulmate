@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soulmate/src/core/app/colors.dart';
+import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Chat/chat_screen.dart';
@@ -23,9 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(
       const Duration(seconds: 1),
-      () => AppSharedPreferences.getUserId != null
+      () => AppSharedPreferences.getUserId.toString().isEmpty
           ? navigate(context, const LoginScreen())
-          : navigateOffAllNamed(context, '/login'),
+          : navigate(context, const HomeScreen()),
     );
     super.initState();
   }
