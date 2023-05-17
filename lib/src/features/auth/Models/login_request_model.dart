@@ -16,7 +16,7 @@ class LoginRequestModel {
   String? phone;
   String? birthYear;
   String? gender;
-  List<String>? hobbies;
+  List<dynamic>? hobbies;
   String? image;
 
   LoginRequestModel({
@@ -38,7 +38,7 @@ class LoginRequestModel {
         gender: json["gender"],
         hobbies: json["hobbies"] == null
             ? []
-            : List<String>.from(json["hobbies"]!.map((x) => x)),
+            : List<dynamic>.from(json["hobbies"]!.map((x) => x)),
         image: json["image"],
       );
 

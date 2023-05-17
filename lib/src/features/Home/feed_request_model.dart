@@ -4,20 +4,17 @@
 
 import 'dart:convert';
 
-List<FeedRequestModel> feedRequestModelFromJson(String str) =>
-    List<FeedRequestModel>.from(
-        json.decode(str).map((x) => FeedRequestModel.fromJson(x)));
+FeedRequestModel feedRequestModelFromJson(String str) =>
+    FeedRequestModel.fromJson(json.decode(str));
 
-String feedRequestModelToJson(List<FeedRequestModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String feedRequestModelToJson(FeedRequestModel data) =>
+    json.encode(data.toJson());
 
 class FeedRequestModel {
   String? fid;
   String? name;
   String? birthYear;
-  String? hobby1;
-  String? hobby2;
-  String? hobby3;
+  List<dynamic>? hobbies;
   String? phone;
   String? image;
 
@@ -25,9 +22,7 @@ class FeedRequestModel {
     this.fid,
     this.name,
     this.birthYear,
-    this.hobby1,
-    this.hobby2,
-    this.hobby3,
+    this.hobbies,
     this.phone,
     this.image,
   });
@@ -37,10 +32,10 @@ class FeedRequestModel {
         fid: json["fid"],
         name: json["name"],
         birthYear: json["birthYear"],
-        hobby1: json["hobby1"],
-        hobby2: json["hobby2"],
-        hobby3: json["hobby3"],
-        phone: json["Phone"],
+        hobbies: json["hobbies"] == null
+            ? []
+            : List<dynamic>.from(json["hobbies"]!.map((x) => x)),
+        phone: json["phone"],
         image: json["image"],
       );
 
@@ -48,10 +43,9 @@ class FeedRequestModel {
         "fid": fid,
         "name": name,
         "birthYear": birthYear,
-        "hobby1": hobby1,
-        "hobby2": hobby2,
-        "hobby3": hobby3,
-        "Phone": phone,
+        "hobbies":
+            hobbies == null ? [] : List<dynamic>.from(hobbies!.map((x) => x)),
+        "phone": phone,
         "image": image,
       };
 }

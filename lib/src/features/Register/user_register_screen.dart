@@ -33,7 +33,6 @@ class _UserRegisterState extends State<UserRegister> {
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        print(state);
         if (state.status == RegisterStatus.dataError) {
           CustomToasts.showToast(
               msg: stringModify().formatErrorMsg(state.message.toString()));

@@ -1,15 +1,9 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:soulmate/di_injection.dart';
-import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
-import 'package:soulmate/src/utils/firebase_config.dart';
 
 part 'register_state.dart';
 
@@ -123,7 +117,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           message: " Registration Starting"));
       try {
         final userId = await AuthRepository().userRegister(regModel);
-        AppSharedPreferences.setUserId(userId);
+        // AppSharedPreferences.setUserId(userId);
 
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,

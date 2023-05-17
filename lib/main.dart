@@ -49,10 +49,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => sl.get<LoginCubit>(),
-          child: const LoginScreen(),
-        ),
+        // BlocProvider(
+        //   create: (context) => sl.get<LoginCubit>(),
+        //   child: const LoginScreen(),
+        // ),
         BlocProvider(
           create: (context) => sl.get<ResetPasswordCubit>(),
           child: const ResetPasswordScreen(),
@@ -81,63 +81,68 @@ class MyApp extends StatelessWidget {
           create: (context) => sl.get<MessageCubit>(),
           child: const Chat(),
         ),
-        BlocProvider(create: (context) => sl.get<SelectCountryCubit>()),
-      ],
-      child: MaterialApp(
-        title: 'Soulmate',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-          appBarTheme: AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: OColors.kPrimaryMainColor,
-              statusBarBrightness: Brightness.light,
-            ),
-            backgroundColor: Colors.white,
-            shadowColor: Colors.transparent,
-            surfaceTintColor: Colors.white,
-            elevation: 0,
-          ),
-          brightness: Theme.of(context).brightness,
-          disabledColor: Colors.grey,
-          scaffoldBackgroundColor: Colors.white,
-          primaryColor: OColors.kPrimaryMainColor,
-          fontFamily: 'Inter',
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              elevation: 0,
-              foregroundColor: OColors.kPrimaryMainColor,
-              backgroundColor: OColors.kPrimaryMainColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              disabledBackgroundColor: Colors.grey.shade400,
-              disabledIconColor: Colors.grey.shade300,
-              disabledForegroundColor: Colors.grey.shade300,
-              shadowColor: Colors.transparent,
-            ),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: OColors.kPrimaryMainColor,
-              elevation: 0,
-              foregroundColor: OColors.kPrimaryMainColor,
-              shadowColor: Colors.transparent,
-              disabledBackgroundColor: Colors.grey.shade400,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
+        BlocProvider(
+          create: (context) => sl.get<SelectCountryCubit>(),
         ),
-        home: const SplashScreen(),
-        routes: {
-          '/login': (context) => const LoginScreen(),
-          '/open_chat': (context) => const Chat(),
-          '/feed_detail': (context) => const FeedDetailScreen()
-        },
+      ],
+      child: BlocProvider(
+        create: (context) => sl.get<LoginCubit>(),
+        child: MaterialApp(
+          title: 'Soulmate',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+            appBarTheme: AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: OColors.kPrimaryMainColor,
+                statusBarBrightness: Brightness.light,
+              ),
+              backgroundColor: Colors.white,
+              shadowColor: Colors.transparent,
+              surfaceTintColor: Colors.white,
+              elevation: 0,
+            ),
+            brightness: Theme.of(context).brightness,
+            disabledColor: Colors.grey,
+            scaffoldBackgroundColor: Colors.white,
+            primaryColor: OColors.kPrimaryMainColor,
+            fontFamily: 'Inter',
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                elevation: 0,
+                foregroundColor: OColors.kPrimaryMainColor,
+                backgroundColor: OColors.kPrimaryMainColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                disabledBackgroundColor: Colors.grey.shade400,
+                disabledIconColor: Colors.grey.shade300,
+                disabledForegroundColor: Colors.grey.shade300,
+                shadowColor: Colors.transparent,
+              ),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: OColors.kPrimaryMainColor,
+                elevation: 0,
+                foregroundColor: OColors.kPrimaryMainColor,
+                shadowColor: Colors.transparent,
+                disabledBackgroundColor: Colors.grey.shade400,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+          home: const SplashScreen(),
+          routes: {
+            '/login': (context) => const LoginScreen(),
+            '/open_chat': (context) => const Chat(),
+            '/feed_detail': (context) => const FeedDetailScreen()
+          },
+        ),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:soulmate/src/features/Chat/widgets/convos_list.dart';
 import 'package:soulmate/src/features/Home/cubit/home_cubit.dart';
 import 'package:soulmate/src/features/Home/widgets/feed_item.dart';
 import 'package:soulmate/src/features/Profile/profile_screen.dart';
+import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 import 'package:soulmate/src/widgets/shimmer/custom_shimmer_container_widget.dart';
@@ -29,67 +30,73 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        return Scaffold(
-          body: WillPopScope(
-            onWillPop: () async {
-              return false;
-            },
-            child: PageView(
-              allowImplicitScrolling: false,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedItem = index;
-                });
-              },
-              controller: _pageController,
-              children: _pages,
-            ),
-          ),
-          bottomNavigationBar: Container(
-            height: displayWidth * 0.155,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(.1),
-                  blurRadius: 30,
-                  offset: const Offset(0, 10),
+    // final loginDetail = BlocProvider.of<LoginCubit>(context);
+    // consolelog(loginDetail.userLogin());
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, loginState) {
+        return BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Scaffold(
+              body: WillPopScope(
+                onWillPop: () async {
+                  return false;
+                },
+                child: PageView(
+                  allowImplicitScrolling: false,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _selectedItem = index;
+                    });
+                  },
+                  controller: _pageController,
+                  children: _pages,
                 ),
-              ],
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: BottomNavigationBar(
-              selectedLabelStyle: const TextStyle(color: Colors.black),
-              backgroundColor: OColors.kNeutral100Color,
-              iconSize: 25,
-              elevation: 1,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home_filled,
-                        color: OColors.kPrimaryMainColor),
-                    label: "Feed"),
-                BottomNavigationBarItem(
-                    icon:
-                        Icon(Icons.favorite, color: OColors.kPrimaryMainColor),
-                    label: "Chats"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.manage_accounts_outlined,
-                        color: OColors.kPrimaryMainColor),
-                    label: "Profile")
-              ],
-              currentIndex: _selectedItem,
-              onTap: (index) {
-                setState(() {
-                  _selectedItem = index;
-                  _pageController.animateToPage(_selectedItem,
-                      duration: const Duration(milliseconds: 2),
-                      curve: Curves.linear);
-                });
-              },
-            ),
-          ),
+              ),
+              bottomNavigationBar: Container(
+                height: displayWidth * 0.155,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(.1),
+                      blurRadius: 30,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: BottomNavigationBar(
+                  selectedLabelStyle: const TextStyle(color: Colors.black),
+                  backgroundColor: OColors.kNeutral100Color,
+                  iconSize: 25,
+                  elevation: 1,
+                  items: <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.home_filled,
+                            color: OColors.kPrimaryMainColor),
+                        label: "Feed"),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.favorite,
+                            color: OColors.kPrimaryMainColor),
+                        label: "Chats"),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.manage_accounts_outlined,
+                            color: OColors.kPrimaryMainColor),
+                        label: "Profile")
+                  ],
+                  currentIndex: _selectedItem,
+                  onTap: (index) {
+                    setState(() {
+                      _selectedItem = index;
+                      _pageController.animateToPage(_selectedItem,
+                          duration: const Duration(milliseconds: 2),
+                          curve: Curves.linear);
+                    });
+                  },
+                ),
+              ),
+            );
+          },
         );
       },
     );

@@ -8,7 +8,7 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  final String title = "Find Your Soulmate";
+  final String title = "HeartConnect";
 
   @override
   Widget build(BuildContext context) {

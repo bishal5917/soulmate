@@ -24,7 +24,7 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController get loginPasswordController => _loginPasswordController;
 
   Future<void> userLogin() async {
-    if (state.status == LoginStatus.submitting) return;
+    if (state.status == LoginStatus.submitting) return null;
     emit(state.copyWith(status: LoginStatus.submitting));
     try {
       final response = await _authRepository.logIn(
@@ -33,6 +33,7 @@ class LoginCubit extends Cubit<LoginState> {
       AppSharedPreferences.setUserId(response!.uid);
       final user = await _authRepository.userDetailsFetch(response.uid);
       emit(state.copyWith(status: LoginStatus.success, userDetails: user));
+      // return user;
     } catch (err) {
       // print(e.toString());
       emit(state.copyWith(status: LoginStatus.error, message: err.toString()));

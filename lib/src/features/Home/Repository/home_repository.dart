@@ -31,9 +31,7 @@ class HomeRepository extends BaseHomeRepository {
               feedListData.add(FeedRequestModel(
                   fid: doc.id,
                   birthYear: doc.get("birthYear"),
-                  hobby1: doc.get("hobby1"),
-                  hobby2: doc.get("hobby2"),
-                  hobby3: doc.get("hobby3"),
+                  hobbies: doc.get("hobbies"),
                   image: doc.get("image"),
                   name: doc.get("name"),
                   phone: doc.get("phone")));
@@ -42,6 +40,7 @@ class HomeRepository extends BaseHomeRepository {
           },
         );
       });
+      consolelog(feedListData);
       return feedListData;
     } catch (e) {
       rethrow;

@@ -14,15 +14,14 @@ class FeedItem extends StatelessWidget {
   final String name;
   final String age;
   final String image;
-  final String hobby1;
-  final String hobby2;
-  final String hobby3;
+  final List<dynamic> hobbies;
   final String phone;
 
-  const FeedItem(this.fid, this.name, this.age, this.image, this.hobby1,
-      this.hobby2, this.hobby3, this.phone);
+  const FeedItem(
+      this.fid, this.name, this.age, this.image, this.hobbies, this.phone);
   @override
   Widget build(BuildContext context) {
+    consolelog(hobbies);
     return InkWell(
       onTap: () {
         navigateNamed(context, '/feed_detail',
@@ -52,21 +51,18 @@ class FeedItem extends StatelessWidget {
                   bottom: 10,
                   right: 20,
                   child: Container(
-                    alignment: Alignment.bottomLeft,
+                    alignment: Alignment.center,
                     width: 350,
                     padding: const EdgeInsets.all(10),
                     color: Colors.black45,
                     child: Column(
                       children: [
-                        Container(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            "$name , ${2023 - int.parse(age)}",
-                            style: const TextStyle(
-                                fontSize: 25, color: Colors.white),
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
-                          ),
+                        Text(
+                          "$name , ${2023 - int.parse(age)}",
+                          style: const TextStyle(
+                              fontSize: 25, color: Colors.white),
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
                         ),
                         // Container(
                         //   alignment: Alignment.bottomLeft,
@@ -88,30 +84,12 @@ class FeedItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CustomText.ourText(hobby1,
-                        fontSize: 15, fontStyle: FontStyle.italic),
-                    CustomText.ourText(hobby2,
-                        fontSize: 15, fontStyle: FontStyle.italic),
-                    CustomText.ourText(hobby3,
-                        fontSize: 15, fontStyle: FontStyle.italic),
-                    // state.status == ChatStatus.starting
-                    //     ? const CircularProgressIndicator()
-                    //     : IconButton(
-                    //         onPressed: () {
-                    //           sl.get<ChatCubit>().createChat(
-                    //               AppSharedPreferences.getUserId,
-                    //               fid,
-                    //               name,
-                    //               image);
-                    //         },
-                    //         icon: const Icon(
-                    //           Icons.arrow_circle_right_outlined,
-                    //           color: Colors.red,
-                    //         ),
-                    //       )
-                  ]),
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: hobbies.map((dynamic hobby) {
+                  return CustomText.ourText(hobby as String,
+                      fontSize: 15, fontStyle: FontStyle.italic);
+                }).toList(),
+              ),
             )
           ],
         ),
