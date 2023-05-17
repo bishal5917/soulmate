@@ -7,6 +7,7 @@ import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
+import 'package:soulmate/src/features/auth/Models/login_request_model.dart';
 import 'package:soulmate/src/features/auth/Repository/base_auth_repository.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
@@ -50,18 +51,19 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<List<dynamic>> userHobbyFetch() async {
+  Future<LoginRequestModel> userDetailsFetch(userId) async {
     try {
-      final hobbies = await FirebaseConfig()
-          .baseDb
-          .collection("Users")
-          .doc(AppSharedPreferences.getUserId)
-          .get();
-      final hobbyList = [];
-      hobbyList.add(hobbies.get("hobby1"));
-      hobbyList.add(hobbies.get("hobby2"));
-      hobbyList.add(hobbies.get("hobby3"));
-      return hobbyList;
+      final details =
+          await FirebaseConfig().baseDb.collection("Users").doc(userId).get();
+      final LoginRequestModel loggedUserDetails = LoginRequestModel(
+          birthYear: details.get("birthYear"),
+          email: details.get("email"),
+          gender: details.get("gender"),
+          hobbies: details.get("hobbies"),
+          image: details.get("image"),
+          name: details.get("name"),
+          phone: details.get("phone"));
+      return loggedUserDetails;
     } catch (e) {
       // print(e.toString());
       rethrow;

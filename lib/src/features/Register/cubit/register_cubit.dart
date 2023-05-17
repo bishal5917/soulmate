@@ -110,9 +110,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       phone: regPhoneController.text,
       birthYear: getYearValue,
       gender: getGenderValue,
-      hobby1: gethobby1Value,
-      hobby2: gethobby2Value,
-      hobby3: gethobby3Value,
+      hobbies: [gethobby1Value, gethobby2Value, gethobby3Value],
       password: regPasswordController.text,
       image:
           "https://media.istockphoto.com/id/532237983/photo/unrecognizable-person.jpg?s=612x612&w=0&k=20&c=JcJYir0QZNExJHlF2MYjsjoYSyQhY1IiR5wrHYmNN_w=",
@@ -126,10 +124,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       try {
         final userId = await AuthRepository().userRegister(regModel);
         AppSharedPreferences.setUserId(userId);
-        // AppSharedPreferences.setHobby1(regModel.hobby1 as String);
-        // AppSharedPreferences.setHobby2(regModel.hobby2 as String);
-        // AppSharedPreferences.setHobby3(regModel.hobby3 as String);
-        
+
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,
             message: "SuccessFully Registered !!! "));

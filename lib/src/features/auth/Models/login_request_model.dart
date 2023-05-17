@@ -1,36 +1,36 @@
 // To parse this JSON data, do
 //
-//     final registerModel = registerModelFromJson(jsonString);
+//     final loginRequestModel = loginRequestModelFromJson(jsonString);
 
 import 'dart:convert';
 
-RegisterModel registerModelFromJson(String str) =>
-    RegisterModel.fromJson(json.decode(str));
+LoginRequestModel loginRequestModelFromJson(String str) =>
+    LoginRequestModel.fromJson(json.decode(str));
 
-String registerModelToJson(RegisterModel data) => json.encode(data.toJson());
+String loginRequestModelToJson(LoginRequestModel data) =>
+    json.encode(data.toJson());
 
-class RegisterModel {
+class LoginRequestModel {
   String? name;
   String? email;
   String? phone;
   String? birthYear;
   String? gender;
   List<String>? hobbies;
-  String? password;
   String? image;
 
-  RegisterModel({
+  LoginRequestModel({
     this.name,
     this.email,
     this.phone,
     this.birthYear,
     this.gender,
     this.hobbies,
-    this.password,
     this.image,
   });
 
-  factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
+  factory LoginRequestModel.fromJson(Map<String, dynamic> json) =>
+      LoginRequestModel(
         name: json["name"],
         email: json["email"],
         phone: json["phone"],
@@ -39,7 +39,6 @@ class RegisterModel {
         hobbies: json["hobbies"] == null
             ? []
             : List<String>.from(json["hobbies"]!.map((x) => x)),
-        password: json["password"],
         image: json["image"],
       );
 
@@ -51,7 +50,6 @@ class RegisterModel {
         "gender": gender,
         "hobbies":
             hobbies == null ? [] : List<dynamic>.from(hobbies!.map((x) => x)),
-        "password": password,
         "image": image,
       };
 }
