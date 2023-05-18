@@ -33,15 +33,33 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const WillPopScope(
+    return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
           backgroundColor: Colors.white,
           body: Center(
-              child: Icon(
-            Icons.heart_broken_outlined,
-            size: 90,
-            color: Colors.red,
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.heart_broken_outlined,
+                size: 90,
+                color: Colors.red,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomText.ourText(
+                    "Heart",
+                    fontStyle: FontStyle.italic,
+                  ),
+                  CustomText.ourText(
+                    "Connect",
+                    color: OColors.kPrimaryMainColor,
+                  ),
+                ],
+              )
+            ],
           ))),
     );
   }

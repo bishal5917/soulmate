@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soulmate/di_injection.dart';
-import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
-import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
-import 'package:soulmate/src/services/local/secure_storage.dart';
-import 'package:soulmate/src/widgets/custom_button.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 
 class FeedItem extends StatelessWidget {
@@ -21,7 +15,6 @@ class FeedItem extends StatelessWidget {
       this.fid, this.name, this.age, this.image, this.hobbies, this.phone);
   @override
   Widget build(BuildContext context) {
-    consolelog(hobbies);
     return InkWell(
       onTap: () {
         navigateNamed(context, '/feed_detail',

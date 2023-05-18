@@ -109,10 +109,5 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<void> signOut() async {
-    await FirebaseConfig().firebaseAuth.signOut();
-  }
-
-  @override
   Stream<auth.User> get user => throw UnimplementedError();
 }

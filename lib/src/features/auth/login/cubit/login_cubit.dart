@@ -31,27 +31,13 @@ class LoginCubit extends Cubit<LoginState> {
           email: loginEmailController.text,
           password: loginPasswordController.text);
       AppSharedPreferences.setUserId(response!.uid);
-      final user = await _authRepository.userDetailsFetch(response.uid);
-      emit(state.copyWith(status: LoginStatus.success, userDetails: user));
-      // return user;
+      emit(state.copyWith(status: LoginStatus.success));
     } catch (err) {
       // print(e.toString());
       emit(state.copyWith(status: LoginStatus.error, message: err.toString()));
     }
   }
 
-  void logOut() {
-    emit(state.copyWith(
-        status: LoginStatus.loggingOut, message: "Logging out ..."));
-    try {
-      _authRepository.signOut();
-      AppSharedPreferences.clearCrendentials();
-      emit(state.copyWith(
-          status: LoginStatus.loggedOut, message: "Logged out successfully !"));
-    } catch (err) {
-      emit(state.copyWith(status: LoginStatus.error, message: err.toString()));
-    }
-  }
 
   @override
   void reset() {

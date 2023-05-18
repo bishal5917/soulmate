@@ -10,5 +10,4 @@ abstract class BaseAuthRepository {
   Future<LoginRequestModel> userDetailsFetch(userId);
   Future<void> sendOTP(String email);
   Future<void> imageUpload();
-  Future<void> signOut();
 }
