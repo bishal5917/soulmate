@@ -53,7 +53,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                       ],
                     ),
                     vSizedBox2,
-                    const AddImage(true),
+                    AddImage(true, state.loggedUser?.image),
                     vSizedBox2
                   ],
                 ),

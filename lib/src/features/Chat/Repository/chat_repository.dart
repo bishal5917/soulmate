@@ -16,13 +16,24 @@ import 'package:soulmate/src/utils/firebase_config.dart';
 
 class ChatRepository extends BaseChatRepository {
   @override
-  Future<void> createChat(String userId, String anotherUserId,
-      String anotherUserName, String anotherUserImage) async {
+  Future<void> createChat(
+      String userId,
+      String anotherUserId,
+      String anotherUserName,
+      String anotherUserImage,
+      String myName,
+      String myImage) async {
     try {
       await FirebaseConfig().baseDb.collection("Convos").doc().set({
         "fname": anotherUserName,
         "fimage": anotherUserImage,
-        "members": [userId, anotherUserId]
+        "myname": myName,
+        "myimage": myImage,
+        "myId": userId,
+        "members": [
+          userId,
+          anotherUserId,
+        ]
       });
       // }
     } catch (e) {

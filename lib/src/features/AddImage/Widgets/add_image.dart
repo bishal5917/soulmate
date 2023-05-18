@@ -19,9 +19,9 @@ import 'package:soulmate/src/widgets/custom_text.dart';
 
 class AddImage extends StatelessWidget {
   final bool isInsideProfile;
-  final String userImage;
+  String? userImage;
 
-  const AddImage(this.isInsideProfile, this.userImage);
+  AddImage(this.isInsideProfile, this.userImage);
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +80,11 @@ class AddImage extends StatelessWidget {
                                   ],
                                   shape: BoxShape.circle,
                                 ),
-                                child: userImage.isNotEmpty &&
+                                child: userImage!.isNotEmpty &&
                                         isInsideProfile == true
                                     ? CircleAvatar(
                                         backgroundImage:
-                                            NetworkImage(userImage),
+                                            NetworkImage(userImage ?? ""),
                                         radius: 30)
                                     : state.status == LocalImageStatus.success
                                         ? CircleAvatar(
