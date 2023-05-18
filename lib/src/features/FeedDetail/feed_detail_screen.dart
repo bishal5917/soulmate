@@ -110,11 +110,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                           onPressed: () {
                             sl.get<ChatCubit>().createChat(
                                 AppSharedPreferences.getUserId,
-                                args['fid'] as String,
-                                args['fname'] as String,
-                                args["fimage"] as String,
-                                profState.loggedUser?.name,
-                                profState.loggedUser?.image);
+                                args['fid'] as String);
                           }));
             },
           ),

@@ -4,34 +4,40 @@
 
 import 'dart:convert';
 
-List<ConversationRequestModel> conversationRequestModelFromJson(String str) =>
-    List<ConversationRequestModel>.from(
-        json.decode(str).map((x) => ConversationRequestModel.fromJson(x)));
+ConversationRequestModel conversationRequestModelFromJson(String str) =>
+    ConversationRequestModel.fromJson(json.decode(str));
 
-String conversationRequestModelToJson(List<ConversationRequestModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String conversationRequestModelToJson(ConversationRequestModel data) =>
+    json.encode(data.toJson());
 
 class ConversationRequestModel {
   String? conversationId;
-  String? fimage;
   String? fname;
+  String? fimage;
+  List<dynamic>? members;
 
   ConversationRequestModel({
     this.conversationId,
-    this.fimage,
     this.fname,
+    this.fimage,
+    this.members,
   });
 
   factory ConversationRequestModel.fromJson(Map<String, dynamic> json) =>
       ConversationRequestModel(
         conversationId: json["conversationId"],
-        fimage: json["fimage"],
         fname: json["fname"],
+        fimage: json["fimage"],
+        members: json["members"] == null
+            ? []
+            : List<dynamic>.from(json["members"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "conversationId": conversationId,
-        "fimage": fimage,
         "fname": fname,
+        "fimage": fimage,
+        "members":
+            members == null ? [] : List<dynamic>.from(members!.map((x) => x)),
       };
 }

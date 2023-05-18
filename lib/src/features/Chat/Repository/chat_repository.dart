@@ -16,20 +16,9 @@ import 'package:soulmate/src/utils/firebase_config.dart';
 
 class ChatRepository extends BaseChatRepository {
   @override
-  Future<void> createChat(
-      String userId,
-      String anotherUserId,
-      String anotherUserName,
-      String anotherUserImage,
-      String myName,
-      String myImage) async {
+  Future<void> createChat(String userId, String anotherUserId) async {
     try {
       await FirebaseConfig().baseDb.collection("Convos").doc().set({
-        "fname": anotherUserName,
-        "fimage": anotherUserImage,
-        "myname": myName,
-        "myimage": myImage,
-        "myId": userId,
         "members": [
           userId,
           anotherUserId,
@@ -72,24 +61,56 @@ class ChatRepository extends BaseChatRepository {
   Future<List<ConversationRequestModel>?> getConvos(String userId) async {
     try {
       List<ConversationRequestModel> conversationReqdata = [];
-      await FirebaseConfig()
-          .baseDb
-          .collection('Convos')
-          .get()
-          .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach(
-          (doc) {
-            if (doc.get("members").contains(userId)) {
-              conversationReqdata.add(
-                ConversationRequestModel(
-                    conversationId: doc.id,
-                    fimage: doc.get("fimage"),
-                    fname: doc.get("fname")),
-              );
-            }
-          },
-        );
-      });
+      // await FirebaseConfig()
+      //     .baseDb
+      //     .collection('Convos')
+      //     .get()
+      //     .then((QuerySnapshot querySnapshot) {
+      //   querySnapshot.docs.forEach(
+      //     (doc) {
+      //       if (doc.get("members").contains(userId)) {
+      //         //getting the friendId
+      //         String fId = doc.get("members").firstWhere((m) => m != userId);
+      //         //fetching name and image of that friend
+      //               final friendDetail = await FirebaseConfig().baseDb.collection("Users").doc(fId).get();
+      //         conversationReqdata.add(
+      //           ConversationRequestModel(
+      //             conversationId: doc.id,
+      //             fimage: friendDetail.get("fimage"),
+      //             fname: friendDetail.get("fname"),
+      //           ),
+      //         );
+      //       }
+      //     },
+      //   );
+
+      CollectionReference collection =
+          FirebaseFirestore.instance.collection('Convos');
+
+      QuerySnapshot snapshot = await collection.get();
+
+      if (snapshot.docs.isNotEmpty) {
+        for (DocumentSnapshot doc in snapshot.docs) {
+          if (doc.get("members").contains(userId)) {
+            //getting the friendId
+            dynamic fId = doc.get("members").firstWhere((m) => m != userId);
+            //fetching name and image of that friend
+            DocumentSnapshot friendDetail = await FirebaseConfig()
+                .baseDb
+                .collection("Users")
+                .doc(fId)
+                .get();
+            // consolelog(friendDetail.get("image"));
+            conversationReqdata.add(
+              ConversationRequestModel(
+                conversationId: doc.id,
+                fimage: friendDetail.get("image"),
+                fname: friendDetail.get("name"),
+              ),
+            );
+          }
+        }
+      }
       return conversationReqdata;
     } catch (e) {
       rethrow;
