@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';

@@ -60,15 +60,18 @@ class _LoginBodyState extends State<LoginBody> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        GestureDetector(
-                            onTap: () {
-                              navigate(context, const ForgotPasswordScreen());
-                            },
-                            child: CustomText.ourText("Forgot Password?",
-                                color: Colors.redAccent)),
+                        CustomButton.textButton(
+                            "Forgot Password?",
+                            () => {
+                                  navigate(
+                                      context, const ForgotPasswordScreen())
+                                },
+                            titleColor: OColors.kPrimaryMainColor,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 12)
                       ],
                     ),
-                    vSizedBox3,
+                    vSizedBox2,
                     state.status == LoginStatus.submitting
                         ? const CircularProgressIndicator()
                         : SizedBox(
@@ -131,32 +134,31 @@ class _LoginBodyState extends State<LoginBody> {
                       ],
                     ),
                     vSizedBox2andHalf,
-                    const LoginGoogleAppleWidget(isGoogle: true),
+                    CustomButton.elevatedButtonWithIcon(
+                      onPressed: () {},
+                      label: CustomText.ourText("Continue with Google",
+                          color: Colors.black, fontSize: 14),
+                      icon: SvgPicture.asset(kGoogleSvg),
+                      backGroundColour: OColors.backgroundColor,
+                    ),
                     vSizedBox2,
                     vSizedBox2,
                     vSizedBox4,
-                    InkWell(
-                      onTap: () {
-                        navigate(context, const UserRegister());
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          text: "New to Soulmate?",
-                          style: TextStyle(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText.ourText("New to heartConnect?",
+                            fontSize: 14, fontWeight: FontWeight.w400),
+                        CustomButton.textButton(
+                            "Register",
+                            () => {
+                                  navigate(context, const UserRegister()),
+                                },
+                            titleColor: OColors.kPrimaryMainColor,
+                            fontWeight: FontWeight.w500,
                             fontSize: 14,
-                            color: OColors.kNeutral400Color,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: " Register",
-                              style: TextStyle(
-                                color: OColors.kPrimaryMainColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                            width: 72),
+                      ],
                     ),
                     vSizedBox1,
                     RichText(

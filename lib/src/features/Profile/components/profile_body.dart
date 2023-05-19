@@ -61,6 +61,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                                 if (index == 5) {
                                   sl.get<ProfileCubit>().logOut();
                                 }
+                                if (index == 0) {
+                                  navigate(
+                                    context,
+                                    AddImage(true),
+                                  );
+                                }
                               },
                               index: index,
                               iconColor: index == 5

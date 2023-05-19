@@ -5,6 +5,7 @@ import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/core/app/texts.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
+import 'package:soulmate/src/features/AddImage/Widgets/add_image.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
@@ -25,7 +26,7 @@ class UserRegister extends StatefulWidget {
 
 class _UserRegisterState extends State<UserRegister> {
   final customerTitle = "Enter Your Details";
-  final _showPass = ValueNotifier<bool>(false);
+  final _showPasss = ValueNotifier<bool>(false);
   int _currentStep = 0;
   StepperType stepperType = StepperType.horizontal;
 
@@ -40,7 +41,7 @@ class _UserRegisterState extends State<UserRegister> {
         if (state.status == RegisterStatus.registerSuccess) {
           CustomToasts.showToast(
               msg: state.message.toString(), color: Colors.teal);
-          navigate(context, const AddImageScreen());
+          navigate(context, AddImage(false));
         }
         if (state.status == RegisterStatus.error) {
           CustomToasts.showToast(msg: state.message.toString());
@@ -135,6 +136,7 @@ class _UserRegisterState extends State<UserRegister> {
                                                           .isValidPhoneNumber()
                                                       ? phoneNumberValidateText
                                                       : null,
+                                      textInputType: TextInputType.number,
                                     ),
                                     vSizedBox2,
                                     CustomTextFormField(
@@ -155,6 +157,7 @@ class _UserRegisterState extends State<UserRegister> {
                                                               .isunderAged()
                                                           ? underAgedText
                                                           : null,
+                                      textInputType: TextInputType.number,
                                     ),
                                     vSizedBox2,
                                     Row(
@@ -290,14 +293,14 @@ class _UserRegisterState extends State<UserRegister> {
                                                       ? passwordLengthText
                                                       : null,
                                           obscureText:
-                                              _showPass.value ? false : true,
+                                              _showPasss.value ? false : true,
                                           suffix: GestureDetector(
                                             onTap: () {
-                                              _showPass.value == true
-                                                  ? _showPass.value = false
-                                                  : _showPass.value = true;
+                                              _showPasss.value == true
+                                                  ? _showPasss.value = false
+                                                  : _showPasss.value = true;
                                             },
-                                            child: _showPass.value
+                                            child: _showPasss.value
                                                 ? const Icon(
                                                     Icons.visibility,
                                                   )
@@ -307,7 +310,7 @@ class _UserRegisterState extends State<UserRegister> {
                                           ),
                                         );
                                       },
-                                      valueListenable: _showPass,
+                                      valueListenable: _showPasss,
                                     ),
                                     vSizedBox2,
                                     ValueListenableBuilder<bool>(
@@ -317,7 +320,7 @@ class _UserRegisterState extends State<UserRegister> {
                                           hintText: "Re-type your password",
                                           labelText: "Confirm Password*",
                                           obscureText:
-                                              _showPass.value ? false : true,
+                                              _showPasss.value ? false : true,
                                           validator: (val) => val
                                                   .toString()
                                                   .isEmptyData()
@@ -334,11 +337,11 @@ class _UserRegisterState extends State<UserRegister> {
                                                       : null,
                                           suffix: GestureDetector(
                                             onTap: () {
-                                              _showPass.value == true
-                                                  ? _showPass.value = false
-                                                  : _showPass.value = true;
+                                              _showPasss.value == true
+                                                  ? _showPasss.value = false
+                                                  : _showPasss.value = true;
                                             },
-                                            child: _showPass.value
+                                            child: _showPasss.value
                                                 ? const Icon(
                                                     Icons.visibility,
                                                   )
@@ -348,7 +351,7 @@ class _UserRegisterState extends State<UserRegister> {
                                           ),
                                         );
                                       },
-                                      valueListenable: _showPass,
+                                      valueListenable: _showPasss,
                                     ),
                                   ],
                                 ),

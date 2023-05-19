@@ -34,32 +34,30 @@ class LoginFormWidget extends StatelessWidget {
           valueListenable: showPassswordVisibility,
           builder: (BuildContext context, bool isTrue, Widget? child) {
             return CustomTextFormField(
-              hintText: "Enter Your Password",
-              labelText: "Password",
-              validator: (val) => val.toString().isEmptyData()
-                  ? emptyText
-                  : val.toString().isPasswordLength()
-                      ? passwordLengthText
-                      : null,
-              obscureText: !showPassswordVisibility.value,
-              controller: sl.get<LoginCubit>().loginPasswordController,
-              suffix: GestureDetector(
-                onTap: () {
-                  showPassswordVisibility.value
-                      ? showPassswordVisibility.value = false
-                      : showPassswordVisibility.value = true;
-                },
-                child: showPassswordVisibility.value
-                    ? Icon(
-                        Icons.visibility,
-                        color: OColors.kPrimaryMainColor,
-                      )
-                    : Icon(
-                        Icons.visibility_off,
-                        color: OColors.kPrimaryMainColor,
-                      ),
-              ),
-            );
+                hintText: "Enter Your Password",
+                labelText: "Password",
+                validator: (val) => val.toString().isEmptyData()
+                    ? emptyText
+                    : val.toString().isPasswordLength()
+                        ? passwordLengthText
+                        : null,
+                obscureText: !showPassswordVisibility.value,
+                controller: sl.get<LoginCubit>().loginPasswordController,
+                suffix: IconButton(
+                  onPressed: () {
+                    showPassswordVisibility.value =
+                        !showPassswordVisibility.value;
+                  },
+                  icon: showPassswordVisibility.value
+                      ? Icon(
+                          Icons.visibility,
+                          color: OColors.kNeutral400Color,
+                        )
+                      : Icon(
+                          Icons.visibility_off,
+                          color: OColors.kNeutral400Color,
+                        ),
+                ));
           },
         ),
       ],

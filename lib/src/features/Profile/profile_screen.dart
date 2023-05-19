@@ -6,6 +6,7 @@ import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/Widgets/add_image.dart';
+import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Profile/cubit/profile_cubit.dart';
 import 'package:soulmate/src/features/Profile/widgets/profile_photo.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
