@@ -11,7 +11,7 @@ class CustomTile {
       Function()? onTap,
       Color? iconColor}) {
     return (ListTile(
-      onTap: () {},
+      onTap: onTap,
       splashColor: OColors.backgroundColor,
       leading: Icon(
         leadingIcon,

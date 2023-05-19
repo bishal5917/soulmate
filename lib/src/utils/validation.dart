@@ -21,6 +21,19 @@ extension Validator on String {
     return !(length == 4);
   }
 
+  // Birth Year Validation
+  bool isYearLength() {
+    return !(length == 4);
+  }
+
+  bool isOverAged() {
+    return (int.parse(this) > 1900);
+  }
+
+  bool isunderAged() {
+    return (int.parse(this) < 2005);
+  }
+
   bool isPhoneNumberLength() {
     return !(length == 10);
   }

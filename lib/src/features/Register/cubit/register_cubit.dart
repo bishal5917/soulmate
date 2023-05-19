@@ -102,7 +102,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       name: regNameController.text,
       email: regEmailController.text,
       phone: regPhoneController.text,
-      birthYear: getYearValue,
+      birthYear: regBirthYearController.text,
       gender: getGenderValue,
       hobbies: [gethobby1Value, gethobby2Value, gethobby3Value],
       password: regPasswordController.text,
@@ -117,7 +117,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           message: " Registration Starting"));
       try {
         final userId = await AuthRepository().userRegister(regModel);
-        // AppSharedPreferences.setUserId(userId);
+        AppSharedPreferences.setUserId(userId);
 
         emit(state.copyWith(
             status: RegisterStatus.registerSuccess,

@@ -19,9 +19,8 @@ import 'package:soulmate/src/widgets/custom_text.dart';
 
 class AddImage extends StatelessWidget {
   final bool isInsideProfile;
-  String? userImage;
 
-  AddImage(this.isInsideProfile, this.userImage);
+  AddImage(this.isInsideProfile);
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +34,10 @@ class AddImage extends StatelessWidget {
       },
       child: BlocListener<RegisterCubit, RegisterState>(
         listener: (context, regLisState) {
-          if (regLisState.status == RegisterStatus.imageUploadSuccess &&
-              isInsideProfile == false) {
+          if (regLisState.status == RegisterStatus.imageUploadSuccess) {
             CustomToasts.showToast(
-                msg: "Registered Successfully , you can log in now !!!",
-                color: Colors.teal);
-            navigateOffAllNamed(context, '/login');
+                msg: "Image Uploaded Successfully !!!", color: Colors.teal);
+            navigateOffAllNamed(context, '/home');
           }
           if (regLisState.status == RegisterStatus.error) {
             CustomToasts.showToast(
@@ -80,23 +77,17 @@ class AddImage extends StatelessWidget {
                                   ],
                                   shape: BoxShape.circle,
                                 ),
-                                child: userImage!.isNotEmpty &&
-                                        isInsideProfile == true
+                                child: state.status == LocalImageStatus.success
                                     ? CircleAvatar(
-                                        backgroundImage:
-                                            NetworkImage(userImage ?? ""),
+                                        backgroundImage: FileImage(File(sl
+                                            .get<LocalImageCubit>()
+                                            .localImage!
+                                            .path)),
                                         radius: 30)
-                                    : state.status == LocalImageStatus.success
-                                        ? CircleAvatar(
-                                            backgroundImage: FileImage(File(sl
-                                                .get<LocalImageCubit>()
-                                                .localImage!
-                                                .path)),
-                                            radius: 30)
-                                        : const Icon(
-                                            Icons.image_outlined,
-                                            size: 50,
-                                          ),
+                                    : const Icon(
+                                        Icons.image_outlined,
+                                        size: 50,
+                                      ),
                               ),
                               Positioned(
                                   bottom: 0,

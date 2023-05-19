@@ -137,30 +137,24 @@ class _UserRegisterState extends State<UserRegister> {
                                                       : null,
                                     ),
                                     vSizedBox2,
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        hSizedBox0,
-                                        CustomText.ourText("Birth Year",
-                                            fontSize: 17),
-                                        hSizedBox3,
-                                        DropdownButton(
-                                            value: sl
-                                                .get<RegisterCubit>()
-                                                .getYearValue,
-                                            onChanged: (String? newValue) {
-                                              setState(() {
-                                                sl
-                                                        .get<RegisterCubit>()
-                                                        .setYear =
-                                                    newValue as String;
-                                              });
-                                            },
-                                            items: sl
-                                                .get<RegisterCubit>()
-                                                .yearItems),
-                                      ],
+                                    CustomTextFormField(
+                                      hintText: "Enter Your Birth Year",
+                                      labelText: "Birth Year *",
+                                      controller: sl
+                                          .get<RegisterCubit>()
+                                          .regBirthYearController,
+                                      validator: (val) =>
+                                          val.toString().isYearLength()
+                                              ? invalidBirthYear
+                                              : val.toString().isEmptyData()
+                                                  ? emptyText
+                                                  : !val.toString().isOverAged()
+                                                      ? overAgedText
+                                                      : !val
+                                                              .toString()
+                                                              .isunderAged()
+                                                          ? underAgedText
+                                                          : null,
                                     ),
                                     vSizedBox2,
                                     Row(

@@ -98,6 +98,9 @@ const invalidPhoneNumberText = "Enter valid phone number";
 const questionShouldBeGivenText = "Question should be given.";
 const answerShouldBeGivenText = "Answer should be given.";
 const phoneNumberValidateText = "Phone number must be valid.";
+const invalidBirthYear = "Invalid birth year";
+const overAgedText = "You should be dead !";
+const underAgedText = "You can't use our app yet !";
 
 //home bottom nav
 const exploreText = "Explore";

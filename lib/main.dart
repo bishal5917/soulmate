@@ -144,7 +144,8 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => const LoginScreen(),
           '/open_chat': (context) => const Chat(),
-          '/feed_detail': (context) => const FeedDetailScreen()
+          '/feed_detail': (context) => const FeedDetailScreen(),
+          '/home': (context) => const HomeScreen()
         },
       ),
     );
