@@ -16,6 +16,7 @@ class CustomButton {
     bool isFitted = false,
     bool isDisable = false,
     Color? color,
+    Color? borderSideColor,
     double borderRadius = 3.0,
   }) {
     return SizedBox(
@@ -25,9 +26,13 @@ class CustomButton {
         style: ElevatedButton.styleFrom(
           padding: padding,
           backgroundColor: color ?? OColors.kPrimaryMainColor,
-          disabledBackgroundColor: Colors.grey.shade400,
+          disabledBackgroundColor: OColors.kNeutral100Color,
+          disabledForegroundColor: OColors.kNeutral100Color,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius)),
+            side:
+                BorderSide(color: borderSideColor ?? OColors.kNeutral100Color),
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
         ),
         onPressed: isDisable ? null : onPressed,
         child: Center(
@@ -52,13 +57,14 @@ class CustomButton {
   }
 
   static Widget textButton(
-    String? title,
+    String title,
     Function()? onPressed, {
     Color? titleColor,
     double? width,
     double? height,
     double? fontSize,
     FontWeight? fontWeight,
+    FontStyle? fontStyle,
     bool isFitted = false,
     bool isDisable = false,
     Color? color,
@@ -70,6 +76,7 @@ class CustomButton {
       child: TextButton(
         style: TextButton.styleFrom(
           disabledBackgroundColor: Colors.grey.shade400,
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius)),
         ),
@@ -82,6 +89,7 @@ class CustomButton {
                     fontSize: fontSize,
                     fontWeight: fontWeight ?? FontWeight.w300,
                     color: titleColor ?? Colors.black,
+                    fontStyle: fontStyle,
                   ),
                 )
               : CustomText.ourText(
@@ -89,6 +97,7 @@ class CustomButton {
                   fontSize: fontSize,
                   fontWeight: fontWeight ?? FontWeight.w300,
                   color: titleColor ?? Colors.black,
+                  fontStyle: fontStyle,
                 ),
         ),
       ),
@@ -107,11 +116,12 @@ class CustomButton {
       Clip? clipBehavior,
       Color? backGroundColour,
       MaterialStatesController? statesController,
+      double? width,
       required Widget icon,
       required Widget label}) {
     return SizedBox(
       height: 44,
-      width: double.infinity,
+      width: width ?? double.infinity,
       child: ElevatedButton.icon(
         icon: icon,
         label: label,
@@ -125,6 +135,36 @@ class CustomButton {
           ),
         ),
       ),
+    );
+  }
+
+  static Widget textButtonWithIcon(
+      {Key? key,
+      required VoidCallback? onPressed,
+      VoidCallback? onLongPress,
+      ValueChanged<bool>? onHover,
+      ValueChanged<bool>? onFocusChange,
+      ButtonStyle? style,
+      FocusNode? focusNode,
+      bool? autofocus,
+      Clip? clipBehavior,
+      MaterialStatesController? statesController,
+      required Widget icon,
+      required Widget label,
+      double borderRadius = 3.0}) {
+    return SizedBox(
+      // height: 44,
+      width: 75,
+      child: ElevatedButton.icon(
+          icon: icon,
+          label: label,
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            disabledBackgroundColor: Colors.grey.shade400,
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius)),
+          )),
     );
   }
 }

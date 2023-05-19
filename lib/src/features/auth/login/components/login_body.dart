@@ -29,10 +29,8 @@ class _LoginBodyState extends State<LoginBody> {
         builder: (context, state) {
           return Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size(appWidth(context), 60),
-              child: CustomMainAppBar(
-                title: title,
-              ),
+              preferredSize: Size(appWidth(context), 30),
+              child: const CustomMainAppBar(),
             ),
             body: SingleChildScrollView(
               padding: screenLeftRightPadding,
@@ -40,6 +38,22 @@ class _LoginBodyState extends State<LoginBody> {
                 key: sl.get<LoginCubit>().loginFormKey,
                 child: Column(
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText.ourText(
+                          "Heart ",
+                          fontStyle: FontStyle.italic,
+                          color: OColors.kPrimaryMainColor,
+                          fontSize: 20,
+                        ),
+                        CustomText.ourText(
+                          "Connect",
+                          color: Colors.teal,
+                          fontSize: 20,
+                        ),
+                      ],
+                    ),
                     vSizedBox2andHalf,
                     const LoginFormWidget(),
                     vSizedBox1,

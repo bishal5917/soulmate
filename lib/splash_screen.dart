@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soulmate/src/core/app/colors.dart';
+import 'package:soulmate/src/core/app/medias.dart';
 import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 2),
       () => AppSharedPreferences.getUserId.toString().isEmpty
           ? navigate(context, const LoginScreen())
           : navigate(context, const HomeScreen()),
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: OColors.kSplashScreenColor,
           body: Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,18 +47,21 @@ class _SplashScreenState extends State<SplashScreen> {
                 size: 90,
                 color: Colors.red,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText.ourText(
-                    "Heart",
-                    fontStyle: FontStyle.italic,
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  color: OColors.kSplashScreenColor,
+                  image: const DecorationImage(
+                    image: AssetImage(
+                      "assets/svg/logo.png",
+                    ),
+                    fit: BoxFit.contain,
                   ),
-                  CustomText.ourText(
-                    "Connect",
-                    color: OColors.kPrimaryMainColor,
-                  ),
-                ],
+                ),
+              ),
+              CircularProgressIndicator(
+                color: OColors.kPrimaryMainColor,
+                strokeWidth: BorderSide.strokeAlignOutside,
               )
             ],
           ))),

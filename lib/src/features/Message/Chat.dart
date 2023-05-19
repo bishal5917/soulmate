@@ -92,6 +92,7 @@ class _ChatState extends State<Chat> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ListView.builder(
+                              controller: _controller,
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
                                 DocumentSnapshot doc =

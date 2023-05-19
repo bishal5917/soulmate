@@ -5,6 +5,7 @@ class OColors {
   static Color kPrimaryDarkColor = const Color(0xff1FA88D);
   static Color kPrimaryMainColor = const Color(0xFFC33E66);
   static Color kPrimaryLightColor = const Color(0xffA4EFE0);
+  static Color kSplashScreenColor = const Color(0xfffafafa);
 
   static Color kNeutral900Color = const Color(0xff111827);
   static Color kNeutral800Color = const Color(0xff1F2937);

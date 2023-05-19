@@ -16,6 +16,7 @@ final kUpDownSvg = _getSvgBasePath('upDown.svg');
 final kGoogleSvg = _getSvgBasePath('google.svg');
 final kAppleSvg = _getSvgBasePath('apple.svg');
 final kCameraSvg = _getSvgBasePath('camera.svg');
+const kLogoSvg = 'logo.png';
 
 final countriesJson = _getJsonBasePath('countries.json');
 

@@ -30,8 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double displayWidth = MediaQuery.of(context).size.width;
-    // final loginDetail = BlocProvider.of<LoginCubit>(context);
-    // consolelog(loginDetail.userLogin());
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, loginState) {
         return BlocBuilder<HomeCubit, HomeState>(
@@ -66,7 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: BottomNavigationBar(
-                  selectedLabelStyle: const TextStyle(color: Colors.black),
+                  selectedLabelStyle:
+                      TextStyle(color: OColors.kPrimaryMainColor),
                   backgroundColor: OColors.kNeutral100Color,
                   iconSize: 25,
                   elevation: 1,
@@ -80,9 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: OColors.kPrimaryMainColor),
                         label: "Chats"),
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.manage_accounts_outlined,
-                            color: OColors.kPrimaryMainColor),
-                        label: "Profile")
+                      icon: Icon(Icons.account_circle_outlined,
+                          color: OColors.kPrimaryMainColor),
+                      label: "Account",
+                    )
                   ],
                   currentIndex: _selectedItem,
                   onTap: (index) {
