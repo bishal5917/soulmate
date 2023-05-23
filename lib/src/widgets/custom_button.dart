@@ -29,8 +29,8 @@ class CustomButton {
           disabledBackgroundColor: OColors.kNeutral100Color,
           disabledForegroundColor: OColors.kNeutral100Color,
           shape: RoundedRectangleBorder(
-            side:
-                BorderSide(color: borderSideColor ?? OColors.kNeutral100Color),
+            // side:
+            //     BorderSide(color: borderSideColor ?? OColors.kNeutral100Color),
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),

@@ -8,6 +8,7 @@ import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/Widgets/add_image.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
+import 'package:soulmate/src/features/Register/widgets/choose_hobbies_screen.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/utils/String_modify.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
@@ -79,7 +80,7 @@ class _UserRegisterState extends State<UserRegister> {
                       onStepCancel: cancel,
                       steps: <Step>[
                         Step(
-                          title: const Text('Basic Info'),
+                          title: const Text('Basics'),
                           content: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -263,7 +264,27 @@ class _UserRegisterState extends State<UserRegister> {
                           isActive: _currentStep >= 0,
                           state: _currentStep >= 0
                               ? StepState.complete
-                              : StepState.disabled,
+                              : StepState.indexed,
+                        ),
+                        Step(
+                          title: const Text('Interests'),
+                          content: Column(
+                            children: [
+                              ChooseHobbiesScreen(),
+                              vSizedBox1,
+                              CustomButton.elevatedButton(
+                                "Next",
+                                () => {continued()},
+                                borderRadius: 10,
+                                color: OColors.kPrimaryMainColor,
+                                fontSize: 17,
+                              ),
+                            ],
+                          ),
+                          isActive: _currentStep >= 1,
+                          state: _currentStep >= 1
+                              ? StepState.complete
+                              : StepState.indexed,
                         ),
                         Step(
                           title: const Text('Security'),
@@ -371,10 +392,10 @@ class _UserRegisterState extends State<UserRegister> {
                                       fontSize: 17),
                             ],
                           ),
-                          isActive: _currentStep >= 0,
-                          state: _currentStep >= 1
+                          isActive: _currentStep >= 2,
+                          state: _currentStep >= 2
                               ? StepState.complete
-                              : StepState.disabled,
+                              : StepState.indexed,
                         )
                       ],
                     ),
@@ -393,7 +414,7 @@ class _UserRegisterState extends State<UserRegister> {
   }
 
   continued() {
-    _currentStep < 1 ? setState(() => _currentStep += 1) : null;
+    _currentStep < 2 ? setState(() => _currentStep += 1) : null;
   }
 
   cancel() {

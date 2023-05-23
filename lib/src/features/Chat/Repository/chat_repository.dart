@@ -100,14 +100,17 @@ class ChatRepository extends BaseChatRepository {
                 .collection("Users")
                 .doc(fId)
                 .get();
+            // consolelog(friendDetail.);
             // consolelog(friendDetail.get("image"));
-            conversationReqdata.add(
-              ConversationRequestModel(
-                conversationId: doc.id,
-                fimage: friendDetail.get("image"),
-                fname: friendDetail.get("name"),
-              ),
-            );
+            if (friendDetail.exists) {
+              conversationReqdata.add(
+                ConversationRequestModel(
+                  conversationId: doc.id,
+                  fimage: friendDetail.get("image"),
+                  fname: friendDetail.get("name"),
+                ),
+              );
+            }
           }
         }
       }
