@@ -39,7 +39,10 @@ class RegisterCubit extends Cubit<RegisterState> {
         value: "male",
         child: Text("Male"),
       ),
-      const DropdownMenuItem(value: "female", child: Text("Female")),
+      const DropdownMenuItem(
+        value: "female",
+        child: Text("Female"),
+      ),
     ];
     return gItems;
   }
@@ -61,8 +64,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           "https://media.istockphoto.com/id/532237983/photo/unrecognizable-person.jpg?s=612x612&w=0&k=20&c=JcJYir0QZNExJHlF2MYjsjoYSyQhY1IiR5wrHYmNN_w=",
     );
     if (state.status == RegisterStatus.registerStarting) return;
-    if (registerForm1Key.currentState!.validate() &&
-        registerForm2Key.currentState!.validate()) {
+    if (registerForm2Key.currentState!.validate()) {
       emit(state.copyWith(
           status: RegisterStatus.registerStarting,
           message: " Registration Starting"));

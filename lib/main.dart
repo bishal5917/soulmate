@@ -1,5 +1,4 @@
-// import 'package:bloc/bloc.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +12,6 @@ import 'package:soulmate/src/features/AddImage/cubit/local_image_cubit.dart';
 import 'package:soulmate/src/features/Chat/chat_screen.dart';
 import 'package:soulmate/src/features/Chat/cubit/chat_cubit.dart';
 import 'package:soulmate/src/features/Message/Chat.dart';
-import 'package:soulmate/src/features/Chat/widgets/convo_list_item.dart';
 import 'package:soulmate/src/features/FeedDetail/feed_detail_screen.dart';
 import 'package:soulmate/src/features/Home/cubit/home_cubit.dart';
 import 'package:soulmate/src/features/Home/home_screen.dart';
@@ -30,9 +28,7 @@ import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/features/auth/reset_password/cubit/reset_password_cubit.dart';
 import 'package:soulmate/src/features/auth/reset_password/reset_password_screen.dart';
-import 'package:soulmate/src/features/onboarding/select_country/cubit/select_country_cubit.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
-// import 'package:soulmate/src/features/onboarding/select_country/select_country_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -92,9 +88,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => sl.get<ChooseHobbiesCubit>(),
           child: ChooseHobbiesScreen(),
-        ),
-        BlocProvider(
-          create: (context) => sl.get<SelectCountryCubit>(),
         ),
       ],
       child: MaterialApp(

@@ -9,7 +9,6 @@ import 'package:soulmate/src/features/Home/home_screen.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
 import 'package:soulmate/src/features/Register/widgets/choose_hobbies_screen.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
-import 'package:soulmate/src/features/onboarding/select_country/select_country_screen.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/utils/double_tap_back.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';

@@ -6,17 +6,14 @@ import 'package:soulmate/src/core/app/dimensions.dart';
 import 'package:soulmate/src/core/app/texts.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
 import 'package:soulmate/src/features/AddImage/Widgets/add_image.dart';
-import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/Register/widgets/choose_hobbies_screen.dart';
 import 'package:soulmate/src/features/Register/widgets/cubit/choose_hobbies_cubit.dart';
-import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/utils/String_modify.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/utils/validation.dart';
 import 'package:soulmate/src/widgets/custom_button.dart';
 import 'package:soulmate/src/widgets/custom_home_appbar.dart';
-import 'package:soulmate/src/widgets/custom_text.dart';
 import 'package:soulmate/src/widgets/custom_text_form_field_widget.dart';
 
 class UserRegister extends StatefulWidget {
@@ -38,7 +35,10 @@ class _UserRegisterState extends State<UserRegister> {
       listener: (context, state) {
         if (state.status == RegisterStatus.dataError) {
           CustomToasts.showToast(
-              msg: stringModify().formatErrorMsg(state.message.toString()));
+            msg: stringModify().formatErrorMsg(
+              state.message.toString(),
+            ),
+          );
         }
         if (state.status == RegisterStatus.registerSuccess) {
           CustomToasts.showToast(
@@ -76,7 +76,7 @@ class _UserRegisterState extends State<UserRegister> {
                       elevation: 0.0,
                       physics: const ScrollPhysics(),
                       currentStep: _currentStep,
-                      onStepTapped: (step) => tapped(step),
+                      // onStepTapped: (step) => tapped(step),
                       onStepContinue: continued,
                       onStepCancel: cancel,
                       steps: <Step>[
@@ -162,41 +162,82 @@ class _UserRegisterState extends State<UserRegister> {
                                       textInputType: TextInputType.number,
                                     ),
                                     vSizedBox2,
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        hSizedBox0,
-                                        CustomText.ourText("Gender",
-                                            fontSize: 17),
-                                        hSizedBox3,
-                                        DropdownButton(
-                                            value: sl
-                                                .get<RegisterCubit>()
-                                                .getGenderValue,
-                                            onChanged: (String? newValue) {
-                                              setState(() {
-                                                sl
-                                                        .get<RegisterCubit>()
-                                                        .setGender =
-                                                    newValue as String;
-                                              });
-                                            },
-                                            items: sl
-                                                .get<RegisterCubit>()
-                                                .genderItems),
-                                      ],
-                                    ),
+                                    //Gender Dropdown
+                                    Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(
+                                            color: OColors.kNeutral200Color),
+                                      ),
+                                      child: DropdownButtonFormField(
+                                          style: TextStyle(
+                                            fontFamily: "Inter",
+                                            color: OColors.kNeutral500Color,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          decoration: const InputDecoration(
+                                            hintText: 'Select Gender',
+                                            border: InputBorder.none,
+                                            contentPadding: EdgeInsets.all(5),
+                                          ),
+                                          value: sl
+                                              .get<RegisterCubit>()
+                                              .getGenderValue,
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              sl
+                                                      .get<RegisterCubit>()
+                                                      .setGender =
+                                                  newValue as String;
+                                            });
+                                          },
+                                          items: sl
+                                              .get<RegisterCubit>()
+                                              .genderItems),
+                                    )
                                   ],
                                 ),
                               ),
-                              vSizedBox1,
-                              CustomButton.elevatedButton(
-                                "Next",
-                                () => {continued()},
-                                borderRadius: 10,
-                                color: OColors.kPrimaryMainColor,
-                                fontSize: 17,
+                              vSizedBox2andHalf,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomButton.elevatedButton(
+                                    "Back",
+                                    () => {cancel()},
+                                    borderRadius: 10,
+                                    color: OColors.backgroundColor,
+                                    fontSize: 17,
+                                    titleColor: Colors.black87,
+                                  ),
+                                  CustomButton.elevatedButton(
+                                    "Next",
+                                    () => {
+                                      if (sl
+                                          .get<RegisterCubit>()
+                                          .registerForm1Key
+                                          .currentState!
+                                          .validate())
+                                        {
+                                          continued(),
+                                        }
+                                      else
+                                        {
+                                          CustomToasts.showToast(
+                                              msg:
+                                                  "Please Enter all the details to continue !")
+                                        }
+                                    },
+                                    borderRadius: 10,
+                                    color: OColors.kPrimaryMainColor,
+                                    fontSize: 17,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -210,30 +251,42 @@ class _UserRegisterState extends State<UserRegister> {
                           content: Column(
                             children: [
                               ChooseHobbiesScreen(),
-                              vSizedBox1,
-                              CustomButton.elevatedButton(
-                                "Next",
-                                () => {
-                                  if (sl
-                                          .get<ChooseHobbiesCubit>()
-                                          .selectedInterests
-                                          .length !=
-                                      5)
-                                    {
-                                      CustomToasts.showToast(
-                                        msg:
-                                            "Please Select at least 5 of your interests",
-                                        color: Colors.teal,
-                                      )
-                                    }
-                                  else
-                                    {
-                                      continued(),
-                                    }
-                                },
-                                borderRadius: 10,
-                                color: OColors.kPrimaryMainColor,
-                                fontSize: 17,
+                              vSizedBox2andHalf,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomButton.elevatedButton(
+                                    "Back",
+                                    () => {cancel()},
+                                    borderRadius: 10,
+                                    color: OColors.backgroundColor,
+                                    fontSize: 17,
+                                    titleColor: Colors.black87,
+                                  ),
+                                  CustomButton.elevatedButton(
+                                    "Next",
+                                    () => {
+                                      if (sl
+                                              .get<ChooseHobbiesCubit>()
+                                              .selectedInterests
+                                              .length !=
+                                          5)
+                                        {
+                                          CustomToasts.showToast(
+                                              msg:
+                                                  "Please Select any 5 of your interests")
+                                        }
+                                      else
+                                        {
+                                          continued(),
+                                        }
+                                    },
+                                    borderRadius: 10,
+                                    color: OColors.kPrimaryMainColor,
+                                    fontSize: 17,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -333,19 +386,49 @@ class _UserRegisterState extends State<UserRegister> {
                                   ],
                                 ),
                               ),
-                              vSizedBox2,
-                              state.status == RegisterStatus.registerStarting
-                                  ? const CircularProgressIndicator()
-                                  : CustomButton.elevatedButton(
-                                      "Continue",
-                                      () => {
-                                            sl
-                                                .get<RegisterCubit>()
-                                                .userRegister()
-                                          },
-                                      borderRadius: 10,
-                                      color: OColors.kPrimaryMainColor,
-                                      fontSize: 17),
+                              vSizedBox2andHalf,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomButton.elevatedButton(
+                                    "Back",
+                                    () => {
+                                      cancel(),
+                                    },
+                                    borderRadius: 10,
+                                    color: OColors.backgroundColor,
+                                    fontSize: 17,
+                                    titleColor: Colors.black87,
+                                  ),
+                                  state.status ==
+                                          RegisterStatus.registerStarting
+                                      ? const CircularProgressIndicator()
+                                      : CustomButton.elevatedButton(
+                                          "Continue",
+                                          () => {
+                                                if (sl
+                                                    .get<RegisterCubit>()
+                                                    .registerForm2Key
+                                                    .currentState!
+                                                    .validate())
+                                                  {
+                                                    sl
+                                                        .get<RegisterCubit>()
+                                                        .userRegister()
+                                                  }
+                                                else
+                                                  {
+                                                    CustomToasts.showToast(
+                                                        msg:
+                                                            "Please enter your password to continue !!!")
+                                                  }
+                                              },
+                                          borderRadius: 10,
+                                          color: OColors.kPrimaryMainColor,
+                                          fontSize: 17),
+                                ],
+                              ),
                             ],
                           ),
                           isActive: _currentStep >= 2,

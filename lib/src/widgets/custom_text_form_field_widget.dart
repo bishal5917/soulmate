@@ -67,7 +67,7 @@ class CustomTextFormField extends StatelessWidget {
     this.searchString = false,
     this.fullNameString = false,
     this.textInputAction,
-    this.borderRadius = 8,
+    this.borderRadius = 20,
   }) : super(key: key);
 
   @override
@@ -85,9 +85,10 @@ class CustomTextFormField extends StatelessWidget {
       style: TextStyle(
         color: readOnly ? Colors.grey : null,
         fontSize: 16,
-        fontFamily: "Outfit",
+        fontFamily: "Inter",
         fontWeight: FontWeight.w400,
       ),
+
       inputFormatters: onlyNumber
           ? [
               FilteringTextInputFormatter.allow(RegexConfig.numberRegex),
@@ -121,16 +122,22 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         // prefixText: prefixText == true ? "$phoneNumberPrefixText " : null,
         filled: filled,
-
+        labelStyle: TextStyle(
+          fontFamily: "Inter",
+          color: OColors.kNeutral500Color,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
         errorStyle: const TextStyle(
           fontSize: 10.0,
-          fontFamily: "Outfit",
+          fontFamily: "Inter",
         ),
-        labelStyle: TextStyle(color: OColors.kNeutral500Color),
         hintStyle: TextStyle(
-          fontFamily: "Outfit",
-          fontSize: 16.0,
+          fontFamily: "Inter",
+          // fontSize: 16.0,
           color: OColors.kNeutral500Color,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
         ),
         prefixIcon: prefixIcon != null
             ? Icon(
