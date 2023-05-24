@@ -10,6 +10,7 @@ import 'package:soulmate/src/features/Message/cubit/message_cubit.dart';
 import 'package:soulmate/src/features/Profile/Repository/profile_repository.dart';
 import 'package:soulmate/src/features/Profile/cubit/profile_cubit.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
+import 'package:soulmate/src/features/Register/widgets/cubit/choose_hobbies_cubit.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/features/auth/reset_password/cubit/reset_password_cubit.dart';
@@ -75,4 +76,7 @@ void cubit() {
 
   //local Image cubit
   sl.registerLazySingleton(() => LocalImageCubit());
+
+  //local Image cubit
+  sl.registerLazySingleton(() => ChooseHobbiesCubit());
 }

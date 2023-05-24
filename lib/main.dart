@@ -22,6 +22,8 @@ import 'package:soulmate/src/features/Profile/cubit/profile_cubit.dart';
 import 'package:soulmate/src/features/Profile/profile_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/Register/user_register_screen.dart';
+import 'package:soulmate/src/features/Register/widgets/choose_hobbies_screen.dart';
+import 'package:soulmate/src/features/Register/widgets/cubit/choose_hobbies_cubit.dart';
 import 'package:soulmate/src/features/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:soulmate/src/features/auth/forgot_password/forgot_password_screen.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
@@ -86,6 +88,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => sl.get<ProfileCubit>(),
           child: const ProfileScreen(),
+        ),
+        BlocProvider(
+          create: (context) => sl.get<ChooseHobbiesCubit>(),
+          child: ChooseHobbiesScreen(),
         ),
         BlocProvider(
           create: (context) => sl.get<SelectCountryCubit>(),

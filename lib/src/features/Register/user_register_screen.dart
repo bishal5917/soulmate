@@ -9,6 +9,7 @@ import 'package:soulmate/src/features/AddImage/Widgets/add_image.dart';
 import 'package:soulmate/src/features/AddImage/add_image_screen.dart';
 import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
 import 'package:soulmate/src/features/Register/widgets/choose_hobbies_screen.dart';
+import 'package:soulmate/src/features/Register/widgets/cubit/choose_hobbies_cubit.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
 import 'package:soulmate/src/utils/String_modify.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
@@ -189,68 +190,6 @@ class _UserRegisterState extends State<UserRegister> {
                                   ],
                                 ),
                               ),
-                              vSizedBox2,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  hSizedBox3,
-                                  CustomText.ourText("Hobbies", fontSize: 17),
-                                  hSizedBox3,
-                                  DropdownButton(
-                                      value: sl
-                                          .get<RegisterCubit>()
-                                          .gethobby1Value,
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          sl.get<RegisterCubit>().setHobby1 =
-                                              newValue as String;
-                                        });
-                                      },
-                                      items:
-                                          sl.get<RegisterCubit>().hobbyItems),
-                                ],
-                              ),
-                              vSizedBox2,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  hSizedBox4,
-                                  DropdownButton(
-                                      value: sl
-                                          .get<RegisterCubit>()
-                                          .gethobby2Value,
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          sl.get<RegisterCubit>().setHobby2 =
-                                              newValue as String;
-                                        });
-                                      },
-                                      items:
-                                          sl.get<RegisterCubit>().hobbyItems),
-                                ],
-                              ),
-                              vSizedBox2,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  hSizedBox4,
-                                  DropdownButton(
-                                      value: sl
-                                          .get<RegisterCubit>()
-                                          .gethobby3Value,
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          sl.get<RegisterCubit>().setHobby3 =
-                                              newValue as String;
-                                        });
-                                      },
-                                      items:
-                                          sl.get<RegisterCubit>().hobbyItems),
-                                ],
-                              ),
                               vSizedBox1,
                               CustomButton.elevatedButton(
                                 "Next",
@@ -274,7 +213,24 @@ class _UserRegisterState extends State<UserRegister> {
                               vSizedBox1,
                               CustomButton.elevatedButton(
                                 "Next",
-                                () => {continued()},
+                                () => {
+                                  if (sl
+                                          .get<ChooseHobbiesCubit>()
+                                          .selectedInterests
+                                          .length !=
+                                      5)
+                                    {
+                                      CustomToasts.showToast(
+                                        msg:
+                                            "Please Select at least 5 of your interests",
+                                        color: Colors.teal,
+                                      )
+                                    }
+                                  else
+                                    {
+                                      continued(),
+                                    }
+                                },
                                 borderRadius: 10,
                                 color: OColors.kPrimaryMainColor,
                                 fontSize: 17,

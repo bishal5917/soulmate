@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:soulmate/src/core/development/console.dart';
+import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/features/Register/register_model.dart';
+import 'package:soulmate/src/features/Register/widgets/cubit/choose_hobbies_cubit.dart';
 import 'package:soulmate/src/features/auth/Repository/auth_repository.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
 
@@ -21,10 +22,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController _regBirthYearController = TextEditingController();
   final TextEditingController _regGenderController = TextEditingController();
 
-  String _yselectedValue = "1993";
-  String _yHobby1Value = "coding";
-  String _yHobby2Value = "travelling";
-  String _yHobby3Value = "mountain biking";
   String _gSelectedValue = "male";
 
   TextEditingController get regNameController => _regNameController;
@@ -34,25 +31,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController get regBirthYearController => _regBirthYearController;
   TextEditingController get regGenderController => _regGenderController;
 
-  String get getYearValue => _yselectedValue;
   String get getGenderValue => _gSelectedValue;
-  String get gethobby1Value => _yHobby1Value;
-  String get gethobby2Value => _yHobby2Value;
-  String get gethobby3Value => _yHobby3Value;
-
-  List<DropdownMenuItem<String>> get yearItems {
-    List<DropdownMenuItem<String>> yearItems = [
-      const DropdownMenuItem(value: "1993", child: Text("1993")),
-      const DropdownMenuItem(value: "1994", child: Text("1994")),
-      const DropdownMenuItem(value: "1995", child: Text("1995")),
-      const DropdownMenuItem(value: "1996", child: Text("1996")),
-      const DropdownMenuItem(value: "1997", child: Text("1997")),
-      const DropdownMenuItem(value: "1998", child: Text("1998")),
-      const DropdownMenuItem(value: "1999", child: Text("1999")),
-      const DropdownMenuItem(value: "2000", child: Text("2000")),
-    ];
-    return yearItems;
-  }
 
   List<DropdownMenuItem<String>> get genderItems {
     List<DropdownMenuItem<String>> gItems = [
@@ -63,35 +42,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       const DropdownMenuItem(value: "female", child: Text("Female")),
     ];
     return gItems;
-  }
-
-  List<DropdownMenuItem<String>> get hobbyItems {
-    List<DropdownMenuItem<String>> hbyItems = [
-      const DropdownMenuItem(value: "coding", child: Text("Coding")),
-      const DropdownMenuItem(value: "travelling", child: Text("Travelling")),
-      const DropdownMenuItem(
-          value: "mountain biking", child: Text("Mountain Biking")),
-      const DropdownMenuItem(value: "photography", child: Text("Photography")),
-      const DropdownMenuItem(value: "cooking", child: Text("Cooking")),
-      const DropdownMenuItem(value: "dance", child: Text("Dance")),
-    ];
-    return hbyItems;
-  }
-
-  set setYear(String val) {
-    _yselectedValue = val;
-  }
-
-  set setHobby1(String val) {
-    _yHobby1Value = val;
-  }
-
-  set setHobby2(String val) {
-    _yHobby2Value = val;
-  }
-
-  set setHobby3(String val) {
-    _yHobby3Value = val;
   }
 
   set setGender(String val) {
@@ -105,7 +55,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       phone: regPhoneController.text,
       birthYear: regBirthYearController.text,
       gender: getGenderValue,
-      hobbies: [gethobby1Value, gethobby2Value, gethobby3Value],
+      hobbies: sl.get<ChooseHobbiesCubit>().selectedInterests,
       password: regPasswordController.text,
       image:
           "https://media.istockphoto.com/id/532237983/photo/unrecognizable-person.jpg?s=612x612&w=0&k=20&c=JcJYir0QZNExJHlF2MYjsjoYSyQhY1IiR5wrHYmNN_w=",
@@ -150,9 +100,9 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   // @override
   void reset() {
-    // sl.get<LocalImageCubit>().localImage;
     regNameController.clear();
     regEmailController.clear();
     regPhoneController.clear();
+    regBirthYearController.clear();
   }
 }

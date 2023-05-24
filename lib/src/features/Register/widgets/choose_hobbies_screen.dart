@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:soulmate/di_injection.dart';
 import 'package:soulmate/src/core/app/colors.dart';
 import 'package:soulmate/src/core/app/dimensions.dart';
+import 'package:soulmate/src/features/Register/cubit/register_cubit.dart';
+import 'package:soulmate/src/features/Register/widgets/cubit/choose_hobbies_cubit.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 
 class ChooseHobbiesScreen extends StatefulWidget {
@@ -9,55 +13,56 @@ class ChooseHobbiesScreen extends StatefulWidget {
 }
 
 class _ChooseHobbiesScreenState extends State<ChooseHobbiesScreen> {
-  List<String> selectedInterests = [];
+  // List<String> selectedInterests = [];
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      itemCount: interests.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 2.0,
-          crossAxisSpacing: 4,
-          mainAxisSpacing: 4),
-      itemBuilder: (BuildContext context, int index) {
-        final interest = interests[index].name;
-        final icons = interests[index].icon;
-        final isSelected = selectedInterests.contains(interest);
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              if (isSelected) {
-                selectedInterests.remove(interest);
-              } else {
-                selectedInterests.add(interest);
-              }
-            });
-          },
-          child: Container(
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? OColors.kPrimaryMainColor
-                    : OColors.backgroundColor,
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    icons,
-                    size: 18,
-                    color:
-                        !isSelected ? OColors.kPrimaryMainColor : Colors.white,
+    return BlocBuilder<ChooseHobbiesCubit, String>(
+      builder: (context, state) {
+        return GridView.builder(
+          shrinkWrap: true,
+          itemCount: interests.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 2.0,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4),
+          itemBuilder: (BuildContext context, int index) {
+            final interest = interests[index].name;
+            final icons = interests[index].icon;
+            final interestList = sl.get<ChooseHobbiesCubit>().selectedInterests;
+            return GestureDetector(
+              onTap: () {
+                sl.get<ChooseHobbiesCubit>().addOrRemoveInterest(interest);
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: interestList.contains(interest)
+                        ? OColors.kPrimaryMainColor
+                        : OColors.backgroundColor,
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
-                  hSizedBox1,
-                  CustomText.ourText(interest,
-                      fontSize: 15,
-                      color: isSelected ? Colors.white : Colors.black87)
-                ],
-              )),
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        icons,
+                        size: 18,
+                        color: !interestList.contains(interest)
+                            ? OColors.kPrimaryMainColor
+                            : Colors.white,
+                      ),
+                      hSizedBox1,
+                      CustomText.ourText(interest,
+                          fontSize: 15,
+                          color: interestList.contains(interest)
+                              ? Colors.white
+                              : Colors.black87)
+                    ],
+                  )),
+            );
+          },
         );
       },
     );
