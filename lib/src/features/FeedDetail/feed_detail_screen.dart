@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soulmate/di_injection.dart';
@@ -8,9 +9,12 @@ import 'package:soulmate/src/features/Profile/cubit/profile_cubit.dart';
 import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
+import 'package:soulmate/src/widgets/shimmer/custom_shimmer_container_widget.dart';
 
 class FeedDetailScreen extends StatefulWidget {
-  const FeedDetailScreen();
+  final String? fid;
+
+  FeedDetailScreen(this.fid);
 
   @override
   State<FeedDetailScreen> createState() => _FeedDetailScreenState();
@@ -21,14 +25,12 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
 
   @override
   void initState() {
-    sl.get<ProfileCubit>().getDetails();
+    sl.get<ProfileCubit>().getDetails(widget.fid ?? "");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
         console(state);
@@ -43,9 +45,11 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
           },
           child: BlocBuilder<ProfileCubit, ProfileState>(
             builder: (context, profState) {
+              consolelog(profState.reqestedUser);
               return Scaffold(
                   appBar: AppBar(
-                    title: CustomText.ourText(args['fname'],
+                    title: CustomText.ourText(
+                        profState.reqestedUser?.name ?? "",
                         fontSize: 21,
                         fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center),
@@ -53,37 +57,38 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                   body: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          height: 300,
-                          width: double.infinity,
-                          child: Image.network(
-                            args['fimage'] as String,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "Hobbies",
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Container(
+                        profState.status == ProfileStatus.fetching
+                            ? const CustomShimmerContainerWidget(
+                                height: 300,
+                                backgroundColor:
+                                    Color.fromARGB(255, 222, 228, 230),
+                                width: double.infinity,
+                                margin: EdgeInsets.only(top: 5, bottom: 10),
+                              )
+                            : Container(
+                                padding: const EdgeInsets.all(10),
+                                height: 300,
+                                width: double.infinity,
+                                child: CachedNetworkImage(
+                                  imageUrl: profState.reqestedUser?.image ?? "",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                        SizedBox(
                           height: 300,
                           width: 350,
                           child: ListView.builder(
-                            itemCount: 3,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: profState.reqestedUser?.hobbies?.length,
                             itemBuilder: (context, index) {
                               return Card(
-                                color: Color.fromARGB(255, 216, 156, 151),
+                                color: const Color.fromARGB(255, 216, 156, 151),
                                 child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    "travelling",
-                                    style: TextStyle(fontSize: 17),
-                                  ),
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(10),
+                                  child: CustomText.ourText(
+                                      profState.reqestedUser?.hobbies?[index]),
                                 ),
                               );
                             },
@@ -109,8 +114,9 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                           ),
                           onPressed: () {
                             sl.get<ChatCubit>().createChat(
-                                AppSharedPreferences.getUserId,
-                                args['fid'] as String);
+                                  AppSharedPreferences.getUserId,
+                                  widget.fid as String,
+                                );
                           }));
             },
           ),

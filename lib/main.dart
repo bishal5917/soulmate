@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -83,7 +82,6 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => sl.get<ProfileCubit>(),
-          child: const ProfileScreen(),
         ),
         BlocProvider(
           create: (context) => sl.get<ChooseHobbiesCubit>(),
@@ -94,8 +92,8 @@ class MyApp extends StatelessWidget {
         title: 'Soulmate',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          iconTheme: const IconThemeData(
-            color: Colors.white,
+          iconTheme: IconThemeData(
+            color: OColors.kPrimaryMainColor,
           ),
           appBarTheme: AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
@@ -143,7 +141,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => const LoginScreen(),
           '/open_chat': (context) => const Chat(),
-          '/feed_detail': (context) => const FeedDetailScreen(),
+          // '/feed_detail': (context) => const FeedDetailScreen(),
           '/home': (context) => const HomeScreen()
         },
       ),

@@ -14,21 +14,27 @@ class ProfileCubit extends Cubit<ProfileState> {
       : _profileRepository = profileRepository,
         super(const ProfileState());
 
-  Future<void> getDetails() async {
-    emit(state.copyWith(
-        status: ProfileStatus.fetching, message: "fetching user"));
+  Future<void> getDetails(String id) async {
+    emit(
+      state.copyWith(
+        status: ProfileStatus.fetching,
+        message: "fetching user",
+        reqestedUser: null,
+      ),
+    );
     try {
-      final response = await _profileRepository
-          .userDetailsFetch(AppSharedPreferences.getUserId);
+      final response = await _profileRepository.userDetailsFetch(id);
       consolelog(response.name);
       emit(state.copyWith(
           status: ProfileStatus.success,
-          loggedUser: response,
+          reqestedUser: response,
           message: 'success'));
     } catch (err) {
       // print(e.toString());
-      emit(
-          state.copyWith(status: ProfileStatus.error, message: err.toString()));
+      emit(state.copyWith(
+          status: ProfileStatus.error,
+          message: err.toString(),
+          reqestedUser: null));
     }
   }
 

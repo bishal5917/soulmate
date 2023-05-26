@@ -5,24 +5,26 @@ enum ProfileStatus { initial, fetching, success, loggingOut, loggedOut, error }
 class ProfileState extends Equatable {
   final ProfileStatus? status;
   final String? message;
-  final UserRequestModel? loggedUser;
+  final UserRequestModel? reqestedUser;
   const ProfileState(
-      {this.status = ProfileStatus.initial, this.message, this.loggedUser});
+      {this.status = ProfileStatus.initial, this.message, this.reqestedUser});
 
   factory ProfileState.initial() {
     return const ProfileState(
-        status: ProfileStatus.initial, message: "", loggedUser: null);
+        status: ProfileStatus.initial, message: "", reqestedUser: null);
   }
 
   @override
-  List<Object?> get props => [status, message, loggedUser];
+  List<Object?> get props => [status, message, reqestedUser];
 
   ProfileState copyWith(
-      {ProfileStatus? status, String? message, UserRequestModel? loggedUser}) {
+      {ProfileStatus? status,
+      String? message,
+      UserRequestModel? reqestedUser}) {
     return ProfileState(
         status: status ?? this.status,
         message: message ?? this.message,
-        loggedUser: loggedUser ?? this.loggedUser);
+        reqestedUser: reqestedUser ?? this.reqestedUser);
   }
 }
 

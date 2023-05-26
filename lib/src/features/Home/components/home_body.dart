@@ -18,7 +18,6 @@ class _HomeBodyState extends State<HomeBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        consolelog(state.feedReqModel);
         return Scaffold(
           body: state.status == HomeStatus.fetching
               ? Padding(

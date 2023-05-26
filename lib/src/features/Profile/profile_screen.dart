@@ -11,6 +11,7 @@ import 'package:soulmate/src/features/Profile/cubit/profile_cubit.dart';
 import 'package:soulmate/src/features/Profile/widgets/profile_photo.dart';
 import 'package:soulmate/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:soulmate/src/features/auth/login/login_screen.dart';
+import 'package:soulmate/src/services/local/secure_storage.dart';
 import 'package:soulmate/src/utils/custom_toasts.dart';
 import 'package:soulmate/src/widgets/custom_home_appbar.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';

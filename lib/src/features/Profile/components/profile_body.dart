@@ -19,7 +19,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   @override
   void initState() {
-    sl.get<ProfileCubit>().getDetails();
+    sl.get<ProfileCubit>().getDetails(AppSharedPreferences.getUserId);
     super.initState();
   }
 
@@ -45,10 +45,10 @@ class _ProfileBodyState extends State<ProfileBody> {
               padding: screenLeftRightPadding,
               child: Column(
                 children: [
-                  UserProfilePhoto(state.loggedUser?.image ?? ""),
+                  UserProfilePhoto(state.reqestedUser?.image ?? ""),
                   vSizedBox1,
                   CustomText.ourText(
-                      "${state.loggedUser?.name} , ${state.loggedUser?.birthYear}",
+                      "${state.reqestedUser?.name} , ${state.reqestedUser?.birthYear}",
                       fontSize: 18,
                       fontWeight: FontWeight.w500),
                   vSizedBox2,

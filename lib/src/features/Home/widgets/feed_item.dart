@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soulmate/src/core/development/console.dart';
 import 'package:soulmate/src/core/routing/route_navigation.dart';
+import 'package:soulmate/src/features/FeedDetail/feed_detail_screen.dart';
 import 'package:soulmate/src/widgets/custom_text.dart';
 
 class FeedItem extends StatelessWidget {
@@ -17,8 +18,8 @@ class FeedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateNamed(context, '/feed_detail',
-            arguments: {"fid": fid, "fname": name, "fimage": image});
+        navigate(context, FeedDetailScreen(fid));
+        consolelog(fid);
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

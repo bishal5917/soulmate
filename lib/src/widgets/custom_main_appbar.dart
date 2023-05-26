@@ -27,7 +27,14 @@ class CustomMainAppBar extends StatelessWidget {
       ),
       // toolbarHeight: 200,
       automaticallyImplyLeading: true,
-      leading: leadingIcon,
+      // leading: leadingIcon,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        color: Colors.red, // Set the desired color for the back button
+        onPressed: () {
+          // Handle back button press
+        },
+      ),
       elevation: 0,
       centerTitle: true,
       backgroundColor: bgColor,
